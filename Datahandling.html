@@ -677,7 +677,7 @@ All2001&lt;-merge_recurse(list(publicuse102001,publicuse112001,publicuse122001,p
 ## [1543] &quot;TOTALDOLRFG&quot;        &quot;TOTALDOLOTH&quot;        &quot;SCALEEL&quot;           
 ## [1546] &quot;SCALENG&quot;</code></pre>
 <p>So, we have &lt;400 common names out of ~1500 total.</p>
-<p>Step one. Make sure we have a unique ID accross all years for the observations.</p>
+<p>Step one. Make sure we have a unique ID across all years for the observations.</p>
 <pre class="r"><code>All2001$ID&lt;-paste(as.character(All2001$DOEID),&quot;2001&quot;,sep=&quot;&quot;)
 RECS05alldata$ID&lt;-paste(as.character(RECS05alldata$DOEID),&quot;2005&quot;,sep=&quot;&quot;)
 recs2009_public$ID&lt;-paste(as.character(recs2009_public$DOEID),&quot;2009&quot;,sep=&quot;&quot;)</code></pre>
@@ -4676,6 +4676,221 @@ RECS&lt;-merge(RECS,recs2009_public[U2009],by=&quot;ID&quot;, all.x=TRUE)</code>
 ##  Max.   :1.000   Max.   :1.000  
 ##  NA's   :9204    NA's   :9204</code></pre>
 <p>Everything is in one big table now.</p>
+<div id="collumn-by-collumn-edits" class="section level1">
+<h1>Collumn by collumn edits</h1>
+<p>We are going to have to spend some time on the common variables as the coding the use may have changed from year to year.</p>
+<pre class="r"><code>library(plyr)</code></pre>
+<pre><code>## 
+## Attaching package: 'plyr'
+## 
+## The following objects are masked from 'package:reshape':
+## 
+##     rename, round_any</code></pre>
+<pre class="r"><code>#ID
+RECS$ID&lt;-as.factor(RECS$ID)  
+
+#Region
+summary(RECS$REGION)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   2.000   3.000   2.607   3.000   4.000</code></pre>
+<pre class="r"><code>RECS$REGIONC&lt;-revalue(as.factor(RECS$REGIONC),c(&quot;1&quot;=&quot;NE&quot;, &quot;2&quot;=&quot;MidWest&quot;,&quot;3&quot;=&quot;South&quot;,&quot;4&quot;=&quot;West&quot;))
+summary(RECS$REGION)</code></pre>
+<pre><code>##      NE MidWest   South    West 
+##    4320    4849    6992    5126</code></pre>
+<pre class="r"><code>#Type of Structure
+summary(RECS$TYPEHUQ)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   2.000   2.000   2.642   3.000   5.000</code></pre>
+<pre class="r"><code>RECS$TYPEHUQ&lt;-revalue(as.factor(RECS$TYPEHUQ), c(&quot;1&quot;=&quot;Mobile&quot;, &quot;2&quot;=&quot;SFDetached&quot;, &quot;3&quot;=&quot;SFAttached&quot;, &quot;4&quot;=&quot;SmApartment&quot;, &quot;5&quot;=&quot;LgApartment&quot;))
+summary(RECS$TYPEHUQ)</code></pre>
+<pre><code>##      Mobile  SFDetached  SFAttached SmApartment LgApartment 
+##        1146       13538        1654        1679        3270</code></pre>
+<pre class="r"><code>#Climate zone
+summary(RECS$Climate_Region_Pub)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   1.000   1.000   3.000   2.601   4.000   5.000    9204</code></pre>
+<pre class="r"><code>table(RECS$Climate_Region_Pub,RECS$Year)</code></pre>
+<pre><code>##    
+##     2001 2005 2009
+##   1    0    0 3993
+##   2    0    0 1716
+##   3    0    0 2173
+##   4    0    0 3521
+##   5    0    0  680</code></pre>
+<pre class="r"><code>#unique to 2009.  Need to find analogs
+#RECS$Climate_Region_Pub&lt;-revalue(as.factor(RECS$Climate_Region_Pub),c(&quot;1&quot;=&quot;VColdCold&quot;,&quot;2&quot;=&quot;HotDryMixedDry&quot;,&quot;3&quot;=&quot;HotHumid&quot;,&quot;4&quot;=&quot;MixedHumid&quot;,&quot;5&quot;=&quot;Marine&quot;))
+
+
+#Urban vs Rural
+summary(RECS$UR)</code></pre>
+<pre><code>##    R    U NA's 
+## 2427 9656 9204</code></pre>
+<pre class="r"><code>table(RECS$UR,RECS$Year)</code></pre>
+<pre><code>##    
+##     2001 2005 2009
+##   R    0    0 2427
+##   U    0    0 9656</code></pre>
+<pre class="r"><code>#unique to 2009.  Need to find analogs
+#RECS$UR&lt;-revalue(as.factor(RECS$UR), c(&quot;U&quot;=&quot;Urban&quot;,&quot;R&quot;=&quot;Rural&quot;))
+
+#Own v Rent
+summary(RECS$KOWNRENT)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   1.000   1.000   1.333   2.000   3.000</code></pre>
+<pre class="r"><code>RECS$KOWNRENT&lt;-revalue(as.factor(RECS$KOWNRENT),c(&quot;1&quot;=&quot;Own&quot;,&quot;2&quot;=&quot;Rent&quot;,&quot;3&quot;=&quot;Free&quot;))
+
+
+#Year Built
+summary(RECS$YEARMADE)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       5    1937    1121    1978    2009</code></pre>
+<pre class="r"><code>table(RECS$YEARMADE,RECS$Year)</code></pre>
+<pre><code>##       
+##        2001 2005 2009
+##   1     922  640    0
+##   2     362  281    0
+##   3     666  514    0
+##   4     636  489    0
+##   5     853  751    0
+##   6     128  363    0
+##   7     649  361    0
+##   8      79  305    0
+##   9     279  348    0
+##   10    157  173    0
+##   11     54   62    0
+##   12     31   65    0
+##   13      6   30    0
+##   1920    0    0  897
+##   1921    0    0   13
+##   1922    0    0   13
+##   1923    0    0   27
+##   1924    0    0   13
+##   1925    0    0   53
+##   1926    0    0   27
+##   1927    0    0   23
+##   1928    0    0   48
+##   1929    0    0   34
+##   1930    0    0  174
+##   1931    0    0    7
+##   1932    0    0   22
+##   1933    0    0   16
+##   1934    0    0   14
+##   1935    0    0   41
+##   1936    0    0   16
+##   1937    0    0   19
+##   1938    0    0   34
+##   1939    0    0   25
+##   1940    0    0  234
+##   1941    0    0   27
+##   1942    0    0   26
+##   1943    0    0   10
+##   1944    0    0    8
+##   1945    0    0   80
+##   1946    0    0   35
+##   1947    0    0   37
+##   1948    0    0   49
+##   1949    0    0   41
+##   1950    0    0  512
+##   1951    0    0   52
+##   1952    0    0  100
+##   1953    0    0   69
+##   1954    0    0  112
+##   1955    0    0  206
+##   1956    0    0  101
+##   1957    0    0   84
+##   1958    0    0  124
+##   1959    0    0   92
+##   1960    0    0  450
+##   1961    0    0   47
+##   1962    0    0   77
+##   1963    0    0   94
+##   1964    0    0  114
+##   1965    0    0  227
+##   1966    0    0   52
+##   1967    0    0   74
+##   1968    0    0  160
+##   1969    0    0  122
+##   1970    0    0  472
+##   1971    0    0   84
+##   1972    0    0  201
+##   1973    0    0  137
+##   1974    0    0  123
+##   1975    0    0  291
+##   1976    0    0  177
+##   1977    0    0  109
+##   1978    0    0  243
+##   1979    0    0  181
+##   1980    0    0  494
+##   1981    0    0   75
+##   1982    0    0  137
+##   1983    0    0  114
+##   1984    0    0  121
+##   1985    0    0  266
+##   1986    0    0  152
+##   1987    0    0  128
+##   1988    0    0  148
+##   1989    0    0  172
+##   1990    0    0  303
+##   1991    0    0  104
+##   1992    0    0  123
+##   1993    0    0  131
+##   1994    0    0  120
+##   1995    0    0  232
+##   1996    0    0  149
+##   1997    0    0  123
+##   1998    0    0  207
+##   1999    0    0  176
+##   2000    0    0  255
+##   2001    0    0  159
+##   2002    0    0  170
+##   2003    0    0  168
+##   2004    0    0  178
+##   2005    0    0  294
+##   2006    0    0  164
+##   2007    0    0  158
+##   2008    0    0   81
+##   2009    0    0   31</code></pre>
+<pre class="r"><code>#unique to 2009.  Need to find analogs
+
+
+#Moved in
+summary(RECS$OCCUPYYRANGE)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   1.000   6.000   7.000   6.692   8.000   8.000    9204</code></pre>
+<pre class="r"><code>table(RECS$OCCUPYYRANGE,RECS$Year)</code></pre>
+<pre><code>##    
+##     2001 2005 2009
+##   1    0    0   51
+##   2    0    0  173
+##   3    0    0  346
+##   4    0    0  703
+##   5    0    0 1004
+##   6    0    0 2318
+##   7    0    0 2220
+##   8    0    0 5268</code></pre>
+<pre class="r"><code>#unique to 2009.  Need to find analogs
+#RECS$OCCUPYYRANGE&lt;-revalue(as.factor(RECS$OCCUPYYRANGE),c(&quot;1&quot;=&quot;Pre50&quot;, &quot;2&quot;=&quot;5059&quot;,&quot;3&quot;=&quot;6069&quot;,&quot;4&quot;=&quot;7079&quot;,&quot;5&quot;=&quot;8089&quot;,&quot;6&quot;=&quot;9099&quot;, &quot;7&quot;=&quot;0004&quot;,&quot;8&quot;=&quot;0509&quot;))
+
+#Bedrooms
+summary(RECS$BEDROOMS)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  -2.000   2.000   3.000   2.756   3.000  13.000</code></pre>
+<pre class="r"><code>RECS$BEDROOMS[RECS$BEDROOMS==-2]&lt;-NA
+summary(RECS$BEDROOMS)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   0.000   2.000   3.000   2.805   3.000  13.000     215</code></pre>
+<pre class="r"><code>#Working with cooking end use
+summary(RECS$STOVEN)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   1.000   1.000   0.898   1.000   3.000</code></pre>
+<pre class="r"><code>summary(RECS$STOVE)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.1256  0.0000  2.0000</code></pre>
+<pre class="r"><code>summary(RECS$OVEN)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.1369  0.0000  3.0000</code></pre>
+<pre class="r"><code>#Stove and oven fuel are only reported if separate</code></pre>
+</div>
 
 
 </div>

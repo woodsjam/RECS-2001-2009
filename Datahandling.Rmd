@@ -47,7 +47,7 @@ union(union(names(All2001),names(RECS05alldata)),names(recs2009_public))
 ```
 So, we have <400 common names out of ~1500 total.
 
-Step one.  Make sure we have a unique ID accross all years for the observations.
+Step one.  Make sure we have a unique ID across all years for the observations.
 
 ```{r}
 
@@ -105,6 +105,70 @@ summary(RECS)
 
 ```
 Everything is in one big table now.
+
+# Collumn by collumn edits
+
+We are going to have to spend some time on the common variables as the coding the use may have changed from year to year.
+
+```{r}
+library(plyr)
+#ID
+RECS$ID<-as.factor(RECS$ID)  
+
+#Region
+summary(RECS$REGION)
+RECS$REGIONC<-revalue(as.factor(RECS$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
+summary(RECS$REGION)
+
+
+#Type of Structure
+summary(RECS$TYPEHUQ)
+RECS$TYPEHUQ<-revalue(as.factor(RECS$TYPEHUQ), c("1"="Mobile", "2"="SFDetached", "3"="SFAttached", "4"="SmApartment", "5"="LgApartment"))
+summary(RECS$TYPEHUQ)
+
+
+#Climate zone
+summary(RECS$Climate_Region_Pub)
+table(RECS$Climate_Region_Pub,RECS$Year)
+#unique to 2009.  Need to find analogs
+#RECS$Climate_Region_Pub<-revalue(as.factor(RECS$Climate_Region_Pub),c("1"="VColdCold","2"="HotDryMixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
+
+
+#Urban vs Rural
+summary(RECS$UR)
+table(RECS$UR,RECS$Year)
+#unique to 2009.  Need to find analogs
+#RECS$UR<-revalue(as.factor(RECS$UR), c("U"="Urban","R"="Rural"))
+
+#Own v Rent
+summary(RECS$KOWNRENT)
+RECS$KOWNRENT<-revalue(as.factor(RECS$KOWNRENT),c("1"="Own","2"="Rent","3"="Free"))
+
+
+#Year Built
+summary(RECS$YEARMADE)
+table(RECS$YEARMADE,RECS$Year)
+#unique to 2009.  Need to find analogs
+
+
+#Moved in
+summary(RECS$OCCUPYYRANGE)
+table(RECS$OCCUPYYRANGE,RECS$Year)
+#unique to 2009.  Need to find analogs
+#RECS$OCCUPYYRANGE<-revalue(as.factor(RECS$OCCUPYYRANGE),c("1"="Pre50", "2"="5059","3"="6069","4"="7079","5"="8089","6"="9099", "7"="0004","8"="0509"))
+
+#Bedrooms
+summary(RECS$BEDROOMS)
+RECS$BEDROOMS[RECS$BEDROOMS==-2]<-NA
+summary(RECS$BEDROOMS)
+
+
+#Working with cooking end use
+summary(RECS$STOVEN)
+summary(RECS$STOVE)
+summary(RECS$OVEN)
+#Stove and oven fuel are only reported if separate
+```
 
 
 
