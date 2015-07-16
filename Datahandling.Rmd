@@ -114,7 +114,16 @@ We are going to have to spend some time on the common variables as the coding th
 library(plyr)
 #ID
 RECS$ID<-as.factor(RECS$ID)  
+```
 
+That was the easy one.  Start with the variables that were used in the housing discrimination paper (2009 data) and cross fingers that they are in the common variable names.
+```{r}
+
+
+```
+
+
+```{r}
 #Region
 summary(RECS$REGION)
 RECS$REGIONC<-revalue(as.factor(RECS$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
