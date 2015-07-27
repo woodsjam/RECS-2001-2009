@@ -104,84 +104,429 @@ That should do it.
 summary(RECS)
 
 ```
-Everything is in one big table now.
+Everything is in one big table now.  Lets clean up the old data.frames.
+
+```{r}
+rm(All2001, recs2009_public,RECS05alldata,publicuse102001,publicuse112001,publicuse122001,publicuse2001,publicuse22001,publicuse32001,publicuse42001,publicuse52001,publicuse62001,publicuse72001,publicuse82001,publicuse92001)
+
+```
+
 
 # Collumn by collumn edits
 
-We are going to have to spend some time on the common variables as the coding the use may have changed from year to year.
+Lets start with the Race and Ethnicity paper items.  I will start with the ID and Year variables and then add in the columns from that paper.
+
+```{r}
+RECSSub<-data.frame(RECS$ID, RECS$Year)
+names(RECSSub)<-c("ID","Year")
+
+```
+
+I will add everything to the new RECSSub data.frame so we don't get confused about which columns are common to all years and which are not.
 
 ```{r}
 library(plyr)
-#ID
-RECS$ID<-as.factor(RECS$ID)  
-```
-
-That was the easy one.  Start with the variables that were used in the housing discrimination paper (2009 data) and cross fingers that they are in the common variable names.
-```{r}
-
-
-```
-
-
-```{r}
 #Region
-summary(RECS$REGION)
-RECS$REGIONC<-revalue(as.factor(RECS$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
-summary(RECS$REGION)
-
+RECSSub$REGIONC<-revalue(as.factor(RECS$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
 
 #Type of Structure
-summary(RECS$TYPEHUQ)
-RECS$TYPEHUQ<-revalue(as.factor(RECS$TYPEHUQ), c("1"="Mobile", "2"="SFDetached", "3"="SFAttached", "4"="SmApartment", "5"="LgApartment"))
-summary(RECS$TYPEHUQ)
-
+RECSSub$TYPEHUQ<-revalue(as.factor(RECS$TYPEHUQ), c("1"="Mobile", "2"="SFDetached", "3"="SFAttached", "4"="SmApartment", "5"="LgApartment"))
 
 #Climate zone
-summary(RECS$Climate_Region_Pub)
-table(RECS$Climate_Region_Pub,RECS$Year)
-#unique to 2009.  Need to find analogs
-#RECS$Climate_Region_Pub<-revalue(as.factor(RECS$Climate_Region_Pub),c("1"="VColdCold","2"="HotDryMixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
+RECSSub$Climate_Region_Pub<-revalue(as.factor(RECS$Climate_Region_Pub),c("1"="VColdCold","2"="HotDryMixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
 
-
-#Urban vs Rural
-summary(RECS$UR)
-table(RECS$UR,RECS$Year)
-#unique to 2009.  Need to find analogs
-#RECS$UR<-revalue(as.factor(RECS$UR), c("U"="Urban","R"="Rural"))
-
-#Own v Rent
-summary(RECS$KOWNRENT)
-RECS$KOWNRENT<-revalue(as.factor(RECS$KOWNRENT),c("1"="Own","2"="Rent","3"="Free"))
 
 
 #Year Built
-summary(RECS$YEARMADE)
-table(RECS$YEARMADE,RECS$Year)
-#unique to 2009.  Need to find analogs
-
-
-#Moved in
-summary(RECS$OCCUPYYRANGE)
-table(RECS$OCCUPYYRANGE,RECS$Year)
-#unique to 2009.  Need to find analogs
-#RECS$OCCUPYYRANGE<-revalue(as.factor(RECS$OCCUPYYRANGE),c("1"="Pre50", "2"="5059","3"="6069","4"="7079","5"="8089","6"="9099", "7"="0004","8"="0509"))
+RECSSub$YEARMADE<-RECS$YEARMADE
 
 #Bedrooms
-summary(RECS$BEDROOMS)
 RECS$BEDROOMS[RECS$BEDROOMS==-2]<-NA
-summary(RECS$BEDROOMS)
+RECSSub$BEDROOMS<-RECS$BEDROOMS
 
 
-#Working with cooking end use
-summary(RECS$STOVEN)
-summary(RECS$STOVE)
-summary(RECS$OVEN)
-#Stove and oven fuel are only reported if separate
+
+#How much they use it
+RECSSub$NUMMEAL<-revalue(as.factor(RECS$NUMMEAL),c("0"="Never","1"="ThreeDay","2"="TwoDay", "3"="OneDay", "4"="FewWeek","5"="OneWeek","6"="LessWeek"))
+summary(RECSSub$NUMMEAL)
+
+#this is better on cooking fuel.  
+RECSSub$ELectricCook<-FALSE
+RECSSub$ELectricCook[RECS$FUELFOOD=="5"]<-TRUE
+#summary(RECSSub$ELectricCook)
+
+#Number of fridges.  Watch out for those with more than 4.
+RECSSub$NUMFRIG<-RECS$NUMFRIG
+
+#age of fridge
+RECSSub$AgeFridge<-revalue(as.factor(RECS$AGERFRI1), c("1"="Less2", "2"="2to4Years", "3"="5to9Years","41"="10to14Years","42"="15to19Years","5"="20PlusYears","-2"=NA))
+#summary(RECSSub$AgeFridge)
+
+#Has Dishwasher
+RECSSub$DishwasherTrue<-revalue(as.factor(RECS$DISHWASH),c("0"=TRUE, "1"=FALSE))
+summary(RECSSub$DishwasherTrue)
+
+
+RECSSub$DRYER<-revalue(as.factor(RECS$DRYER), c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$DRYER)
+
+
+#Number of TVs
+RECSSub$TVCOLOR<-RECS$TVCOLOR
+
+
+
+#number of computers
+RECSSub$NUMPC<-RECS$NUMPC
+
+
+#Well Pump?
+RECSSub$WELLPUMP<-revalue(as.factor(RECS$WELLPUMP),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
+table(RECSSub$WELLPUMP)
+
+#Heating Fuel
+RECSSub$FUELHEAT<-revalue(as.factor(RECS$FUELHEAT),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
+summary(RECSSub$FUELHEAT)
+
+#Heating Age
+RECSSub$EQUIPAGE<-revalue(as.factor(RECS$EQUIPAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECSSub$EQUIPAGE)
+
+#Winter Temp Day when home
+RECS$TEMPHOME[RECS$TEMPHOME==-2]<-NA
+RECSSub$TEMPHOME<-RECS$TEMPHOME
+
+#Winter Temp Day when away
+RECS$TEMPGONE[RECS$TEMPGONE==-2]<-NA
+RECSSub$TEMPGONE<-RECS$TEMPGONE
+
+#Winter Temp at Night
+RECS$TEMPNITE[RECS$TEMPNITE==-2]<-NA
+RECSSub$TEMPNITE<-RECS$TEMPNITE
+
+#Water service fuel
+RECSSub$FUELH2O<-revalue(as.factor(RECS$FUELH2O),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
+summary(RECSSub$FUELH2O)
+
+#AC is used?
+RECSSub$AIRCOND<-revalue(as.factor(RECS$AIRCOND),c("0"=FALSE, "1"=TRUE))
+summary(RECSSub$AIRCOND)
+
+
+***START HERE***
+  
+#Fuel used for pool
+RECS$FUELPOOL<-revalue(as.factor(RECS$FUELPOOL),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
+summary(RECS$FUELPOOL)
+
+#Hot Tub used
+RECS$RECBATH<-revalue(as.factor(RECS$RECBATH),c("0"=FALSE,"1"=TRUE))
+summary(RECS$RECBATH)
+
+#Hot tub fuel
+RECS$FUELTUB<-revalue(as.factor(RECS$FUELTUB),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
+summary(RECS$FUELTUB)
+
+RECS$TYPEGLASS<-revalue(as.factor(RECS$TYPEGLASS),c("1"="SinglePane","2"="DoublePane", "3"="TriplePane", "-2"=NA))
+summary(RECS$TYPEGLASS)
+
+#Electricity used for cooling
+RECS$ELCOOL<-revalue(as.factor(RECS$ELCOOL),c("0"=FALSE,"1"=TRUE))
+summary(RECS$ELCOOL)
+
+#Electricity used for space heating
+RECS$ELWARM<-revalue(as.factor(RECS$ELWARM),c("0"=FALSE,"1"=TRUE))
+summary(RECS$ELWARM)
+
+#Electricity used for water heating
+RECS$ELWATER<-revalue(as.factor(RECS$ELWATER),c("0"=FALSE,"1"=TRUE))
+summary(RECS$ELWATER)
+
+#Electricity used for cooking
+RECS$ELFOOD<-revalue(as.factor(RECS$ELFOOD),c("0"=FALSE,"1"=TRUE))
+summary(RECS$ELFOOD)
+
+
+#This is the sqft variable to use
+summary(RECS$TOTSQFT_EN)
+
+#Get income working two ways
+RECS$MONEYPY<-revalue(as.factor(RECS$MONEYPY),c("1"="Less2500", "2"="Less5K", "3"="Less7500","4"="Less10K","5"="Less15K","6"="Less20K","7"="Less25K","8"="Less30K", "9"="Less35K","10"="Less40K","11"="Less45K","12"="Less50K","13"="Less55K","14"="Less60","15"="Less65","16"="Less70","17"="Less75","18"="Less80", "19"="Less85", "20"="Less90","21"="Less95","22"="Less100K","23"="Less120K","24"="Gr120K"))
+summary(RECS$MONEYPY)
+
+
+RECS$RENTHELP<-revalue(as.factor(RECS$RENTHELP),c("0"=FALSE, "1"=TRUE, "-2"=FALSE))
+summary(RECS$RENTHELP)
+
+RECS$FOODASST<-revalue(as.factor(RECS$FOODASST),c("0"=FALSE, "1"=TRUE))
+summary(RECS$FOODASST)
+
+#Age of HH looks ok
+summary(RECS$HHAGE)
+
+#number of people
+summary(RECS$NHSLDMEM)
+
+#Ed level of HH
+RECS$EDUCATION<-revalue(as.factor(RECS$EDUCATION),c("0"="None","1"="NoHS","2"="HS","3"="SomeCol","4"="AA","5"="BA", "6"="MA", "7"="Prof", "8"="PHD"))
+summary(RECS$EDUCATION)
+
+#HH Race
+RECS$Householder_Race<-revalue(as.factor(RECS$Householder_Race),c("1"="Wt","2"="AfAm","3"="NativeAm","4"="Asian","5"="Pacific", "6"="Other", "7"="Multi"))
+summary(RECS$Householder_Race)
+
+#Hispanic
+RECS$Hispanic<-FALSE
+RECS$Hispanic[RECS$SDESCENT=="1"]<-TRUE
+summary(RECS$Hispanic)
+
+RECS$ElecMeals<-RECS$NUMMEAL
+levels(RECS$ElecMeals)<-c(levels(RECS$ElecMeals),"NoElec")
+RECS$ElecMeals[RECS$ELectricCook==FALSE]<-"NoElec"
+RECS$ElecMeals<-relevel(RECS$ElecMeals, "NoElec")
+
+
+
+RECS$ElecWater<-RECS$WHEATSIZ
+levels(RECS$ElecWater)<-c(levels(RECS$ElecWater),"Tankless","NoElec")
+RECS$ElecWater[RECS$H2OTYPE1=="Tankless"]<-"Tankless"
+RECS$ElecWater[RECS$FUELH2O!="Elec"]<-"NoElec"
+RECS$ElecWater<-relevel(RECS$ElecWater, "NoElec")
+
+RECS$ElecPool<-FALSE
+RECS$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
+
+
+RECS$ElecTub<-FALSE
+RECS$ElecTub[RECS$RECBATH==TRUE & RECS$FUELTUB=="Elec"]<-TRUE
+
+
+IncomeTopCode<-150000
+
+RECS$Income<-as.numeric(as.character(revalue(RECS$MONEYPY,c("Less2500"=1250, "Less5K"=3750, "Less7500"=6250,"Less10K"=8750,"Less15K"=12500,"Less20K"=17500,"Less25K"=22500,"Less30K"=27500, "Less35K"=32500,"Less40K"=37500,"Less45K"=42500,"Less50K"=47500,"Less55K"=52500,"Less60"=57500,"Less65"=62500,"Less70"=67500,"Less75"=72500,"Less80"=77500, "Less85"=82500, "Less90"=87500,"Less95"=92500,"Less100K"=97500,"Less120K"=110000,"Gr120K"=IncomeTopCode))))
+
+#Setting left out to wt non-hispanic
+RECS$Householder_Race<-relevel(RECS$Householder_Race,"Wt")
+
+#Combine race and ethnicity
+
+RECS$EthRace<-factor(paste(as.character(RECS$Hispanic),as.character(RECS$Householder_Race),sep = ""))
+
+RECS$EthRace<-relevel(RECS$EthRace,"FALSEWt")
+
+#Combine structure and tenure
+
+RECS$StrTenure<-factor(paste(as.character(RECS$KOWNRENT),as.character(RECS$TYPEHUQ),sep=""))
+
+RECS$StrTenure<-relevel(RECS$StrTenure,"OwnSFDetached")
+
+
+
 ```
 
+## Problem fixing
+
+The urban rural indicator is not the same in all years.
+```{r}
+#Urban vs Rural
+RECSSub$UR<-revalue(as.factor(RECS$UR), c("U"="Urban","R"="Rural"))
+RECSSub$KOWNRENT<-revalue(as.factor(RECS$KOWNRENT),c("1"="Own","2"="Rent","3"="Free"))
+
+```
+
+Need other survey year moved in
+
+```{r}
+
+#Moved in
+RECSSub$OCCUPYYRANGE<-revalue(as.factor(RECS$OCCUPYYRANGE),c("1"="Pre50", "2"="5059","3"="6069","4"="7079","5"="8089","6"="9099", "7"="0004","8"="0509"))
+
+
+```
+Check if in all years
+```{r}
+
+RECSSub$WASHLOAD<-revalue(as.factor(RECS$WASHLOAD),c("1"="1Less","2"="2to4Loads","3"="5to9Loads","4"="10to15Loads","5"="15PlusLoads","-2"=NA))
+summary(RECSSub$WASHLOAD)
+              
+
+```
+
+Check if in all years
+```{r}
+RECSSub$DRYRFUEL<-revalue(as.factor(RECS$DRYRFUEL), c("1"="NG","2"="LPG","5"="Elec","-2"=NA))
+summary(RECSSub$DRYRFUEL)
+
+
+```
+
+Oddness going on
+
+```{r}
+#Age of Dryer
+RECSSub$AGECDRYER<-revalue(as.factor(RECS$AGECDRYER),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECS$AGECDRYER)
+
+
+```
+Find inother years
+
+```{r}
+#Type of TV 
+RECSSub$TVTYPE1<-revalue(as.factor(RECS$TVTYPE1),c("1"="Standard","2"="LCD", "3"="Plasma", "4"="Projection", "5"="LED", "-2"=NA))
+table(RECSSub$Year,RECSSub$TVTYPE1)
+
+
+```
+Get in other years
+```{r}
+#Weekday Use of TV
+RECSSub$TVONWD1<-revalue(as.factor(RECS$TVONWD1),c("1"="LessHour","2"="OneTo3Hrs", "3"="ThreeTo6Hrs", "4"="SixTo10Hrs", "5"="Gr10", "-2"=NA))
+table(RECSSub$Year,RECSSub$TVONWD1)
 
 
 
+```
 
+Oddness
+```{r}
+#Time computers on
+RECSSub$TIMEON1<-revalue(as.factor(RECS$TIMEON1),c("1"="LessHour","2"="OneTo3Hrs", "3"="ThreeTo6Hrs", "4"="SixTo10Hrs", "5"="Gr10", "-2"=NA))
+summary(RECS$TIMEON1)
+
+
+```
+find in other years
+
+```{r}
+#Water heater type
+RECSSub$H2OTYPE1<-revalue(as.factor(RECS$H2OTYPE1),c("1"="Storage", "2"="Tankless", "-2"=NA))
+table(RECSSub$Year,RECSSub$H2OTYPE1)
+
+
+```
+Probably changed the codes
+```{r}
+#Water heater size.  Keep in mind the tankless.
+RECSSub$WHEATSIZ<-revalue(as.factor(RECS$WHEATSIZ),c("1"="Small", "2"="Med", "3"="Lrg", "-2"=NA))
+summary(RECSSub$WHEATSIZ)
+
+
+```
+
+Probably changed the code
+
+```{r}
+#Water heater age
+RECSSub$WHEATAGE<-revalue(as.factor(RECS$WHEATAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECSSub$WHEATAGE)
+
+
+```
+Proably changed the code
+
+```{r}
+#AC Type
+RECSSub$COOLTYPE<-revalue(as.factor(RECS$COOLTYPE),c("1"="Central", "2"="Window", "3"="Both", "-2"=NA))
+summary(RECSSub$COOLTYPE)
+
+
+```
+Changed the code
+
+```{r}
+#Central AC is heatpump.  Remember only Central AC
+RECSSub$CENACHP<-revalue(as.factor(RECS$CENACHP),c("0"=FALSE, "1"=TRUE, "-2"=NA))
+summary(RECSSub$CENACHP)
+
+
+
+```
+Probably changed the code
+```{r}
+#Age Central AC
+RECSSub$AGECENAC<-revalue(as.factor(RECS$AGECENAC),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECSSub$AGECENAC)
+
+
+```
+
+Changed the code
+
+```{r}
+#Use Central AC?
+RECSSub$USECENAC<-revalue(as.factor(RECS$USECENAC),c("1"="Rare","2"="Frequent", "3"="All", "-2"=NA))
+summary(RECSSub$USECENAC)
+
+
+```
+Changed the code
+
+```{r}
+
+#Temp AC when home in day
+RECS$TEMPHOMEAC[RECS$TEMPHOMEAC=="-2"]<-NA
+summary(RECS$TEMPHOMEAC)
+
+#Temp AC no home in day
+RECS$TEMPGONEAC[RECS$TEMPGONEAC==-2]<-NA
+summary(RECS$TEMPGONEAC)
+
+#Temp AC at night
+RECS$TEMPNITEAC[RECS$TEMPNITEAC==-2]<-NA
+summary(RECS$TEMPNITEAC)
+
+
+```
+Looks like change in the treatment of zero and missing
+```{r}
+#Number of wall AC units
+RECS$NUMBERAC[RECS$NUMBERAC==-2]<-NA
+table(RECS$Year,RECS$NUMBERAC)
+
+
+```
+Code change
+
+```{r}
+#age of wall AC
+RECSSub$WWACAGE<-revalue(as.factor(RECS$WWACAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECSSub$WWACAGE)
+
+
+```
+
+Code Change
+
+```{r}
+#Wall AC is energy Star?
+RECSSub$ESWWAC<-revalue(as.factor(RECS$ESWWAC),c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE))
+summary(RECS$ESWWAC)
+
+#How frequent wall ac
+RECSSub$USEWWAC<-revalue(as.factor(RECS$USEWWAC),c("1"="Rare","2"="Frequent", "3"="All", "-2"=NA))
+summary(RECSSub$USEWWAC)
+
+
+```
+Code Change
+
+```{r}
+#Have pool?
+RECSSub$SWIMPOOL<-revalue(as.factor(RECS$SWIMPOOL),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
+summary(RECSSub$SWIMPOOL)
+
+
+```
+
+Code Change
+
+```{r}
+#Pool heated?
+RECSSub$POOL<-revalue(as.factor(RECS$POOL),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
+summary(RECSSub$POOL)
+
+
+```
 
 
