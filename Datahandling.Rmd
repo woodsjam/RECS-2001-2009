@@ -184,13 +184,6 @@ RECSSub$NUMPC<-RECS$NUMPC
 RECSSub$WELLPUMP<-revalue(as.factor(RECS$WELLPUMP),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
 table(RECSSub$WELLPUMP)
 
-#Heating Fuel
-RECSSub$FUELHEAT<-revalue(as.factor(RECS$FUELHEAT),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
-summary(RECSSub$FUELHEAT)
-
-#Heating Age
-RECSSub$EQUIPAGE<-revalue(as.factor(RECS$EQUIPAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECSSub$EQUIPAGE)
 
 #Winter Temp Day when home
 RECS$TEMPHOME[RECS$TEMPHOME==-2]<-NA
@@ -204,97 +197,55 @@ RECSSub$TEMPGONE<-RECS$TEMPGONE
 RECS$TEMPNITE[RECS$TEMPNITE==-2]<-NA
 RECSSub$TEMPNITE<-RECS$TEMPNITE
 
-#Water service fuel
-RECSSub$FUELH2O<-revalue(as.factor(RECS$FUELH2O),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
-summary(RECSSub$FUELH2O)
-
 #AC is used?
 RECSSub$AIRCOND<-revalue(as.factor(RECS$AIRCOND),c("0"=FALSE, "1"=TRUE))
-summary(RECSSub$AIRCOND)
+summary(RECSSub$AIRCOND)  
+
+
+#Electricity used for cooling
+RECSSub$ELCOOL<-revalue(as.factor(RECS$ELCOOL),c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$ELCOOL)
+
+#Electricity used for space heating
+RECSSub$ELWARM<-revalue(as.factor(RECS$ELWARM),c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$ELWARM)
+
+#Electricity used for water heating
+RECSSub$ELWATER<-revalue(as.factor(RECS$ELWATER),c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$ELWATER)
+
+#Electricity used for cooking
+RECSSub$ELFOOD<-revalue(as.factor(RECS$ELFOOD),c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$ELFOOD)
+
+
+#Get income working two ways
+RECSSub$MONEYPY<-revalue(as.factor(RECS$MONEYPY),c("1"="Less2500", "2"="Less5K", "3"="Less7500","4"="Less10K","5"="Less15K","6"="Less20K","7"="Less25K","8"="Less30K", "9"="Less35K","10"="Less40K","11"="Less45K","12"="Less50K","13"="Less55K","14"="Less60","15"="Less65","16"="Less70","17"="Less75","18"="Less80", "19"="Less85", "20"="Less90","21"="Less95","22"="Less100K","23"="Less120K","24"="Gr120K"))
+summary(RECSSub$MONEYPY)
+
+
+RECSSub$RENTHELP<-revalue(as.factor(RECS$RENTHELP),c("0"=FALSE, "1"=TRUE, "-2"=FALSE))
+summary(RECSSub$RENTHELP)
+
+#Age of HH looks ok
+RECSSub$HHAGE<-RECS$HHAGE
+summary(RECSSub$HHAGE)
+
+#number of people
+RECSSub$NHSLDMEM<-RECS$NHSLDMEM
+
+#Ed level of HH
+RECSSub$EDUCATION<-revalue(as.factor(RECS$EDUCATION),c("0"="None","1"="NoHS","2"="HS","3"="SomeCol","4"="AA","5"="BA", "6"="MA", "7"="Prof", "8"="PHD"))
+summary(RECSSub$EDUCATION)
+
+
+#Hispanic
+RECSSub$Hispanic<-FALSE
+RECSSub$Hispanic[RECS$SDESCENT=="1"]<-TRUE
+summary(RECSSub$Hispanic)
 
 
 ***START HERE***
-  
-#Fuel used for pool
-RECS$FUELPOOL<-revalue(as.factor(RECS$FUELPOOL),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
-summary(RECS$FUELPOOL)
-
-#Hot Tub used
-RECS$RECBATH<-revalue(as.factor(RECS$RECBATH),c("0"=FALSE,"1"=TRUE))
-summary(RECS$RECBATH)
-
-#Hot tub fuel
-RECS$FUELTUB<-revalue(as.factor(RECS$FUELTUB),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
-summary(RECS$FUELTUB)
-
-RECS$TYPEGLASS<-revalue(as.factor(RECS$TYPEGLASS),c("1"="SinglePane","2"="DoublePane", "3"="TriplePane", "-2"=NA))
-summary(RECS$TYPEGLASS)
-
-#Electricity used for cooling
-RECS$ELCOOL<-revalue(as.factor(RECS$ELCOOL),c("0"=FALSE,"1"=TRUE))
-summary(RECS$ELCOOL)
-
-#Electricity used for space heating
-RECS$ELWARM<-revalue(as.factor(RECS$ELWARM),c("0"=FALSE,"1"=TRUE))
-summary(RECS$ELWARM)
-
-#Electricity used for water heating
-RECS$ELWATER<-revalue(as.factor(RECS$ELWATER),c("0"=FALSE,"1"=TRUE))
-summary(RECS$ELWATER)
-
-#Electricity used for cooking
-RECS$ELFOOD<-revalue(as.factor(RECS$ELFOOD),c("0"=FALSE,"1"=TRUE))
-summary(RECS$ELFOOD)
-
-
-#This is the sqft variable to use
-summary(RECS$TOTSQFT_EN)
-
-#Get income working two ways
-RECS$MONEYPY<-revalue(as.factor(RECS$MONEYPY),c("1"="Less2500", "2"="Less5K", "3"="Less7500","4"="Less10K","5"="Less15K","6"="Less20K","7"="Less25K","8"="Less30K", "9"="Less35K","10"="Less40K","11"="Less45K","12"="Less50K","13"="Less55K","14"="Less60","15"="Less65","16"="Less70","17"="Less75","18"="Less80", "19"="Less85", "20"="Less90","21"="Less95","22"="Less100K","23"="Less120K","24"="Gr120K"))
-summary(RECS$MONEYPY)
-
-
-RECS$RENTHELP<-revalue(as.factor(RECS$RENTHELP),c("0"=FALSE, "1"=TRUE, "-2"=FALSE))
-summary(RECS$RENTHELP)
-
-RECS$FOODASST<-revalue(as.factor(RECS$FOODASST),c("0"=FALSE, "1"=TRUE))
-summary(RECS$FOODASST)
-
-#Age of HH looks ok
-summary(RECS$HHAGE)
-
-#number of people
-summary(RECS$NHSLDMEM)
-
-#Ed level of HH
-RECS$EDUCATION<-revalue(as.factor(RECS$EDUCATION),c("0"="None","1"="NoHS","2"="HS","3"="SomeCol","4"="AA","5"="BA", "6"="MA", "7"="Prof", "8"="PHD"))
-summary(RECS$EDUCATION)
-
-#HH Race
-RECS$Householder_Race<-revalue(as.factor(RECS$Householder_Race),c("1"="Wt","2"="AfAm","3"="NativeAm","4"="Asian","5"="Pacific", "6"="Other", "7"="Multi"))
-summary(RECS$Householder_Race)
-
-#Hispanic
-RECS$Hispanic<-FALSE
-RECS$Hispanic[RECS$SDESCENT=="1"]<-TRUE
-summary(RECS$Hispanic)
-
-RECS$ElecMeals<-RECS$NUMMEAL
-levels(RECS$ElecMeals)<-c(levels(RECS$ElecMeals),"NoElec")
-RECS$ElecMeals[RECS$ELectricCook==FALSE]<-"NoElec"
-RECS$ElecMeals<-relevel(RECS$ElecMeals, "NoElec")
-
-
-
-RECS$ElecWater<-RECS$WHEATSIZ
-levels(RECS$ElecWater)<-c(levels(RECS$ElecWater),"Tankless","NoElec")
-RECS$ElecWater[RECS$H2OTYPE1=="Tankless"]<-"Tankless"
-RECS$ElecWater[RECS$FUELH2O!="Elec"]<-"NoElec"
-RECS$ElecWater<-relevel(RECS$ElecWater, "NoElec")
-
-RECS$ElecPool<-FALSE
-RECS$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
 
 
 RECS$ElecTub<-FALSE
@@ -529,4 +480,119 @@ summary(RECSSub$POOL)
 
 ```
 
+Code Change
+
+```{r}
+
+#Heating Fuel
+RECSSub$FUELHEAT<-revalue(as.factor(RECS$FUELHEAT),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
+summary(RECSSub$FUELHEAT)
+
+#Heating Age
+RECSSub$EQUIPAGE<-revalue(as.factor(RECS$EQUIPAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
+summary(RECSSub$EQUIPAGE)
+
+
+```
+Code change
+```{r}
+#Water service fuel
+RECSSub$FUELH2O<-revalue(as.factor(RECS$FUELH2O),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
+summary(RECSSub$FUELH2O)
+
+
+```
+
+Code change
+
+```{r}
+#Fuel used for pool
+RECSSub$FUELPOOL<-revalue(as.factor(RECS$FUELPOOL),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
+summary(RECSSub$FUELPOOL)
+
+
+```
+
+Code 
+```{r}
+#Hot Tub used
+RECSSub$RECBATH<-revalue(as.factor(RECS$RECBATH),c("0"=FALSE,"1"=TRUE))
+summary(RECSSub$RECBATH)
+
+#Hot tub fuel
+RECSSub$FUELTUB<-revalue(as.factor(RECS$FUELTUB),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
+summary(RECSSub$FUELTUB)
+
+RECSSub$TYPEGLASS<-revalue(as.factor(RECS$TYPEGLASS),c("1"="SinglePane","2"="DoublePane", "3"="TriplePane", "-2"=NA))
+summary(RECS$TYPEGLASS)
+
+```
+
+Need in other years
+```{r}
+
+
+#This is the sqft variable to use
+RECSSub$TOTSQFT_EN<-RECS$TOTSQFT_EN
+table(RECSSub$Year,RECSSub$TOTSQFT_EN)
+
+
+```
+
+
+Codesw
+
+```{r}
+
+RECS$FOODASST<-revalue(as.factor(RECS$FOODASST),c("0"=FALSE, "1"=TRUE))
+summary(RECS$FOODASST)
+
+
+```
+
+Other years needed.
+
+```{r}
+#HH Race
+RECSSub$Householder_Race<-revalue(as.factor(RECS$Householder_Race),c("1"="Wt","2"="AfAm","3"="NativeAm","4"="Asian","5"="Pacific", "6"="Other", "7"="Multi"))
+summary(RECSSub$Householder_Race)
+
+
+```
+
+Something wonky
+
+```{r}
+RECSSub$ElecMeals<-RECS$NUMMEAL
+levels(RECSSub$ElecMeals)<-c(levels(RECSSub$ElecMeals),"NoElec")
+RECSSub$ElecMeals[RECSSub$ELectricCook==FALSE]<-"NoElec"
+RECSSub$ElecMeals<-relevel(RECSSub$ElecMeals, "NoElec")
+
+
+```
+
+odd shit
+
+```{r}
+RECSSub$ElecWater<-RECS$WHEATSIZ
+levels(RECS$ElecWater)<-c(levels(RECS$ElecWater),"Tankless","NoElec")
+RECS$ElecWater[RECS$H2OTYPE1=="Tankless"]<-"Tankless"
+RECS$ElecWater[RECS$FUELH2O!="Elec"]<-"NoElec"
+RECS$ElecWater<-relevel(RECS$ElecWater, "NoElec")
+
+
+```
+
+Codes
+
+```{r}
+RECSSub$ElecPool<-FALSE
+RECSSub$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
+summary(RECSSub$ElecPool)
+RECSSub$ElecPool<-FALSE
+RECSSub$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
+summary(RECSSub$ElecPool)
+
+
+```
 
