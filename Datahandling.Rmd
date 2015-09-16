@@ -499,5 +499,3 @@ Code books are broken up by data file.  codebook82001.txt is for publicuse82001.
 Look for variables analogous to the ones in the 2009 list. 
 
 
-
-
