@@ -6,9 +6,9 @@ output: html_document
 ---
 
 ```{r}
-recs2009_public <- read.csv("2009/recs2009_public.csv")
+All2009 <- read.csv("2009/recs2009_public.csv")
 
-RECS05alldata <- read.csv("2005/RECS05alldata.csv")
+All2005 <- read.csv("2005/RECS05alldata.csv")
 
 ```
 Those two are simple but the 2001 data comes in many parts
@@ -31,568 +31,473 @@ publicuse92001<-read.csv("2001/publicuse92001.csv", header=TRUE)
 library(reshape)
 All2001<-merge_recurse(list(publicuse102001,publicuse112001,publicuse122001,publicuse2001,publicuse22001,publicuse32001,publicuse42001,publicuse52001,publicuse62001,publicuse72001,publicuse82001,publicuse92001))
 
+library(stringr)
+#Clean up name space
+rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001','publicuse22001','publicuse32001','publicuse42001','publicuse52001','publicuse62001','publicuse72001','publicuse82001','publicuse92001'))
 ```
 
-Harmonizing these into a single dataframe will be hard.  Lets check the names in each file and find the commonalities in the names.
+# RECS 2009
+
+Here is a list of the variables I would like from the 2009 RECS.  Include the imputation flag field, they start with a Z for all these variables.  For example, ZYEARMADE is for when they have to impute the variable YEARMADE.
+
+There are some R models in RecodeScratch.R
+
+Formatting ugly to keep the list easy to use.
+
+
+DOEID
+REGIONC
+DIVISION
+REPORTABLE_DOMAIN
+TYPEHUQ
+NWEIGHT
+HDD65
+CDD65
+Climate_Region_Pub
+AIA_Zone
+METROMICRO
+UR
+KOWNRENT
+CONDCOOP
+YEARMADE
+YEARMADERANGE
+OCCUPYYRANGE
+CONVERSION
+ORIG1FAM
+LOOKLIKE
+NUMFLRS
+NUMAPTS
+NAPTFLRS
+STORIES
+TYPEHUQ4
+BEDROOMS
+NCOMBATH
+NHAFBATH
+OTHROOMS
+TOTROOMS
+STOVEN
+STOVENFUEL
+STOVE
+STOVEFUEL
+OVEN
+OVENFUEL
+OVENUSE
+MICRO
+AMTMICRO
+OUTGRILL
+OUTGRILLFUEL
+TOASTER
+NUMMEAL
+FUELFOOD
+NUMFRIG
+TYPERFR1
+SIZRFRI1
+REFRIGT1
+ICE
+AGERFRI1
+ESFRIG
+REPLCFRI
+TYPERFR2
+SIZRFRI2
+MONRFRI2
+AGERFRI2
+SEPFREEZ
+NUMFREEZ
+UPRTFRZR
+SIZFREEZ
+REPLCFRZ
+UPRTFRZR2
+SIZFREEZ2
+AGEFRZR2
+DISHWASH
+DWASHUSE
+AGEDW
+ESDISHW
+REPLCDW
+CWASHER
+TOPFRONT
+WASHLOAD
+WASHTEMP
+RNSETEMP
+AGECWASH
+ESCWASH
+DRYER
+DRYRFUEL
+DRYRUSE
+AGECDRYER
+TVCOLOR
+TVSIZE1
+TVTYPE1
+CABLESAT1
+COMBODVR1
+DVR1
+DIGITSTB1
+PLAYSTA1
+COMBOVCRDVD1
+VCR1
+DVD1
+TVAUDIOSYS1
+OTHERSTB1
+TVONWD1
+TVONWDWATCH1
+TVONWE1
+TVONWEWATCH1
+TVSIZE2
+TVTYPE2
+CABLESAT2
+COMBODVR2
+DVR2
+DIGITSTB2
+PLAYSTA2
+COMBOVCRDVD2
+VCR2
+DVD2
+TVAUDIOSYS2
+OTHERSTB2
+TVONWD2
+TVONWDWATCH2
+TVONWE2
+TVONWEWATCH2
+COMPUTER
+NUMPC
+PCTYPE1
+MONITOR1
+TIMEON1
+PCONOFF1
+PCSLEEP1
+PCTYPE2
+MONITOR2
+TIMEON2
+PCONOFF2
+PCSLEEP2
+INTERNET
+INDIALUP
+INDSL
+INCABLE
+INSATEL
+INWIRELESS
+WELLPUMP
+DIPSTICK
+SWAMPCOL
+AQUARIUM
+BATTOOLS
+BATCHRG
+CHRGPLGT
+ELECDEV
+ELECCHRG
+CHRGPLGE
+HEATHOME
+DNTHEAT
+EQUIPNOHEAT
+FUELNOHEAT
+EQUIPM
+FUELHEAT
+EQUIPAGE
+REPLCHT
+HEATOTH
+EQUIPAUX
+REVERSE
+WARMAIR
+FURNFUEL
+STEAMR
+RADFUEL
+PERMELEC
+PIPELESS
+PIPEFUEL
+ROOMHEAT
+RMHTFUEL
+WOODKILN
+HSFUEL
+CARRYEL
+CARRYKER
+CHIMNEY
+FPFUEL
+RANGE
+RNGFUEL
+DIFEQUIP
+DIFFUEL
+EQMAMT
+HEATROOM
+THERMAIN
+NUMTHERM
+PROTHERM
+AUTOHEATNITE
+AUTOHEATDAY
+TEMPHOME
+TEMPGONE
+TEMPNITE
+MOISTURE
+USEMOISTURE
+NUMH2ONOTNK
+NUMH2OHTRS
+H2OTYPE1
+FUELH2O
+WHEATOTH
+WHEATSIZ
+WHEATAGE
+WHEATBKT
+H2OTYPE2
+FUELH2O2
+WHEATSIZ2
+WHEATAGE2
+AIRCOND
+DNTAC
+COOLTYPENOAC
+COOLTYPE
+DUCTS
+CENACHP
+ACOTHERS
+AGECENAC
+REPLCCAC
+ACROOMS
+USECENAC
+THERMAINAC
+PROTHERMAC
+AUTOCOOLNITE
+AUTOCOOLDAY
+TEMPHOMEAC
+TEMPGONEAC
+TEMPNITEAC
+NUMBERAC
+WWACAGE
+ESWWAC
+REPLCWWAC
+USEWWAC
+NUMCFAN
+USECFAN
+TREESHAD
+NOTMOIST
+USENOTMOIST
+SWIMPOOL
+POOL
+FUELPOOL
+RECBATH
+FUELTUB
+LGT12
+LGT12EE
+LGT4
+LGT4EE
+LGT1
+LGT1EE
+NOUTLGTNT
+LGTOEE
+NGASLIGHT
+INSTLCFL
+SLDDRS
+DOOR1SUM
+WINDOWS
+TYPEGLASS
+NEWGLASS
+ADQINSUL
+INSTLINS
+AGEINS
+DRAFTY
+INSTLWS
+AGEWS
+AUDIT
+AGEAUD
+USEEL
+USENG
+USELP
+USEFO
+USEKERO
+USEWOOD
+USESOLAR
+USEOTH
+ELWARM
+ELECAUX
+ELCOOL
+ELWATER
+ELFOOD
+ELOTHER
+UGWARM
+UGASAUX
+UGWATER
+UGCOOK
+UGOTH
+LPWARM
+LPGAUX
+LPWATER
+LPCOOK
+LPOTHER
+FOWARM
+FOILAUX
+FOWATER
+FOOTHER
+KRWARM
+KEROAUX
+KRWATER
+KROTHER
+WDWARM
+WOODAUX
+WDWATER
+WDOTHUSE
+SOLWARM
+SOLARAUX
+SOLWATER
+SOLOTHER
+OTHWARM
+OTHERAUX
+OTHWATER
+OTHCOOK
+ONSITE
+ONSITEGRID
+PELHEAT
+PELHOTWA
+PELCOOK
+PELAC
+PELLIGHT
+OTHERWAYEL
+PGASHEAT
+PGASHTWA
+PUGCOOK
+PUGOTH
+OTHERWAYNG
+FOPAY
+OTHERWAYFO
+LPGPAY
+OTHERWAYLPG
+LPGDELV
+KERODEL
+KEROCASH
+NOCRCASH
+NKRGALNC
+WOODLOGS
+WDSCRAP
+WDPELLET
+WDOTHER
+WOODAMT
+NUMCORDS
+KFUELOT
+HHSEX
+EMPLOYHH
+SPOUSE
+SDESCENT
+Householder_Race
+EDUCATION
+NHSLDMEM
+HHAGE
+AGEHHMEMCAT2
+AGEHHMEMCAT3
+AGEHHMEMCAT4
+AGEHHMEMCAT5
+AGEHHMEMCAT6
+AGEHHMEMCAT7
+AGEHHMEMCAT8
+AGEHHMEMCAT9
+AGEHHMEMCAT10
+AGEHHMEMCAT11
+AGEHHMEMCAT12
+AGEHHMEMCAT13
+AGEHHMEMCAT14
+HBUSNESS
+ATHOME
+TELLWORK
+TELLDAYS
+OTHWORK
+WORKPAY
+MONEYPY
+POVERTY100
+POVERTY150
+HUPROJ
+RENTHELP
+TOTSQFT
+TOTSQFT_EN
+TOTHSQFT
+TOTUSQFT
+TOTCSQFT
+TOTUCSQFT
+KWH
+KWHSPH
+KWHCOL
+KWHWTH
+KWHRFG
+KWHOTH 
+BTUEL
+BTUELSPH
+BTUELCOL
+BTUELWTH
+BTUELRFG
+BTUELOTH
+DOLLAREL
+DOLELSPH
+DOLELCOL
+DOLELWTH
+DOLELRFG
+DOLELOTH
+CUFEETNG
+CUFEETNGSPH
+CUFEETNGWTH
+CUFEETNGOTH
+BTUNG
+BTUNGSPH
+BTUNGWTH
+BTUNGOTH
+DOLLARNG
+DOLNGSPH
+DOLNGWTH
+DOLNGOTH
+GALLONLP
+GALLONLPSPH
+GALLONLPWTH
+GALLONLPOTH
+BTULP
+BTULPSPH
+BTULPWTH
+BTULPOTH
+DOLLARLP
+DOLLPSPH
+DOLLPWTH
+DOLLPOTH
+GALLONFO
+GALLONFOSPH
+GALLONFOWTH
+GALLONFOOTH
+BTUFO
+BTUFOSPH
+BTUFOWTH
+BTUFOOTH
+DOLLARFO
+DOLFOSPH
+DOLFOWTH
+DOLFOOTH
+GALLONKER
+GALLONKERSPH
+GALLONKERWTH
+GALLONKEROTH
+BTUKER
+BTUKERSPH
+BTUKERWTH
+BTUKEROTH
+DOLLARKER
+DOLKERSPH
+DOLKERWTH
+DOLKEROTH
+BTUWOOD
+CORDSWD
+TOTALBTU
+TOTALBTUSPH
+TOTALBTUCOL
+TOTALBTUWTH
+TOTALBTURFG
+TOTALBTUOTH
+TOTALDOL
+TOTALDOLSPH
+TOTALDOLCOL
+TOTALDOLWTH
+TOTALDOLRFG
+TOTALDOLOTH
+
+# RECS 2005
+
+Look for analogous variables in RECS205layoutAllData.csv
+
+# RECS 2001
+
+Code books are broken up by data file.  codebook82001.txt is for publicuse82001.csv.
+
+Look for variables analogous to the ones in the 2009 list. 
 
-```{r}
-intersect(intersect(names(All2001),names(RECS05alldata)),names(recs2009_public))
 
-```
-Plenty of common names.  Lets look at the union.
 
-```{r}
-union(union(names(All2001),names(RECS05alldata)),names(recs2009_public))
-
-```
-So, we have <400 common names out of ~1500 total.
-
-Step one.  Make sure we have a unique ID across all years for the observations.
-
-```{r}
-
-All2001$ID<-paste(as.character(All2001$DOEID),"2001",sep="")
-RECS05alldata$ID<-paste(as.character(RECS05alldata$DOEID),"2005",sep="")
-recs2009_public$ID<-paste(as.character(recs2009_public$DOEID),"2009",sep="")
-```
-
-And give an indicator of survey year
-
-```{r}
-All2001$Year<-2001
-RECS05alldata$Year<-2005
-recs2009_public$Year<-2009
-```
-
-Now lets combine the columns that are common into one dataframe
-
-```{r}
-CommonCols<-intersect(intersect(names(All2001),names(RECS05alldata)),names(recs2009_public))
-RECS<-rbind(All2001[CommonCols],RECS05alldata[CommonCols],recs2009_public[CommonCols])
-```
-
-Check the number of observations.
-```{r}
-dim(All2001)
-dim(RECS05alldata)
-dim(recs2009_public)
-dim(RECS)
-```
-They all checkout.
-
-Now lets merge in the columns that are unique to each dataframe.
-```{r}
-#Need unique names plus ID only in the merge.
-
-outersect <- function(x, y) {
-  sort(c(setdiff(x, y),
-         setdiff(y, x)))
-}
-
-U2001<-c("ID",outersect(names(RECS),names(All2001)))
-U2005<-c("ID",outersect(names(RECS),names(RECS05alldata)))
-U2009<-c("ID",outersect(names(RECS),names(recs2009_public)))
-
-RECS<-merge(RECS,All2001[U2001],by="ID", all.x=TRUE)
-RECS<-merge(RECS,RECS05alldata[U2005],by="ID", all.x=TRUE)
-RECS<-merge(RECS,recs2009_public[U2009],by="ID", all.x=TRUE)
-```
-
-That should do it.
-
-```{r}
-summary(RECS)
-
-```
-Everything is in one big table now.  Lets clean up the old data.frames.
-
-```{r}
-rm(All2001, recs2009_public,RECS05alldata,publicuse102001,publicuse112001,publicuse122001,publicuse2001,publicuse22001,publicuse32001,publicuse42001,publicuse52001,publicuse62001,publicuse72001,publicuse82001,publicuse92001)
-
-```
-
-
-# Collumn by collumn edits
-
-Lets start with the Race and Ethnicity paper items.  I will start with the ID and Year variables and then add in the columns from that paper.
-
-```{r}
-RECSSub<-data.frame(RECS$ID, RECS$Year)
-names(RECSSub)<-c("ID","Year")
-
-```
-
-I will add everything to the new RECSSub data.frame so we don't get confused about which columns are common to all years and which are not.
-
-```{r}
-library(plyr)
-#Region
-RECSSub$REGIONC<-revalue(as.factor(RECS$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
-
-#Type of Structure
-RECSSub$TYPEHUQ<-revalue(as.factor(RECS$TYPEHUQ), c("1"="Mobile", "2"="SFDetached", "3"="SFAttached", "4"="SmApartment", "5"="LgApartment"))
-
-#Climate zone
-RECSSub$Climate_Region_Pub<-revalue(as.factor(RECS$Climate_Region_Pub),c("1"="VColdCold","2"="HotDryMixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
-
-
-
-#Year Built
-RECSSub$YEARMADE<-RECS$YEARMADE
-
-#Bedrooms
-RECS$BEDROOMS[RECS$BEDROOMS==-2]<-NA
-RECSSub$BEDROOMS<-RECS$BEDROOMS
-
-
-
-#How much they use it
-RECSSub$NUMMEAL<-revalue(as.factor(RECS$NUMMEAL),c("0"="Never","1"="ThreeDay","2"="TwoDay", "3"="OneDay", "4"="FewWeek","5"="OneWeek","6"="LessWeek"))
-summary(RECSSub$NUMMEAL)
-
-#this is better on cooking fuel.  
-RECSSub$ELectricCook<-FALSE
-RECSSub$ELectricCook[RECS$FUELFOOD=="5"]<-TRUE
-#summary(RECSSub$ELectricCook)
-
-#Number of fridges.  Watch out for those with more than 4.
-RECSSub$NUMFRIG<-RECS$NUMFRIG
-
-#age of fridge
-RECSSub$AgeFridge<-revalue(as.factor(RECS$AGERFRI1), c("1"="Less2", "2"="2to4Years", "3"="5to9Years","41"="10to14Years","42"="15to19Years","5"="20PlusYears","-2"=NA))
-#summary(RECSSub$AgeFridge)
-
-#Has Dishwasher
-RECSSub$DishwasherTrue<-revalue(as.factor(RECS$DISHWASH),c("0"=TRUE, "1"=FALSE))
-summary(RECSSub$DishwasherTrue)
-
-
-RECSSub$DRYER<-revalue(as.factor(RECS$DRYER), c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$DRYER)
-
-
-#Number of TVs
-RECSSub$TVCOLOR<-RECS$TVCOLOR
-
-
-
-#number of computers
-RECSSub$NUMPC<-RECS$NUMPC
-
-
-#Well Pump?
-RECSSub$WELLPUMP<-revalue(as.factor(RECS$WELLPUMP),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
-table(RECSSub$WELLPUMP)
-
-
-#Winter Temp Day when home
-RECS$TEMPHOME[RECS$TEMPHOME==-2]<-NA
-RECSSub$TEMPHOME<-RECS$TEMPHOME
-
-#Winter Temp Day when away
-RECS$TEMPGONE[RECS$TEMPGONE==-2]<-NA
-RECSSub$TEMPGONE<-RECS$TEMPGONE
-
-#Winter Temp at Night
-RECS$TEMPNITE[RECS$TEMPNITE==-2]<-NA
-RECSSub$TEMPNITE<-RECS$TEMPNITE
-
-#AC is used?
-RECSSub$AIRCOND<-revalue(as.factor(RECS$AIRCOND),c("0"=FALSE, "1"=TRUE))
-summary(RECSSub$AIRCOND)  
-
-
-#Electricity used for cooling
-RECSSub$ELCOOL<-revalue(as.factor(RECS$ELCOOL),c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$ELCOOL)
-
-#Electricity used for space heating
-RECSSub$ELWARM<-revalue(as.factor(RECS$ELWARM),c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$ELWARM)
-
-#Electricity used for water heating
-RECSSub$ELWATER<-revalue(as.factor(RECS$ELWATER),c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$ELWATER)
-
-#Electricity used for cooking
-RECSSub$ELFOOD<-revalue(as.factor(RECS$ELFOOD),c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$ELFOOD)
-
-
-#Get income working two ways
-RECSSub$MONEYPY<-revalue(as.factor(RECS$MONEYPY),c("1"="Less2500", "2"="Less5K", "3"="Less7500","4"="Less10K","5"="Less15K","6"="Less20K","7"="Less25K","8"="Less30K", "9"="Less35K","10"="Less40K","11"="Less45K","12"="Less50K","13"="Less55K","14"="Less60","15"="Less65","16"="Less70","17"="Less75","18"="Less80", "19"="Less85", "20"="Less90","21"="Less95","22"="Less100K","23"="Less120K","24"="Gr120K"))
-summary(RECSSub$MONEYPY)
-
-
-RECSSub$RENTHELP<-revalue(as.factor(RECS$RENTHELP),c("0"=FALSE, "1"=TRUE, "-2"=FALSE))
-summary(RECSSub$RENTHELP)
-
-#Age of HH looks ok
-RECSSub$HHAGE<-RECS$HHAGE
-summary(RECSSub$HHAGE)
-
-#number of people
-RECSSub$NHSLDMEM<-RECS$NHSLDMEM
-
-#Ed level of HH
-RECSSub$EDUCATION<-revalue(as.factor(RECS$EDUCATION),c("0"="None","1"="NoHS","2"="HS","3"="SomeCol","4"="AA","5"="BA", "6"="MA", "7"="Prof", "8"="PHD"))
-summary(RECSSub$EDUCATION)
-
-
-#Hispanic
-RECSSub$Hispanic<-FALSE
-RECSSub$Hispanic[RECS$SDESCENT=="1"]<-TRUE
-summary(RECSSub$Hispanic)
-
-
-***START HERE***
-
-
-RECS$ElecTub<-FALSE
-RECS$ElecTub[RECS$RECBATH==TRUE & RECS$FUELTUB=="Elec"]<-TRUE
-
-
-IncomeTopCode<-150000
-
-RECS$Income<-as.numeric(as.character(revalue(RECS$MONEYPY,c("Less2500"=1250, "Less5K"=3750, "Less7500"=6250,"Less10K"=8750,"Less15K"=12500,"Less20K"=17500,"Less25K"=22500,"Less30K"=27500, "Less35K"=32500,"Less40K"=37500,"Less45K"=42500,"Less50K"=47500,"Less55K"=52500,"Less60"=57500,"Less65"=62500,"Less70"=67500,"Less75"=72500,"Less80"=77500, "Less85"=82500, "Less90"=87500,"Less95"=92500,"Less100K"=97500,"Less120K"=110000,"Gr120K"=IncomeTopCode))))
-
-#Setting left out to wt non-hispanic
-RECS$Householder_Race<-relevel(RECS$Householder_Race,"Wt")
-
-#Combine race and ethnicity
-
-RECS$EthRace<-factor(paste(as.character(RECS$Hispanic),as.character(RECS$Householder_Race),sep = ""))
-
-RECS$EthRace<-relevel(RECS$EthRace,"FALSEWt")
-
-#Combine structure and tenure
-
-RECS$StrTenure<-factor(paste(as.character(RECS$KOWNRENT),as.character(RECS$TYPEHUQ),sep=""))
-
-RECS$StrTenure<-relevel(RECS$StrTenure,"OwnSFDetached")
-
-
-
-```
-
-## Problem fixing
-
-The urban rural indicator is not the same in all years.
-```{r}
-#Urban vs Rural
-RECSSub$UR<-revalue(as.factor(RECS$UR), c("U"="Urban","R"="Rural"))
-RECSSub$KOWNRENT<-revalue(as.factor(RECS$KOWNRENT),c("1"="Own","2"="Rent","3"="Free"))
-
-```
-
-Need other survey year moved in
-
-```{r}
-
-#Moved in
-RECSSub$OCCUPYYRANGE<-revalue(as.factor(RECS$OCCUPYYRANGE),c("1"="Pre50", "2"="5059","3"="6069","4"="7079","5"="8089","6"="9099", "7"="0004","8"="0509"))
-
-
-```
-Check if in all years
-```{r}
-
-RECSSub$WASHLOAD<-revalue(as.factor(RECS$WASHLOAD),c("1"="1Less","2"="2to4Loads","3"="5to9Loads","4"="10to15Loads","5"="15PlusLoads","-2"=NA))
-summary(RECSSub$WASHLOAD)
-              
-
-```
-
-Check if in all years
-```{r}
-RECSSub$DRYRFUEL<-revalue(as.factor(RECS$DRYRFUEL), c("1"="NG","2"="LPG","5"="Elec","-2"=NA))
-summary(RECSSub$DRYRFUEL)
-
-
-```
-
-Oddness going on
-
-```{r}
-#Age of Dryer
-RECSSub$AGECDRYER<-revalue(as.factor(RECS$AGECDRYER),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECS$AGECDRYER)
-
-
-```
-Find inother years
-
-```{r}
-#Type of TV 
-RECSSub$TVTYPE1<-revalue(as.factor(RECS$TVTYPE1),c("1"="Standard","2"="LCD", "3"="Plasma", "4"="Projection", "5"="LED", "-2"=NA))
-table(RECSSub$Year,RECSSub$TVTYPE1)
-
-
-```
-Get in other years
-```{r}
-#Weekday Use of TV
-RECSSub$TVONWD1<-revalue(as.factor(RECS$TVONWD1),c("1"="LessHour","2"="OneTo3Hrs", "3"="ThreeTo6Hrs", "4"="SixTo10Hrs", "5"="Gr10", "-2"=NA))
-table(RECSSub$Year,RECSSub$TVONWD1)
-
-
-
-```
-
-Oddness
-```{r}
-#Time computers on
-RECSSub$TIMEON1<-revalue(as.factor(RECS$TIMEON1),c("1"="LessHour","2"="OneTo3Hrs", "3"="ThreeTo6Hrs", "4"="SixTo10Hrs", "5"="Gr10", "-2"=NA))
-summary(RECS$TIMEON1)
-
-
-```
-find in other years
-
-```{r}
-#Water heater type
-RECSSub$H2OTYPE1<-revalue(as.factor(RECS$H2OTYPE1),c("1"="Storage", "2"="Tankless", "-2"=NA))
-table(RECSSub$Year,RECSSub$H2OTYPE1)
-
-
-```
-Probably changed the codes
-```{r}
-#Water heater size.  Keep in mind the tankless.
-RECSSub$WHEATSIZ<-revalue(as.factor(RECS$WHEATSIZ),c("1"="Small", "2"="Med", "3"="Lrg", "-2"=NA))
-summary(RECSSub$WHEATSIZ)
-
-
-```
-
-Probably changed the code
-
-```{r}
-#Water heater age
-RECSSub$WHEATAGE<-revalue(as.factor(RECS$WHEATAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECSSub$WHEATAGE)
-
-
-```
-Proably changed the code
-
-```{r}
-#AC Type
-RECSSub$COOLTYPE<-revalue(as.factor(RECS$COOLTYPE),c("1"="Central", "2"="Window", "3"="Both", "-2"=NA))
-summary(RECSSub$COOLTYPE)
-
-
-```
-Changed the code
-
-```{r}
-#Central AC is heatpump.  Remember only Central AC
-RECSSub$CENACHP<-revalue(as.factor(RECS$CENACHP),c("0"=FALSE, "1"=TRUE, "-2"=NA))
-summary(RECSSub$CENACHP)
-
-
-
-```
-Probably changed the code
-```{r}
-#Age Central AC
-RECSSub$AGECENAC<-revalue(as.factor(RECS$AGECENAC),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECSSub$AGECENAC)
-
-
-```
-
-Changed the code
-
-```{r}
-#Use Central AC?
-RECSSub$USECENAC<-revalue(as.factor(RECS$USECENAC),c("1"="Rare","2"="Frequent", "3"="All", "-2"=NA))
-summary(RECSSub$USECENAC)
-
-
-```
-Changed the code
-
-```{r}
-
-#Temp AC when home in day
-RECS$TEMPHOMEAC[RECS$TEMPHOMEAC=="-2"]<-NA
-summary(RECS$TEMPHOMEAC)
-
-#Temp AC no home in day
-RECS$TEMPGONEAC[RECS$TEMPGONEAC==-2]<-NA
-summary(RECS$TEMPGONEAC)
-
-#Temp AC at night
-RECS$TEMPNITEAC[RECS$TEMPNITEAC==-2]<-NA
-summary(RECS$TEMPNITEAC)
-
-
-```
-Looks like change in the treatment of zero and missing
-```{r}
-#Number of wall AC units
-RECS$NUMBERAC[RECS$NUMBERAC==-2]<-NA
-table(RECS$Year,RECS$NUMBERAC)
-
-
-```
-Code change
-
-```{r}
-#age of wall AC
-RECSSub$WWACAGE<-revalue(as.factor(RECS$WWACAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECSSub$WWACAGE)
-
-
-```
-
-Code Change
-
-```{r}
-#Wall AC is energy Star?
-RECSSub$ESWWAC<-revalue(as.factor(RECS$ESWWAC),c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE))
-summary(RECS$ESWWAC)
-
-#How frequent wall ac
-RECSSub$USEWWAC<-revalue(as.factor(RECS$USEWWAC),c("1"="Rare","2"="Frequent", "3"="All", "-2"=NA))
-summary(RECSSub$USEWWAC)
-
-
-```
-Code Change
-
-```{r}
-#Have pool?
-RECSSub$SWIMPOOL<-revalue(as.factor(RECS$SWIMPOOL),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
-summary(RECSSub$SWIMPOOL)
-
-
-```
-
-Code Change
-
-```{r}
-#Pool heated?
-RECSSub$POOL<-revalue(as.factor(RECS$POOL),c("0"=FALSE,"1"=TRUE, "-2"=FALSE))
-summary(RECSSub$POOL)
-
-
-```
-
-Code Change
-
-```{r}
-
-#Heating Fuel
-RECSSub$FUELHEAT<-revalue(as.factor(RECS$FUELHEAT),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
-summary(RECSSub$FUELHEAT)
-
-#Heating Age
-RECSSub$EQUIPAGE<-revalue(as.factor(RECS$EQUIPAGE),c("1"="Less2","2"="TwoTo4", "3"="FiveTo9", "41"="TenTo14", "42"="FifteenTo19", "5"="Gr20", "-2"=NA))
-summary(RECSSub$EQUIPAGE)
-
-
-```
-Code change
-```{r}
-#Water service fuel
-RECSSub$FUELH2O<-revalue(as.factor(RECS$FUELH2O),c("1"="NG","2"="LPG","3"="Oil", "4"="Kerosene", "5"="Elec", "7"="Wood", "8"="Solar", "9"="District", "21"="Other", "-2"=NA))
-summary(RECSSub$FUELH2O)
-
-
-```
-
-Code change
-
-```{r}
-#Fuel used for pool
-RECSSub$FUELPOOL<-revalue(as.factor(RECS$FUELPOOL),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
-summary(RECSSub$FUELPOOL)
-
-
-```
-
-Code 
-```{r}
-#Hot Tub used
-RECSSub$RECBATH<-revalue(as.factor(RECS$RECBATH),c("0"=FALSE,"1"=TRUE))
-summary(RECSSub$RECBATH)
-
-#Hot tub fuel
-RECSSub$FUELTUB<-revalue(as.factor(RECS$FUELTUB),c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="Solar","21"="Other", "-2"=NA))
-summary(RECSSub$FUELTUB)
-
-RECSSub$TYPEGLASS<-revalue(as.factor(RECS$TYPEGLASS),c("1"="SinglePane","2"="DoublePane", "3"="TriplePane", "-2"=NA))
-summary(RECS$TYPEGLASS)
-
-```
-
-Need in other years
-```{r}
-
-
-#This is the sqft variable to use
-RECSSub$TOTSQFT_EN<-RECS$TOTSQFT_EN
-table(RECSSub$Year,RECSSub$TOTSQFT_EN)
-
-
-```
-
-
-Codesw
-
-```{r}
-
-RECS$FOODASST<-revalue(as.factor(RECS$FOODASST),c("0"=FALSE, "1"=TRUE))
-summary(RECS$FOODASST)
-
-
-```
-
-Other years needed.
-
-```{r}
-#HH Race
-RECSSub$Householder_Race<-revalue(as.factor(RECS$Householder_Race),c("1"="Wt","2"="AfAm","3"="NativeAm","4"="Asian","5"="Pacific", "6"="Other", "7"="Multi"))
-summary(RECSSub$Householder_Race)
-
-
-```
-
-Something wonky
-
-```{r}
-RECSSub$ElecMeals<-RECS$NUMMEAL
-levels(RECSSub$ElecMeals)<-c(levels(RECSSub$ElecMeals),"NoElec")
-RECSSub$ElecMeals[RECSSub$ELectricCook==FALSE]<-"NoElec"
-RECSSub$ElecMeals<-relevel(RECSSub$ElecMeals, "NoElec")
-
-
-```
-
-odd shit
-
-```{r}
-RECSSub$ElecWater<-RECS$WHEATSIZ
-levels(RECS$ElecWater)<-c(levels(RECS$ElecWater),"Tankless","NoElec")
-RECS$ElecWater[RECS$H2OTYPE1=="Tankless"]<-"Tankless"
-RECS$ElecWater[RECS$FUELH2O!="Elec"]<-"NoElec"
-RECS$ElecWater<-relevel(RECS$ElecWater, "NoElec")
-
-
-```
-
-Codes
-
-```{r}
-RECSSub$ElecPool<-FALSE
-RECSSub$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
-summary(RECSSub$ElecPool)
-RECSSub$ElecPool<-FALSE
-RECSSub$ElecPool[RECS$SWIMPOOL==TRUE & RECS$FUELPOOL=="Elec"]<-TRUE
-summary(RECSSub$ElecPool)
-
-
-```
 
