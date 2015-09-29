@@ -44,6 +44,28 @@ There are some R models in RecodeScratch.R
 
 Formatting ugly to keep the list easy to use.
 
+```{r}
+summary(All2009$DOEID)
+
+All2009$DOEID<-as.factor(All2009$DOEID)  
+
+library(plyr)
+#Region
+summary(All2009$REGIONC)
+table(All2009$REGIONC)
+
+All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
+
+#All2009$REGIONC[1:20]
+All2009[1:2,1:10]
+
+
+#Bedrooms
+summary(All2009$BEDROOMS)
+All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
+All2009$BEDROOMS[All2009$BEDROOMS==-2]
+
+```
 
 DOEID
 REGIONC
