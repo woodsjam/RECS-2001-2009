@@ -14,7 +14,7 @@ to.TF <-function(column, na.choice, na.key=-2){
   if(na.choice=="TRUE") column[column==na.key]<-TRUE 
   if(na.choice=="FALSE") column[column==na.key]<-FALSE 
   
-  revalue(as.factor(column),c("0"=FALSE, "1"=TRUE))
+  as.logical(revalue(as.factor(column),c("0"=FALSE, "1"=TRUE)))
 }
 
 # #Example Code

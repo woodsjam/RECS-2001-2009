@@ -44,28 +44,30 @@ There are some R models in RecodeScratch.R
 
 Formatting ugly to keep the list easy to use.
 
+This is just some example code.  Now commented out.
 ```{r}
-summary(All2009$DOEID)
-
-All2009$DOEID<-as.factor(All2009$DOEID)  
-
-library(plyr)
-#Region
-summary(All2009$REGIONC)
-table(All2009$REGIONC)
-
-All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
-
-#All2009$REGIONC[1:20]
-All2009[1:2,1:10]
-
-
-#Bedrooms
-summary(All2009$BEDROOMS)
-All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
-All2009$BEDROOMS[All2009$BEDROOMS==-2]
+# summary(All2009$DOEID)
+# 
+# All2009$DOEID<-as.factor(All2009$DOEID)  
+# 
+# library(plyr)
+# #Region
+# summary(All2009$REGIONC)
+# table(All2009$REGIONC)
+# 
+# All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE", "2"="MidWest","3"="South","4"="West"))
+# 
+# #All2009$REGIONC[1:20]
+# All2009[1:2,1:10]
+# 
+# 
+# #Bedrooms
+# summary(All2009$BEDROOMS)
+# All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
+# All2009$BEDROOMS[All2009$BEDROOMS==-2]
 
 ```
+
 
 DOEID
 REGIONC
@@ -509,6 +511,68 @@ TOTALDOLCOL
 TOTALDOLWTH
 TOTALDOLRFG
 TOTALDOLOTH
+
+
+Putting them all in one place so I can deal with them algorymically. 
+```{r}
+
+# Names2009 just contains the 2009 variable names we want
+Cols2009<-read.table("Names2009.csv")
+
+```
+
+Now identify those that are clearly TF binary.  First look for those with only two codes
+
+```{r}
+NumberOfCodes<-apply(All2009[Cols2009$V1],MARGIN=2, FUN=function(x) length(table(x)))
+
+
+OnlyTwoCodes<-names(NumberOfCodes[NumberOfCodes==2])
+summary(All2009[OnlyTwoCodes])
+```
+Looking throught that list for things that are not TF and deleteing them from the list and recode the remaining ones to TF
+
+```{r}
+# Only one is UR.  Remove from the list.
+
+OnlyTwoCodes<-OnlyTwoCodes[OnlyTwoCodes!="UR"]
+
+#UR looks like it is coded
+summary(All2009$UR)
+
+source("RECSHelper.R")
+
+
+
+All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
+
+summary(All2009[OnlyTwoCodes])
+```
+Fixed all those in one fell swoop.
+
+Lets check the ones with three potential codes
+
+```{r}
+OnlyThreeCodes<-names(NumberOfCodes[NumberOfCodes==3])
+
+summary(All2009[OnlyThreeCodes])
+```
+My hope is to spot those that are TF with missing.  Lets refine it so we only have numerical codes with a min of exactly -2 and a max of exactly 1.
+
+```{r}
+#Returns true if three codes with max of 1 and min of -2
+FindTFWMissing<-function(x){
+  length(table(x))==3 & max(x)==1 & min(x)==-2
+}
+
+#tests
+# FindTFWMissing(All2009$GARGCOOL)
+# FindTFWMissing(All2009$FREEZER2)
+
+
+```
+
+
 
 # RECS 2005
 

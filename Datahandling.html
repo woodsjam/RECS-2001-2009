@@ -97,53 +97,916 @@ rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001',
 <p>Here is a list of the variables I would like from the 2009 RECS. Include the imputation flag field, they start with a Z for all these variables. For example, ZYEARMADE is for when they have to impute the variable YEARMADE.</p>
 <p>There are some R models in RecodeScratch.R</p>
 <p>Formatting ugly to keep the list easy to use.</p>
-<pre class="r"><code>summary(All2009$DOEID)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##       1    3022    6042    6042    9062   12080</code></pre>
-<pre class="r"><code>All2009$DOEID&lt;-as.factor(All2009$DOEID)  
+<p>This is just some example code. Now commented out.</p>
+<pre class="r"><code># summary(All2009$DOEID)
+# 
+# All2009$DOEID&lt;-as.factor(All2009$DOEID)  
+# 
+# library(plyr)
+# #Region
+# summary(All2009$REGIONC)
+# table(All2009$REGIONC)
+# 
+# All2009$REGIONC&lt;-revalue(as.factor(All2009$REGIONC),c(&quot;1&quot;=&quot;NE&quot;, &quot;2&quot;=&quot;MidWest&quot;,&quot;3&quot;=&quot;South&quot;,&quot;4&quot;=&quot;West&quot;))
+# 
+# #All2009$REGIONC[1:20]
+# All2009[1:2,1:10]
+# 
+# 
+# #Bedrooms
+# summary(All2009$BEDROOMS)
+# All2009$BEDROOMS[All2009$BEDROOMS==-2]&lt;-NA
+# All2009$BEDROOMS[All2009$BEDROOMS==-2]</code></pre>
+<p>DOEID REGIONC DIVISION REPORTABLE_DOMAIN TYPEHUQ NWEIGHT HDD65 CDD65 Climate_Region_Pub AIA_Zone METROMICRO UR KOWNRENT CONDCOOP YEARMADE YEARMADERANGE OCCUPYYRANGE CONVERSION ORIG1FAM LOOKLIKE NUMFLRS NUMAPTS NAPTFLRS STORIES TYPEHUQ4 BEDROOMS NCOMBATH NHAFBATH OTHROOMS TOTROOMS STOVEN STOVENFUEL STOVE STOVEFUEL OVEN OVENFUEL OVENUSE MICRO AMTMICRO OUTGRILL OUTGRILLFUEL TOASTER NUMMEAL FUELFOOD NUMFRIG TYPERFR1 SIZRFRI1 REFRIGT1 ICE AGERFRI1 ESFRIG REPLCFRI TYPERFR2 SIZRFRI2 MONRFRI2 AGERFRI2 SEPFREEZ NUMFREEZ UPRTFRZR SIZFREEZ REPLCFRZ UPRTFRZR2 SIZFREEZ2 AGEFRZR2 DISHWASH DWASHUSE AGEDW ESDISHW REPLCDW CWASHER TOPFRONT WASHLOAD WASHTEMP RNSETEMP AGECWASH ESCWASH DRYER DRYRFUEL DRYRUSE AGECDRYER TVCOLOR TVSIZE1 TVTYPE1 CABLESAT1 COMBODVR1 DVR1 DIGITSTB1 PLAYSTA1 COMBOVCRDVD1 VCR1 DVD1 TVAUDIOSYS1 OTHERSTB1 TVONWD1 TVONWDWATCH1 TVONWE1 TVONWEWATCH1 TVSIZE2 TVTYPE2 CABLESAT2 COMBODVR2 DVR2 DIGITSTB2 PLAYSTA2 COMBOVCRDVD2 VCR2 DVD2 TVAUDIOSYS2 OTHERSTB2 TVONWD2 TVONWDWATCH2 TVONWE2 TVONWEWATCH2 COMPUTER NUMPC PCTYPE1 MONITOR1 TIMEON1 PCONOFF1 PCSLEEP1 PCTYPE2 MONITOR2 TIMEON2 PCONOFF2 PCSLEEP2 INTERNET INDIALUP INDSL INCABLE INSATEL INWIRELESS WELLPUMP DIPSTICK SWAMPCOL AQUARIUM BATTOOLS BATCHRG CHRGPLGT ELECDEV ELECCHRG CHRGPLGE HEATHOME DNTHEAT EQUIPNOHEAT FUELNOHEAT EQUIPM FUELHEAT EQUIPAGE REPLCHT HEATOTH EQUIPAUX REVERSE WARMAIR FURNFUEL STEAMR RADFUEL PERMELEC PIPELESS PIPEFUEL ROOMHEAT RMHTFUEL WOODKILN HSFUEL CARRYEL CARRYKER CHIMNEY FPFUEL RANGE RNGFUEL DIFEQUIP DIFFUEL EQMAMT HEATROOM THERMAIN NUMTHERM PROTHERM AUTOHEATNITE AUTOHEATDAY TEMPHOME TEMPGONE TEMPNITE MOISTURE USEMOISTURE NUMH2ONOTNK NUMH2OHTRS H2OTYPE1 FUELH2O WHEATOTH WHEATSIZ WHEATAGE WHEATBKT H2OTYPE2 FUELH2O2 WHEATSIZ2 WHEATAGE2 AIRCOND DNTAC COOLTYPENOAC COOLTYPE DUCTS CENACHP ACOTHERS AGECENAC REPLCCAC ACROOMS USECENAC THERMAINAC PROTHERMAC AUTOCOOLNITE AUTOCOOLDAY TEMPHOMEAC TEMPGONEAC TEMPNITEAC NUMBERAC WWACAGE ESWWAC REPLCWWAC USEWWAC NUMCFAN USECFAN TREESHAD NOTMOIST USENOTMOIST SWIMPOOL POOL FUELPOOL RECBATH FUELTUB LGT12 LGT12EE LGT4 LGT4EE LGT1 LGT1EE NOUTLGTNT LGTOEE NGASLIGHT INSTLCFL SLDDRS DOOR1SUM WINDOWS TYPEGLASS NEWGLASS ADQINSUL INSTLINS AGEINS DRAFTY INSTLWS AGEWS AUDIT AGEAUD USEEL USENG USELP USEFO USEKERO USEWOOD USESOLAR USEOTH ELWARM ELECAUX ELCOOL ELWATER ELFOOD ELOTHER UGWARM UGASAUX UGWATER UGCOOK UGOTH LPWARM LPGAUX LPWATER LPCOOK LPOTHER FOWARM FOILAUX FOWATER FOOTHER KRWARM KEROAUX KRWATER KROTHER WDWARM WOODAUX WDWATER WDOTHUSE SOLWARM SOLARAUX SOLWATER SOLOTHER OTHWARM OTHERAUX OTHWATER OTHCOOK ONSITE ONSITEGRID PELHEAT PELHOTWA PELCOOK PELAC PELLIGHT OTHERWAYEL PGASHEAT PGASHTWA PUGCOOK PUGOTH OTHERWAYNG FOPAY OTHERWAYFO LPGPAY OTHERWAYLPG LPGDELV KERODEL KEROCASH NOCRCASH NKRGALNC WOODLOGS WDSCRAP WDPELLET WDOTHER WOODAMT NUMCORDS KFUELOT HHSEX EMPLOYHH SPOUSE SDESCENT Householder_Race EDUCATION NHSLDMEM HHAGE AGEHHMEMCAT2 AGEHHMEMCAT3 AGEHHMEMCAT4 AGEHHMEMCAT5 AGEHHMEMCAT6 AGEHHMEMCAT7 AGEHHMEMCAT8 AGEHHMEMCAT9 AGEHHMEMCAT10 AGEHHMEMCAT11 AGEHHMEMCAT12 AGEHHMEMCAT13 AGEHHMEMCAT14 HBUSNESS ATHOME TELLWORK TELLDAYS OTHWORK WORKPAY MONEYPY POVERTY100 POVERTY150 HUPROJ RENTHELP TOTSQFT TOTSQFT_EN TOTHSQFT TOTUSQFT TOTCSQFT TOTUCSQFT KWH KWHSPH KWHCOL KWHWTH KWHRFG KWHOTH BTUEL BTUELSPH BTUELCOL BTUELWTH BTUELRFG BTUELOTH DOLLAREL DOLELSPH DOLELCOL DOLELWTH DOLELRFG DOLELOTH CUFEETNG CUFEETNGSPH CUFEETNGWTH CUFEETNGOTH BTUNG BTUNGSPH BTUNGWTH BTUNGOTH DOLLARNG DOLNGSPH DOLNGWTH DOLNGOTH GALLONLP GALLONLPSPH GALLONLPWTH GALLONLPOTH BTULP BTULPSPH BTULPWTH BTULPOTH DOLLARLP DOLLPSPH DOLLPWTH DOLLPOTH GALLONFO GALLONFOSPH GALLONFOWTH GALLONFOOTH BTUFO BTUFOSPH BTUFOWTH BTUFOOTH DOLLARFO DOLFOSPH DOLFOWTH DOLFOOTH GALLONKER GALLONKERSPH GALLONKERWTH GALLONKEROTH BTUKER BTUKERSPH BTUKERWTH BTUKEROTH DOLLARKER DOLKERSPH DOLKERWTH DOLKEROTH BTUWOOD CORDSWD TOTALBTU TOTALBTUSPH TOTALBTUCOL TOTALBTUWTH TOTALBTURFG TOTALBTUOTH TOTALDOL TOTALDOLSPH TOTALDOLCOL TOTALDOLWTH TOTALDOLRFG TOTALDOLOTH</p>
+<p>Putting them all in one place so I can deal with them algorymically.</p>
+<pre class="r"><code># Names2009 just contains the 2009 variable names we want
+Cols2009&lt;-read.table(&quot;Names2009.csv&quot;)</code></pre>
+<p>Now identify those that are clearly TF binary. First look for those with only two codes</p>
+<pre class="r"><code>NumberOfCodes&lt;-apply(All2009[Cols2009$V1],MARGIN=2, FUN=function(x) length(table(x)))
 
-library(plyr)</code></pre>
+
+OnlyTwoCodes&lt;-names(NumberOfCodes[NumberOfCodes==2])
+summary(All2009[OnlyTwoCodes])</code></pre>
+<pre><code>##     ZBASEUSE           ZBASECOOL           ZTIMEON1       
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.000000   Median :0.000000  
+##  Mean   :0.0004138   Mean   :0.001821   Mean   :0.001986  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.000000  
+##    ZCONDCOOP          ZORIG1FAM          ZPCONOFF3        
+##  Min.   :0.000000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.000000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.001159   Mean   :0.002483   Mean   :0.0006621  
+##  3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.000000   Max.   :1.000000   Max.   :1.0000000  
+##    ZAGERFRI1         ZPCONOFF1           ZTVONWE2        
+##  Min.   :0.00000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.00000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.02797   Mean   :0.001986   Mean   :0.0009931  
+##  3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.00000   Max.   :1.000000   Max.   :1.0000000  
+##    ZAGECDRYER        ZDRYRFUEL           ZDRYRUSE        
+##  Min.   :0.00000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.00000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.01308   Mean   :0.003228   Mean   :0.0001655  
+##  3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.00000   Max.   :1.000000   Max.   :1.0000000  
+##     ZTVONWE1           ZPCSLEEP1           ZDEFROST        
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.0007448   Mean   :0.001655   Mean   :0.0005793  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.0000000  
+##     ZPCTYPE2           ZMONITOR3            ZTIMEON3        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0001655   Mean   :0.0001655   Mean   :0.0004138  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZPCTBSTHT             ZCRAWL       ZTVONWEWATCH1     
+##  Min.   :0.0000000   Min.   :0.0000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000   Median :0.000000  
+##  Mean   :0.0002483   Mean   :0.0048   Mean   :0.000331  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000   Max.   :1.000000  
+##     ZANSMACH           ZBATTOOLS            STEREO           MICRO       
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.0000   1st Qu.:1.0000  
+##  Median :0.0000000   Median :0.000000   Median :0.0000   Median :1.0000  
+##  Mean   :0.0001655   Mean   :0.001241   Mean   :0.4313   Mean   :0.9614  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.0000   Max.   :1.0000  
+##    ZPLAYSTA3         ZTVONWEWATCH3           ZNUMPC         
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0004966   Mean   :0.0004966   Mean   :0.0002483  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZLOOKLIKE         ZFINBASERMS          ZNUMAPTS       
+##  Min.   :0.000000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.000000   Median :0.000000   Median :0.000000  
+##  Mean   :0.002152   Mean   :0.001241   Mean   :0.006124  
+##  3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.000000   Max.   :1.000000   Max.   :1.000000  
+##    ZAQUARIUM            ZDVR3          ZCOMBOVCRDVD3     
+##  Min.   :0.00e+00   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.00e+00   Median :0.000000   Median :0.000000  
+##  Mean   :8.28e-05   Mean   :0.001821   Mean   :0.001076  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.00e+00   Max.   :1.000000   Max.   :1.000000  
+##      ZDVD3             ZOTHERSTB3        ZTVONWDWATCH3      
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0007448   Mean   :0.0006621   Mean   :0.0004138  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZCOMPUTER            ZPCTYPE1            ZNUMFLRS        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0001655   Mean   :0.0004138   Mean   :0.0005793  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##     TOPGRILL         ZBASEHEAT          ZWALLTYPE       
+##  Min.   :0.00000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.00000   Median :0.000000   Median :0.000000  
+##  Mean   :0.01357   Mean   :0.001159   Mean   :0.002648  
+##  3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.00000   Max.   :1.000000   Max.   :1.000000  
+##     ZSTEREO             OUTGRILL        ZDIGITSTB3      
+##  Min.   :0.0000000   Min.   :0.0000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :1.0000   Median :0.000000  
+##  Mean   :0.0001655   Mean   :0.6106   Mean   :0.001159  
+##  3rd Qu.:0.0000000   3rd Qu.:1.0000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000   Max.   :1.000000  
+##      ZVCR3            ZTVAUDIOSYS3          ZTVONWD3        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0007448   Mean   :0.0004138   Mean   :0.0009931  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##     ZTVONWE3           ZROOFTYPE          ZTVONWD1        
+##  Min.   :0.0000000   Min.   :0.00000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.00000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.00000   Median :0.0000000  
+##  Mean   :0.0009931   Mean   :0.02648   Mean   :0.0004966  
+##  3rd Qu.:0.0000000   3rd Qu.:0.00000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.00000   Max.   :1.0000000  
+##  ZTVONWDWATCH1       ZOUTGRILLFUEL        ZTOPGRILL       
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.00e+00  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.00e+00  
+##  Median :0.0000000   Median :0.000000   Median :0.00e+00  
+##  Mean   :0.0002483   Mean   :0.000331   Mean   :8.28e-05  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.00e+00  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.00e+00  
+##     ZNUMFRIG           ZBASEHT2            ZTVSIZE1        
+##  Min.   :0.00e+00   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.00e+00   Median :0.0000000   Median :0.0000000  
+##  Mean   :8.28e-05   Mean   :0.0005793   Mean   :0.0005793  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.00e+00   Max.   :1.0000000   Max.   :1.0000000  
+##   ZCONVERSION           COFFEE       ZOCCUPYYRANGE      
+##  Min.   :0.000000   Min.   :0.0000   Min.   :0.0000000  
+##  1st Qu.:0.000000   1st Qu.:0.0000   1st Qu.:0.0000000  
+##  Median :0.000000   Median :1.0000   Median :0.0000000  
+##  Mean   :0.005545   Mean   :0.6348   Mean   :0.0002483  
+##  3rd Qu.:0.000000   3rd Qu.:1.0000   3rd Qu.:0.0000000  
+##  Max.   :1.000000   Max.   :1.0000   Max.   :1.0000000  
+##    ZSTOVEFUEL         ZPCTBSTCL              FAX         
+##  Min.   :0.00e+00   Min.   :0.0000000   Min.   :0.00000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000000   1st Qu.:0.00000  
+##  Median :0.00e+00   Median :0.0000000   Median :0.00000  
+##  Mean   :8.28e-05   Mean   :0.0001655   Mean   :0.09203  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+##  Max.   :1.00e+00   Max.   :1.0000000   Max.   :1.00000  
+##     ZNOCORD           ZAGECWASH          COMPUTER          NOCORD      
+##  Min.   :0.00e+00   Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.00e+00   1st Qu.:0.00000   1st Qu.:1.0000   1st Qu.:0.0000  
+##  Median :0.00e+00   Median :0.00000   Median :1.0000   Median :1.0000  
+##  Mean   :8.28e-05   Mean   :0.01266   Mean   :0.7837   Mean   :0.6338  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :1.00e+00   Max.   :1.00000   Max.   :1.0000   Max.   :1.0000  
+##      ZMICRO           ZKOWNRENT         ZYEARMADERANGE   
+##  Min.   :0.00e+00   Min.   :0.0000000   Min.   :0.00000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000000   1st Qu.:0.00000  
+##  Median :0.00e+00   Median :0.0000000   Median :0.00000  
+##  Mean   :8.28e-05   Mean   :0.0007448   Mean   :0.02532  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+##  Max.   :1.00e+00   Max.   :1.0000000   Max.   :1.00000  
+##     AQUARIUM         ZCONCRETE         ZBASEFIN          ZOVENFUEL        
+##  Min.   :0.00000   Min.   :0.0000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.00000   Median :0.0000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.03815   Mean   :0.0144   Mean   :0.001324   Mean   :0.0002483  
+##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.00000   Max.   :1.0000   Max.   :1.000000   Max.   :1.0000000  
+##   ZTVAUDIOSYS1         ZPLAYSTA1             ZDVR1         
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.0002483   Mean   :0.0004966   Mean   :0.007366  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.000000  
+##      ZVCR1            ZINWIRELESS          SEPFREEZ     
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.0000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.0000  
+##  Median :0.0000000   Median :0.000000   Median :0.0000  
+##  Mean   :0.0004138   Mean   :0.004552   Mean   :0.2969  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:1.0000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.0000  
+##     ZSTOVEN            ZBASECL2           ZTYPEHUQ4      
+##  Min.   :0.00e+00   Min.   :0.0000000   Min.   :0.00000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000000   1st Qu.:0.00000  
+##  Median :0.00e+00   Median :0.0000000   Median :0.00000  
+##  Mean   :8.28e-05   Mean   :0.0004138   Mean   :0.00331  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+##  Max.   :1.00e+00   Max.   :1.0000000   Max.   :1.00000  
+##     ZSTORIES          ZYEARMADE        ZPCSLEEP3        
+##  Min.   :0.00e+00   Min.   :0.0000   Min.   :0.0000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000   1st Qu.:0.0000000  
+##  Median :0.00e+00   Median :0.0000   Median :0.0000000  
+##  Mean   :8.28e-05   Mean   :0.1491   Mean   :0.0004966  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000   3rd Qu.:0.0000000  
+##  Max.   :1.00e+00   Max.   :1.0000   Max.   :1.0000000  
+##    ZOTHERSTB1        ZCOMBOVCRDVD1         ZDIGITSTB1      
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.0006621   Mean   :0.0008276   Mean   :0.004883  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.000000  
+##      ZDVD1               COPIER         ZSWAMPCOL       
+##  Min.   :0.0000000   Min.   :0.0000   Min.   :0.00e+00  
+##  1st Qu.:0.0000000   1st Qu.:0.0000   1st Qu.:0.00e+00  
+##  Median :0.0000000   Median :0.0000   Median :0.00e+00  
+##  Mean   :0.0005793   Mean   :0.0864   Mean   :8.28e-05  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000   3rd Qu.:0.00e+00  
+##  Max.   :1.0000000   Max.   :1.0000   Max.   :1.00e+00  
+##    ZINTERNET           ZCOMBODVR3            ZFAX          
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.0009104   Mean   :0.001324   Mean   :0.0004138  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.0000000  
+##     ZTVTYPE1          ZSIZFREEZ            ZFREEZER       
+##  Min.   :0.000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.005876   Mean   :0.0007448   Mean   :0.002234  
+##  3rd Qu.:0.000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.000000   Max.   :1.0000000   Max.   :1.000000  
+##    ZAGERFRI3           ZUPRTFRZR            ZAGEFRZR       
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.0004966   Mean   :0.0001655   Mean   :0.005379  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.000000  
+##     ZTOASTER           ZMONITOR1             DRYER       
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:1.0000  
+##  Median :0.0000000   Median :0.0000000   Median :1.0000  
+##  Mean   :0.0002483   Mean   :0.0009931   Mean   :0.8048  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:1.0000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000  
+##     ZNUMMEAL          ZFUELFOOD          ZINDIALUP      
+##  Min.   :0.00e+00   Min.   :0.000000   Min.   :0.00000  
+##  1st Qu.:0.00e+00   1st Qu.:0.000000   1st Qu.:0.00000  
+##  Median :0.00e+00   Median :0.000000   Median :0.00000  
+##  Mean   :8.28e-05   Mean   :0.001241   Mean   :0.00389  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.000000   3rd Qu.:0.00000  
+##  Max.   :1.00e+00   Max.   :1.000000   Max.   :1.00000  
+##     ZPCPRINT            ZINSATEL            ZINDSL        
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.000000   Median :0.000000  
+##  Mean   :0.0008276   Mean   :0.005214   Mean   :0.007531  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.000000  
+##     ZINCABLE          ZDIPSTICK           ZWELLPUMP       
+##  Min.   :0.000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.005628   Mean   :0.0002483   Mean   :0.002731  
+##  3rd Qu.:0.000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.000000   Max.   :1.0000000   Max.   :1.000000  
+##     ZCOPIER            ZPCSLEEP2           ZMONITOR2        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0007448   Mean   :0.0002483   Mean   :0.0002483  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##     ZPCTYPE3           ZTIMEON2          ZPCONOFF2       
+##  Min.   :0.00e+00   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.00e+00   Median :0.000000   Median :0.000000  
+##  Mean   :8.28e-05   Mean   :0.001407   Mean   :0.001738  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.00e+00   Max.   :1.000000   Max.   :1.000000  
+##      ZAGEDW          ZFREEZER2           CWASHER         ZSIZRFRI2        
+##  Min.   :0.00000   Min.   :0.00e+00   Min.   :0.0000   Min.   :0.0000000  
+##  1st Qu.:0.00000   1st Qu.:0.00e+00   1st Qu.:1.0000   1st Qu.:0.0000000  
+##  Median :0.00000   Median :0.00e+00   Median :1.0000   Median :0.0000000  
+##  Mean   :0.01539   Mean   :8.28e-05   Mean   :0.8303   Mean   :0.0009104  
+##  3rd Qu.:0.00000   3rd Qu.:0.00e+00   3rd Qu.:1.0000   3rd Qu.:0.0000000  
+##  Max.   :1.00000   Max.   :1.00e+00   Max.   :1.0000   Max.   :1.0000000  
+##    ZTYPERFR1          ZREFRIGT2          ZTYPERFR2       
+##  Min.   :0.00e+00   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.00e+00   Median :0.000000   Median :0.000000  
+##  Mean   :8.28e-05   Mean   :0.002731   Mean   :0.000331  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.00e+00   Max.   :1.000000   Max.   :1.000000  
+##    ZCHRGPLGE            HEATHOME        ZCHRGPLGT        
+##  Min.   :0.0000000   Min.   :0.0000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:1.0000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :1.0000   Median :0.0000000  
+##  Mean   :0.0004138   Mean   :0.9631   Mean   :0.0009931  
+##  3rd Qu.:0.0000000   3rd Qu.:1.0000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000   Max.   :1.0000000  
+##    ZWASHLOAD           ZWASHTEMP          ZREFRIGT1       
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.000000   Median :0.000000  
+##  Mean   :0.0005793   Mean   :0.005048   Mean   :0.007862  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.000000  
+##    ZSIZRFRI1          ZELECCHRG            ZELECDEV        
+##  Min.   :0.000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.003062   Mean   :0.0004138   Mean   :0.0005793  
+##  3rd Qu.:0.000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.000000   Max.   :1.0000000   Max.   :1.0000000  
+##     ZBATCHRG              ZICE              ZOVENCLN      
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.00000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.00000  
+##  Median :0.0000000   Median :0.0000000   Median :0.00000  
+##  Mean   :0.0005793   Mean   :0.0001655   Mean   :0.01498  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.00000  
+##    ZRNSETEMP           ANSMACH          ZTYPECLN          TOASTER      
+##  Min.   :0.000000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  
+##  1st Qu.:0.000000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  
+##  Median :0.000000   Median :0.0000   Median :0.00000   Median :0.0000  
+##  Mean   :0.008276   Mean   :0.4686   Mean   :0.02268   Mean   :0.3699  
+##  3rd Qu.:0.000000   3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:1.0000  
+##  Max.   :1.000000   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000  
+##     ZOVENUSE         UR        ZSTOVENFUEL          ZCOMBODVR1      
+##  Min.   :0.0000000   R:2427   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   U:9656   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000            Median :0.0000000   Median :0.000000  
+##  Mean   :0.0006621            Mean   :0.0006621   Mean   :0.008442  
+##  3rd Qu.:0.0000000            3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000            Max.   :1.0000000   Max.   :1.000000  
+##    ZCABLESAT1          ZAMTMICRO         ZTVONWEWATCH2      
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0005793   Mean   :0.0002483   Mean   :0.0006621  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##     ZTVSIZE3         ZTVONWDWATCH2         ZCABLESAT3       
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0007448   Mean   :0.0005793   Mean   :0.0006621  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##     ZTVONWD2            ZTVTYPE3         ZMONRFRI2       
+##  Min.   :0.0000000   Min.   :0.00000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.00000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.00000   Median :0.000000  
+##  Mean   :0.0009931   Mean   :0.00149   Mean   :0.000331  
+##  3rd Qu.:0.0000000   3rd Qu.:0.00000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.00000   Max.   :1.000000  
+##    ZREFRIGT3           ZAGERFRI2          ZMONRFRI3        
+##  Min.   :0.0000000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.0004138   Mean   :0.004883   Mean   :0.0001655  
+##  3rd Qu.:0.0000000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.000000   Max.   :1.0000000  
+##    ZTYPERFR3        ZSIZEOFGARAGE         ZATTCHEAT       
+##  Min.   :0.00e+00   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.00e+00   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.00e+00   Median :0.0000000   Median :0.000000  
+##  Mean   :8.28e-05   Mean   :0.0007448   Mean   :0.001407  
+##  3rd Qu.:0.00e+00   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.00e+00   Max.   :1.0000000   Max.   :1.000000  
+##      ZATTIC           ZATTCHT2           ZFINATTRMS       
+##  Min.   :0.00000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.00000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.00000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.00389   Mean   :0.0001655   Mean   :0.0009104  
+##  3rd Qu.:0.00000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.00000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZATTICFIN          ZNCOMBATH          ZOTHROOMS        
+##  Min.   :0.000000   Min.   :0.000000   Min.   :0.0000000  
+##  1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.0000000  
+##  Median :0.000000   Median :0.000000   Median :0.0000000  
+##  Mean   :0.003145   Mean   :0.000331   Mean   :0.0009104  
+##  3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.0000000  
+##  Max.   :1.000000   Max.   :1.000000   Max.   :1.0000000  
+##     ZCELLAR            ZNHAFBATH           ZPRKGPLC2        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0008276   Mean   :0.0002483   Mean   :0.0009104  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZGARGCOOL         ZSIZEOFDETACH          ZGARGLOC        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0009104   Mean   :0.0002483   Mean   :0.0007448  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##    ZATTCCOOL          ZPCTATTHT           DISHWASH     
+##  Min.   :0.000000   Min.   :0.00e+00   Min.   :0.0000  
+##  1st Qu.:0.000000   1st Qu.:0.00e+00   1st Qu.:0.0000  
+##  Median :0.000000   Median :0.00e+00   Median :1.0000  
+##  Mean   :0.001407   Mean   :8.28e-05   Mean   :0.6109  
+##  3rd Qu.:0.000000   3rd Qu.:0.00e+00   3rd Qu.:1.0000  
+##  Max.   :1.000000   Max.   :1.00e+00   Max.   :1.0000  
+##    ZGARGHEAT           ZATTICUSE           ZPRKGPLC1       
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.0009931   Mean   :0.0002483   Mean   :0.001159  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.000000  
+##     ZATTCCL2           ZBEDROOMS            ZTVSIZE2        
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0001655   Mean   :0.0002483   Mean   :0.0004966  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000  
+##      ZDVR2             ZTVTYPE2          ZDIGITSTB2      
+##  Min.   :0.000000   Min.   :0.000000   Min.   :0.000000  
+##  1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000  
+##  Median :0.000000   Median :0.000000   Median :0.000000  
+##  Mean   :0.002897   Mean   :0.002152   Mean   :0.002648  
+##  3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+##  Max.   :1.000000   Max.   :1.000000   Max.   :1.000000  
+##    ZCOMBODVR2         ZCABLESAT2          ZPLAYSTA2        
+##  Min.   :0.000000   Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.000000   Median :0.0000000   Median :0.0000000  
+##  Mean   :0.002814   Mean   :0.0005793   Mean   :0.0005793  
+##  3rd Qu.:0.000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.000000   Max.   :1.0000000   Max.   :1.0000000  
+##   ZTVAUDIOSYS2       ZCOMBOVCRDVD2         ZOTHERSTB2      
+##  Min.   :0.0000000   Min.   :0.0000000   Min.   :0.000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.000000  
+##  Median :0.0000000   Median :0.0000000   Median :0.000000  
+##  Mean   :0.0005793   Mean   :0.0006621   Mean   :0.000331  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.000000  
+##  Max.   :1.0000000   Max.   :1.0000000   Max.   :1.000000  
+##      ZDVD2               ZVCR2          
+##  Min.   :0.0000000   Min.   :0.0000000  
+##  1st Qu.:0.0000000   1st Qu.:0.0000000  
+##  Median :0.0000000   Median :0.0000000  
+##  Mean   :0.0004966   Mean   :0.0004966  
+##  3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+##  Max.   :1.0000000   Max.   :1.0000000</code></pre>
+<p>Looking throught that list for things that are not TF and deleteing them from the list and recode the remaining ones to TF</p>
+<pre class="r"><code># Only one is UR.  Remove from the list.
+
+OnlyTwoCodes&lt;-OnlyTwoCodes[OnlyTwoCodes!=&quot;UR&quot;]
+
+#UR looks like it is coded
+summary(All2009$UR)</code></pre>
+<pre><code>##    R    U 
+## 2427 9656</code></pre>
+<pre class="r"><code>source(&quot;RECSHelper.R&quot;)</code></pre>
 <pre><code>## 
 ## Attaching package: 'plyr'
 ## 
 ## The following objects are masked from 'package:reshape':
 ## 
 ##     rename, round_any</code></pre>
-<pre class="r"><code>#Region
-summary(All2009$REGIONC)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.000   2.000   3.000   2.628   3.000   4.000</code></pre>
-<pre class="r"><code>table(All2009$REGIONC)</code></pre>
-<pre><code>## 
-##    1    2    3    4 
-## 2266 2843 4090 2884</code></pre>
-<pre class="r"><code>All2009$REGIONC&lt;-revalue(as.factor(All2009$REGIONC),c(&quot;1&quot;=&quot;NE&quot;, &quot;2&quot;=&quot;MidWest&quot;,&quot;3&quot;=&quot;South&quot;,&quot;4&quot;=&quot;West&quot;))
+<pre class="r"><code>All2009[OnlyTwoCodes]&lt;-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice=&quot;KEEP&quot;))
 
-#All2009$REGIONC[1:20]
-All2009[1:2,1:10]</code></pre>
-<pre><code>##   DOEID REGIONC DIVISION REPORTABLE_DOMAIN TYPEHUQ  NWEIGHT HDD65 CDD65
-## 1     1 MidWest        4                12       2 2471.680  4742  1080
-## 2     2    West       10                26       2 8599.172  2662   199
-##   HDD30YR CDD30YR
-## 1    4953    1271
-## 2    2688     143</code></pre>
-<pre class="r"><code>#Bedrooms
-summary(All2009$BEDROOMS)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  -2.000   2.000   3.000   2.773   3.000  13.000</code></pre>
-<pre class="r"><code>All2009$BEDROOMS[All2009$BEDROOMS==-2]&lt;-NA
-All2009$BEDROOMS[All2009$BEDROOMS==-2]</code></pre>
-<pre><code>##   [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-##  [24] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-##  [47] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-##  [70] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-##  [93] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-## [116] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-## [139] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-## [162] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-## [185] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
-## [208] NA NA NA NA NA NA NA NA</code></pre>
-<p>DOEID REGIONC DIVISION REPORTABLE_DOMAIN TYPEHUQ NWEIGHT HDD65 CDD65 Climate_Region_Pub AIA_Zone METROMICRO UR KOWNRENT CONDCOOP YEARMADE YEARMADERANGE OCCUPYYRANGE CONVERSION ORIG1FAM LOOKLIKE NUMFLRS NUMAPTS NAPTFLRS STORIES TYPEHUQ4 BEDROOMS NCOMBATH NHAFBATH OTHROOMS TOTROOMS STOVEN STOVENFUEL STOVE STOVEFUEL OVEN OVENFUEL OVENUSE MICRO AMTMICRO OUTGRILL OUTGRILLFUEL TOASTER NUMMEAL FUELFOOD NUMFRIG TYPERFR1 SIZRFRI1 REFRIGT1 ICE AGERFRI1 ESFRIG REPLCFRI TYPERFR2 SIZRFRI2 MONRFRI2 AGERFRI2 SEPFREEZ NUMFREEZ UPRTFRZR SIZFREEZ REPLCFRZ UPRTFRZR2 SIZFREEZ2 AGEFRZR2 DISHWASH DWASHUSE AGEDW ESDISHW REPLCDW CWASHER TOPFRONT WASHLOAD WASHTEMP RNSETEMP AGECWASH ESCWASH DRYER DRYRFUEL DRYRUSE AGECDRYER TVCOLOR TVSIZE1 TVTYPE1 CABLESAT1 COMBODVR1 DVR1 DIGITSTB1 PLAYSTA1 COMBOVCRDVD1 VCR1 DVD1 TVAUDIOSYS1 OTHERSTB1 TVONWD1 TVONWDWATCH1 TVONWE1 TVONWEWATCH1 TVSIZE2 TVTYPE2 CABLESAT2 COMBODVR2 DVR2 DIGITSTB2 PLAYSTA2 COMBOVCRDVD2 VCR2 DVD2 TVAUDIOSYS2 OTHERSTB2 TVONWD2 TVONWDWATCH2 TVONWE2 TVONWEWATCH2 COMPUTER NUMPC PCTYPE1 MONITOR1 TIMEON1 PCONOFF1 PCSLEEP1 PCTYPE2 MONITOR2 TIMEON2 PCONOFF2 PCSLEEP2 INTERNET INDIALUP INDSL INCABLE INSATEL INWIRELESS WELLPUMP DIPSTICK SWAMPCOL AQUARIUM BATTOOLS BATCHRG CHRGPLGT ELECDEV ELECCHRG CHRGPLGE HEATHOME DNTHEAT EQUIPNOHEAT FUELNOHEAT EQUIPM FUELHEAT EQUIPAGE REPLCHT HEATOTH EQUIPAUX REVERSE WARMAIR FURNFUEL STEAMR RADFUEL PERMELEC PIPELESS PIPEFUEL ROOMHEAT RMHTFUEL WOODKILN HSFUEL CARRYEL CARRYKER CHIMNEY FPFUEL RANGE RNGFUEL DIFEQUIP DIFFUEL EQMAMT HEATROOM THERMAIN NUMTHERM PROTHERM AUTOHEATNITE AUTOHEATDAY TEMPHOME TEMPGONE TEMPNITE MOISTURE USEMOISTURE NUMH2ONOTNK NUMH2OHTRS H2OTYPE1 FUELH2O WHEATOTH WHEATSIZ WHEATAGE WHEATBKT H2OTYPE2 FUELH2O2 WHEATSIZ2 WHEATAGE2 AIRCOND DNTAC COOLTYPENOAC COOLTYPE DUCTS CENACHP ACOTHERS AGECENAC REPLCCAC ACROOMS USECENAC THERMAINAC PROTHERMAC AUTOCOOLNITE AUTOCOOLDAY TEMPHOMEAC TEMPGONEAC TEMPNITEAC NUMBERAC WWACAGE ESWWAC REPLCWWAC USEWWAC NUMCFAN USECFAN TREESHAD NOTMOIST USENOTMOIST SWIMPOOL POOL FUELPOOL RECBATH FUELTUB LGT12 LGT12EE LGT4 LGT4EE LGT1 LGT1EE NOUTLGTNT LGTOEE NGASLIGHT INSTLCFL SLDDRS DOOR1SUM WINDOWS TYPEGLASS NEWGLASS ADQINSUL INSTLINS AGEINS DRAFTY INSTLWS AGEWS AUDIT AGEAUD USEEL USENG USELP USEFO USEKERO USEWOOD USESOLAR USEOTH ELWARM ELECAUX ELCOOL ELWATER ELFOOD ELOTHER UGWARM UGASAUX UGWATER UGCOOK UGOTH LPWARM LPGAUX LPWATER LPCOOK LPOTHER FOWARM FOILAUX FOWATER FOOTHER KRWARM KEROAUX KRWATER KROTHER WDWARM WOODAUX WDWATER WDOTHUSE SOLWARM SOLARAUX SOLWATER SOLOTHER OTHWARM OTHERAUX OTHWATER OTHCOOK ONSITE ONSITEGRID PELHEAT PELHOTWA PELCOOK PELAC PELLIGHT OTHERWAYEL PGASHEAT PGASHTWA PUGCOOK PUGOTH OTHERWAYNG FOPAY OTHERWAYFO LPGPAY OTHERWAYLPG LPGDELV KERODEL KEROCASH NOCRCASH NKRGALNC WOODLOGS WDSCRAP WDPELLET WDOTHER WOODAMT NUMCORDS KFUELOT HHSEX EMPLOYHH SPOUSE SDESCENT Householder_Race EDUCATION NHSLDMEM HHAGE AGEHHMEMCAT2 AGEHHMEMCAT3 AGEHHMEMCAT4 AGEHHMEMCAT5 AGEHHMEMCAT6 AGEHHMEMCAT7 AGEHHMEMCAT8 AGEHHMEMCAT9 AGEHHMEMCAT10 AGEHHMEMCAT11 AGEHHMEMCAT12 AGEHHMEMCAT13 AGEHHMEMCAT14 HBUSNESS ATHOME TELLWORK TELLDAYS OTHWORK WORKPAY MONEYPY POVERTY100 POVERTY150 HUPROJ RENTHELP TOTSQFT TOTSQFT_EN TOTHSQFT TOTUSQFT TOTCSQFT TOTUCSQFT KWH KWHSPH KWHCOL KWHWTH KWHRFG KWHOTH BTUEL BTUELSPH BTUELCOL BTUELWTH BTUELRFG BTUELOTH DOLLAREL DOLELSPH DOLELCOL DOLELWTH DOLELRFG DOLELOTH CUFEETNG CUFEETNGSPH CUFEETNGWTH CUFEETNGOTH BTUNG BTUNGSPH BTUNGWTH BTUNGOTH DOLLARNG DOLNGSPH DOLNGWTH DOLNGOTH GALLONLP GALLONLPSPH GALLONLPWTH GALLONLPOTH BTULP BTULPSPH BTULPWTH BTULPOTH DOLLARLP DOLLPSPH DOLLPWTH DOLLPOTH GALLONFO GALLONFOSPH GALLONFOWTH GALLONFOOTH BTUFO BTUFOSPH BTUFOWTH BTUFOOTH DOLLARFO DOLFOSPH DOLFOWTH DOLFOOTH GALLONKER GALLONKERSPH GALLONKERWTH GALLONKEROTH BTUKER BTUKERSPH BTUKERWTH BTUKEROTH DOLLARKER DOLKERSPH DOLKERWTH DOLKEROTH BTUWOOD CORDSWD TOTALBTU TOTALBTUSPH TOTALBTUCOL TOTALBTUWTH TOTALBTURFG TOTALBTUOTH TOTALDOL TOTALDOLSPH TOTALDOLCOL TOTALDOLWTH TOTALDOLRFG TOTALDOLOTH</p>
+summary(All2009[OnlyTwoCodes])</code></pre>
+<pre><code>##   ZBASEUSE       ZBASECOOL        ZTIMEON1       ZCONDCOOP      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12078     FALSE:12061     FALSE:12059     FALSE:12069    
+##  TRUE :5         TRUE :22        TRUE :24        TRUE :14       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZORIG1FAM       ZPCONOFF3       ZAGERFRI1       ZPCONOFF1      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12053     FALSE:12075     FALSE:11745     FALSE:12059    
+##  TRUE :30        TRUE :8         TRUE :338       TRUE :24       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZTVONWE2       ZAGECDRYER      ZDRYRFUEL        ZDRYRUSE      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12071     FALSE:11925     FALSE:12044     FALSE:12081    
+##  TRUE :12        TRUE :158       TRUE :39        TRUE :2        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZTVONWE1       ZPCSLEEP1        ZDEFROST        ZPCTYPE2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12074     FALSE:12063     FALSE:12076     FALSE:12081    
+##  TRUE :9         TRUE :20        TRUE :7         TRUE :2        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZMONITOR3        ZTIMEON3       ZPCTBSTHT         ZCRAWL       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12081     FALSE:12078     FALSE:12080     FALSE:12025    
+##  TRUE :2         TRUE :5         TRUE :3         TRUE :58       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTVONWEWATCH1    ZANSMACH       ZBATTOOLS         STEREO       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12079     FALSE:12081     FALSE:12068     FALSE:6871     
+##  TRUE :4         TRUE :2         TRUE :15        TRUE :5212     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    MICRO         ZPLAYSTA3       ZTVONWEWATCH3     ZNUMPC       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:467       FALSE:12077     FALSE:12077     FALSE:12080    
+##  TRUE :11616     TRUE :6         TRUE :6         TRUE :3        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZLOOKLIKE       ZFINBASERMS      ZNUMAPTS       ZAQUARIUM      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12057     FALSE:12068     FALSE:12009     FALSE:12082    
+##  TRUE :26        TRUE :15        TRUE :74        TRUE :1        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    ZDVR3         ZCOMBOVCRDVD3     ZDVD3         ZOTHERSTB3     
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12061     FALSE:12070     FALSE:12074     FALSE:12075    
+##  TRUE :22        TRUE :13        TRUE :9         TRUE :8        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTVONWDWATCH3   ZCOMPUTER        ZPCTYPE1        ZNUMFLRS      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12078     FALSE:12081     FALSE:12078     FALSE:12076    
+##  TRUE :5         TRUE :2         TRUE :5         TRUE :7        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   TOPGRILL       ZBASEHEAT       ZWALLTYPE        ZSTEREO       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:11919     FALSE:12069     FALSE:12051     FALSE:12081    
+##  TRUE :164       TRUE :14        TRUE :32        TRUE :2        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   OUTGRILL       ZDIGITSTB3        ZVCR3         ZTVAUDIOSYS3   
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:4705      FALSE:12069     FALSE:12074     FALSE:12078    
+##  TRUE :7378      TRUE :14        TRUE :9         TRUE :5        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZTVONWD3        ZTVONWE3       ZROOFTYPE        ZTVONWD1      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12071     FALSE:12071     FALSE:11763     FALSE:12077    
+##  TRUE :12        TRUE :12        TRUE :320       TRUE :6        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTVONWDWATCH1   ZOUTGRILLFUEL   ZTOPGRILL        ZNUMFRIG      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12079     FALSE:12082     FALSE:12082    
+##  TRUE :3         TRUE :4         TRUE :1         TRUE :1        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZBASEHT2        ZTVSIZE1       ZCONVERSION       COFFEE       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12076     FALSE:12076     FALSE:12016     FALSE:4413     
+##  TRUE :7         TRUE :7         TRUE :67        TRUE :7670     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZOCCUPYYRANGE   ZSTOVEFUEL      ZPCTBSTCL          FAX         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12082     FALSE:12081     FALSE:10971    
+##  TRUE :3         TRUE :1         TRUE :2         TRUE :1112     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZNOCORD        ZAGECWASH        COMPUTER         NOCORD       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12082     FALSE:11930     FALSE:2614      FALSE:4425     
+##  TRUE :1         TRUE :153       TRUE :9469      TRUE :7658     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    ZMICRO        ZKOWNRENT       ZYEARMADERANGE   AQUARIUM      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12082     FALSE:12074     FALSE:11777     FALSE:11622    
+##  TRUE :1         TRUE :9         TRUE :306       TRUE :461      
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZCONCRETE        ZBASEFIN       ZOVENFUEL       ZTVAUDIOSYS1   
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:11909     FALSE:12067     FALSE:12080     FALSE:12080    
+##  TRUE :174       TRUE :16        TRUE :3         TRUE :3        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZPLAYSTA1         ZDVR1           ZVCR1         ZINWIRELESS    
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12077     FALSE:11994     FALSE:12078     FALSE:12028    
+##  TRUE :6         TRUE :89        TRUE :5         TRUE :55       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   SEPFREEZ        ZSTOVEN         ZBASECL2       ZTYPEHUQ4      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:8496      FALSE:12082     FALSE:12078     FALSE:12043    
+##  TRUE :3587      TRUE :1         TRUE :5         TRUE :40       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZSTORIES       ZYEARMADE       ZPCSLEEP3       ZOTHERSTB1     
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12082     FALSE:10281     FALSE:12077     FALSE:12075    
+##  TRUE :1         TRUE :1802      TRUE :6         TRUE :8        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZCOMBOVCRDVD1   ZDIGITSTB1        ZDVD1           COPIER       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12073     FALSE:12024     FALSE:12076     FALSE:11039    
+##  TRUE :10        TRUE :59        TRUE :7         TRUE :1044     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZSWAMPCOL       ZINTERNET       ZCOMBODVR3         ZFAX        
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12082     FALSE:12072     FALSE:12067     FALSE:12078    
+##  TRUE :1         TRUE :11        TRUE :16        TRUE :5        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZTVTYPE1       ZSIZFREEZ        ZFREEZER       ZAGERFRI3      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12012     FALSE:12074     FALSE:12056     FALSE:12077    
+##  TRUE :71        TRUE :9         TRUE :27        TRUE :6        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZUPRTFRZR        ZAGEFRZR        ZTOASTER       ZMONITOR1      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12081     FALSE:12018     FALSE:12080     FALSE:12071    
+##  TRUE :2         TRUE :65        TRUE :3         TRUE :12       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    DRYER          ZNUMMEAL       ZFUELFOOD       ZINDIALUP      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:2359      FALSE:12082     FALSE:12068     FALSE:12036    
+##  TRUE :9724      TRUE :1         TRUE :15        TRUE :47       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZPCPRINT        ZINSATEL         ZINDSL         ZINCABLE      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12073     FALSE:12020     FALSE:11992     FALSE:12015    
+##  TRUE :10        TRUE :63        TRUE :91        TRUE :68       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZDIPSTICK       ZWELLPUMP        ZCOPIER        ZPCSLEEP2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12050     FALSE:12074     FALSE:12080    
+##  TRUE :3         TRUE :33        TRUE :9         TRUE :3        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZMONITOR2        ZPCTYPE3        ZTIMEON2       ZPCONOFF2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12082     FALSE:12066     FALSE:12062    
+##  TRUE :3         TRUE :1         TRUE :17        TRUE :21       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    ZAGEDW        ZFREEZER2        CWASHER        ZSIZRFRI2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:11897     FALSE:12082     FALSE:2050      FALSE:12072    
+##  TRUE :186       TRUE :1         TRUE :10033     TRUE :11       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTYPERFR1       ZREFRIGT2       ZTYPERFR2       ZCHRGPLGE      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12082     FALSE:12050     FALSE:12079     FALSE:12078    
+##  TRUE :1         TRUE :33        TRUE :4         TRUE :5        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   HEATHOME       ZCHRGPLGT       ZWASHLOAD       ZWASHTEMP      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:446       FALSE:12071     FALSE:12076     FALSE:12022    
+##  TRUE :11637     TRUE :12        TRUE :7         TRUE :61       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZREFRIGT1       ZSIZRFRI1       ZELECCHRG        ZELECDEV      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:11988     FALSE:12046     FALSE:12078     FALSE:12076    
+##  TRUE :95        TRUE :37        TRUE :5         TRUE :7        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZBATCHRG          ZICE          ZOVENCLN       ZRNSETEMP      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12076     FALSE:12081     FALSE:11902     FALSE:11983    
+##  TRUE :7         TRUE :2         TRUE :181       TRUE :100      
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ANSMACH         ZTYPECLN        TOASTER         ZOVENUSE      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:6421      FALSE:11809     FALSE:7613      FALSE:12075    
+##  TRUE :5662      TRUE :274       TRUE :4470      TRUE :8        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZSTOVENFUEL     ZCOMBODVR1      ZCABLESAT1      ZAMTMICRO      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12075     FALSE:11981     FALSE:12076     FALSE:12080    
+##  TRUE :8         TRUE :102       TRUE :7         TRUE :3        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTVONWEWATCH2    ZTVSIZE3       ZTVONWDWATCH2   ZCABLESAT3     
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12075     FALSE:12074     FALSE:12076     FALSE:12075    
+##  TRUE :8         TRUE :9         TRUE :7         TRUE :8        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZTVONWD2        ZTVTYPE3       ZMONRFRI2       ZREFRIGT3      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12071     FALSE:12065     FALSE:12079     FALSE:12078    
+##  TRUE :12        TRUE :18        TRUE :4         TRUE :5        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZAGERFRI2       ZMONRFRI3       ZTYPERFR3       ZSIZEOFGARAGE  
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12024     FALSE:12081     FALSE:12082     FALSE:12074    
+##  TRUE :59        TRUE :2         TRUE :1         TRUE :9        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZATTCHEAT         ZATTIC         ZATTCHT2       ZFINATTRMS     
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12066     FALSE:12036     FALSE:12081     FALSE:12072    
+##  TRUE :17        TRUE :47        TRUE :2         TRUE :11       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZATTICFIN       ZNCOMBATH       ZOTHROOMS        ZCELLAR       
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12045     FALSE:12079     FALSE:12072     FALSE:12073    
+##  TRUE :38        TRUE :4         TRUE :11        TRUE :10       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZNHAFBATH       ZPRKGPLC2       ZGARGCOOL       ZSIZEOFDETACH  
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12072     FALSE:12072     FALSE:12080    
+##  TRUE :3         TRUE :11        TRUE :11        TRUE :3        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##   ZGARGLOC       ZATTCCOOL       ZPCTATTHT        DISHWASH      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12074     FALSE:12066     FALSE:12082     FALSE:4701     
+##  TRUE :9         TRUE :17        TRUE :1         TRUE :7382     
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZGARGHEAT       ZATTICUSE       ZPRKGPLC1        ZATTCCL2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12071     FALSE:12080     FALSE:12069     FALSE:12081    
+##  TRUE :12        TRUE :3         TRUE :14        TRUE :2        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZBEDROOMS        ZTVSIZE2         ZDVR2          ZTVTYPE2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12080     FALSE:12077     FALSE:12048     FALSE:12057    
+##  TRUE :3         TRUE :6         TRUE :35        TRUE :26       
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZDIGITSTB2      ZCOMBODVR2      ZCABLESAT2      ZPLAYSTA2      
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12051     FALSE:12049     FALSE:12076     FALSE:12076    
+##  TRUE :32        TRUE :34        TRUE :7         TRUE :7        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##  ZTVAUDIOSYS2    ZCOMBOVCRDVD2   ZOTHERSTB2        ZDVD2        
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:12076     FALSE:12075     FALSE:12079     FALSE:12077    
+##  TRUE :7         TRUE :8         TRUE :4         TRUE :6        
+##  NA's :0         NA's :0         NA's :0         NA's :0        
+##    ZVCR2        
+##  Mode :logical  
+##  FALSE:12077    
+##  TRUE :6        
+##  NA's :0</code></pre>
+<p>Fixed all those in one fell swoop.</p>
+<p>Lets check the ones with three potential codes</p>
+<pre class="r"><code>OnlyThreeCodes&lt;-names(NumberOfCodes[NumberOfCodes==3])
+
+summary(All2009[OnlyThreeCodes])</code></pre>
+<pre><code>##     INDIALUP          WELLPUMP           STUDIO          TOPFRONT      
+##  Min.   :-2.0000   Min.   :-2.0000   Min.   :-2.000   Min.   :-2.0000  
+##  1st Qu.:-2.0000   1st Qu.: 0.0000   1st Qu.:-2.000   1st Qu.: 1.0000  
+##  Median : 0.0000   Median : 0.0000   Median :-2.000   Median : 1.0000  
+##  Mean   :-0.4709   Mean   :-0.3561   Mean   :-1.511   Mean   : 0.6517  
+##  3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.:-2.000   3rd Qu.: 1.0000  
+##  Max.   : 1.0000   Max.   : 1.0000   Max.   : 1.000   Max.   : 2.0000  
+##      STEAMR           COMBODVR2        COMBOVCRDVD1       COMBODVR1       
+##  Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.0000   Min.   :-2.00000  
+##  1st Qu.: 0.00000   1st Qu.:-2.0000   1st Qu.: 0.0000   1st Qu.: 0.00000  
+##  Median : 0.00000   Median : 0.0000   Median : 0.0000   Median : 0.00000  
+##  Mean   :-0.06894   Mean   :-0.7687   Mean   : 0.2362   Mean   :-0.08797  
+##  3rd Qu.: 0.00000   3rd Qu.: 0.0000   3rd Qu.: 1.0000   3rd Qu.: 1.00000  
+##  Max.   : 1.00000   Max.   : 1.0000   Max.   : 1.0000   Max.   : 1.00000  
+##     BASEFIN         COMBODVR3           DVR3            DVD1        
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.00   Min.   :-2.0000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.00   1st Qu.: 0.0000  
+##  Median :-2.000   Median :-2.000   Median :-2.00   Median : 1.0000  
+##  Mean   :-1.184   Mean   :-1.373   Mean   :-1.15   Mean   : 0.4888  
+##  3rd Qu.: 0.000   3rd Qu.: 0.000   3rd Qu.: 0.00   3rd Qu.: 1.0000  
+##  Max.   : 1.000   Max.   : 1.000   Max.   : 1.00   Max.   : 1.0000  
+##     INTERNET         INWIRELESS            VCR1            INSATEL       
+##  Min.   :-2.0000   Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.0000  
+##  1st Qu.: 0.0000   1st Qu.:-2.00000   1st Qu.: 0.0000   1st Qu.:-2.0000  
+##  Median : 1.0000   Median : 0.00000   Median : 0.0000   Median : 0.0000  
+##  Mean   : 0.3077   Mean   :-0.03567   Mean   : 0.1518   Mean   :-0.4957  
+##  3rd Qu.: 1.0000   3rd Qu.: 1.00000   3rd Qu.: 0.0000   3rd Qu.: 0.0000  
+##  Max.   : 1.0000   Max.   : 1.00000   Max.   : 1.0000   Max.   : 1.0000  
+##     OVENCLN           TYPECLN           PRKGPLC2         PCONOFF1       
+##  Min.   :-2.0000   Min.   :-2.0000   Min.   :-2.000   Min.   :-2.00000  
+##  1st Qu.: 0.0000   1st Qu.:-2.0000   1st Qu.:-2.000   1st Qu.: 0.00000  
+##  Median : 1.0000   Median : 2.0000   Median :-2.000   Median : 0.00000  
+##  Mean   : 0.6128   Mean   : 0.4501   Mean   :-1.117   Mean   : 0.02375  
+##  3rd Qu.: 1.0000   3rd Qu.: 2.0000   3rd Qu.: 0.000   3rd Qu.: 1.00000  
+##  Max.   : 1.0000   Max.   : 2.0000   Max.   : 1.000   Max.   : 1.00000  
+##     DEFROST           PLAYSTA2          PCSLEEP1       COMBOVCRDVD2    
+##  Min.   :-2.0000   Min.   :-2.0000   Min.   :-2.000   Min.   :-2.0000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:-2.000   1st Qu.: 0.0000  
+##  Median : 0.0000   Median : 0.0000   Median :-2.000   Median : 0.0000  
+##  Mean   : 0.3449   Mean   :-0.2986   Mean   :-1.048   Mean   :-0.3251  
+##  3rd Qu.: 1.0000   3rd Qu.: 0.0000   3rd Qu.: 1.000   3rd Qu.: 0.0000  
+##  Max.   : 1.0000   Max.   : 1.0000   Max.   : 1.000   Max.   : 1.0000  
+##       DVD3           DIGITSTB3       COMBOVCRDVD3     TVAUDIOSYS3    
+##  Min.   :-2.0000   Min.   :-2.000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.:-2.0000   1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median :-2.0000   Median :-2.000   Median :-2.000   Median :-2.000  
+##  Mean   :-0.9701   Mean   :-1.034   Mean   :-1.042   Mean   :-1.068  
+##  3rd Qu.: 0.0000   3rd Qu.: 0.000   3rd Qu.: 0.000   3rd Qu.: 0.000  
+##  Max.   : 1.0000   Max.   : 1.000   Max.   : 1.000   Max.   : 1.000  
+##     PLAYSTA3           VCR3           DNTHEAT          TYPEHUQ4   
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.000   Min.   :-2.0  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.0  
+##  Median :-2.000   Median :-2.000   Median :-2.000   Median :-2.0  
+##  Mean   :-1.015   Mean   :-1.039   Mean   :-1.877   Mean   :-1.9  
+##  3rd Qu.: 0.000   3rd Qu.: 0.000   3rd Qu.:-2.000   3rd Qu.:-2.0  
+##  Max.   : 1.000   Max.   : 1.000   Max.   : 2.000   Max.   : 1.0  
+##     CONCRETE            CRAWL            UPRTFRZR         DIPSTICK     
+##  Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.: 0.00000   1st Qu.: 0.0000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median : 0.00000   Median : 0.0000   Median :-2.000   Median :-2.000  
+##  Mean   :-0.02822   Mean   :-0.1886   Mean   :-0.956   Mean   :-1.394  
+##  3rd Qu.: 1.00000   3rd Qu.: 0.0000   3rd Qu.: 1.000   3rd Qu.: 0.000  
+##  Max.   : 1.00000   Max.   : 1.0000   Max.   : 2.000   Max.   : 1.000  
+##     MONITOR1          SWAMPCOL         HEATOTH              PCONOFF3     
+##  Min.   :-2.0000   Min.   :-2.000   Min.   :-2.0000000   Min.   :-2.000  
+##  1st Qu.:-2.0000   1st Qu.:-2.000   1st Qu.: 0.0000000   1st Qu.:-2.000  
+##  Median :-2.0000   Median :-2.000   Median : 0.0000000   Median :-2.000  
+##  Mean   :-0.7836   Mean   :-1.155   Mean   :-0.0008276   Mean   :-1.602  
+##  3rd Qu.: 1.0000   3rd Qu.: 0.000   3rd Qu.: 0.0000000   3rd Qu.:-2.000  
+##  Max.   : 1.0000   Max.   : 1.000   Max.   : 1.0000000   Max.   : 1.000  
+##     PCONOFF2           CELLAR           OTHERSTB1        
+##  Min.   :-2.0000   Min.   :-2.00000   Min.   :-2.000000  
+##  1st Qu.:-2.0000   1st Qu.: 0.00000   1st Qu.: 0.000000  
+##  Median :-2.0000   Median : 0.00000   Median : 0.000000  
+##  Mean   :-0.9959   Mean   :-0.08168   Mean   : 0.005048  
+##  3rd Qu.: 1.0000   3rd Qu.: 1.00000   3rd Qu.: 0.000000  
+##  Max.   : 1.0000   Max.   : 1.00000   Max.   : 1.000000  
+##   TVAUDIOSYS1         MAINTHT           INCABLE          PCSLEEP2     
+##  Min.   :-2.0000   Min.   :-2.0000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median : 0.0000   Median : 0.0000   Median : 0.000   Median :-2.000  
+##  Mean   : 0.1655   Mean   : 0.3137   Mean   :-0.183   Mean   :-1.679  
+##  3rd Qu.: 0.0000   3rd Qu.: 1.0000   3rd Qu.: 1.000   3rd Qu.:-2.000  
+##  Max.   : 1.0000   Max.   : 1.0000   Max.   : 1.000   Max.   : 1.000  
+##       DVR1            WARMAIR           DIGITSTB1          PCTYPE2       
+##  Min.   :-2.0000   Min.   :-2.00000   Min.   :-2.0000   Min.   :-2.0000  
+##  1st Qu.:-2.0000   1st Qu.: 0.00000   1st Qu.: 0.0000   1st Qu.:-2.0000  
+##  Median : 0.0000   Median : 0.00000   Median : 0.0000   Median :-2.0000  
+##  Mean   :-0.5565   Mean   :-0.05139   Mean   : 0.2013   Mean   :-0.6606  
+##  3rd Qu.: 0.0000   3rd Qu.: 0.00000   3rd Qu.: 0.0000   3rd Qu.: 1.0000  
+##  Max.   : 1.0000   Max.   : 1.00000   Max.   : 1.0000   Max.   : 2.0000  
+##     FREEZER           PCSLEEP3           ICE            DIGITSTB2      
+##  Min.   :-2.0000   Min.   :-2.000   Min.   :-2.0000   Min.   :-2.0000  
+##  1st Qu.:-2.0000   1st Qu.:-2.000   1st Qu.: 0.0000   1st Qu.: 0.0000  
+##  Median :-2.0000   Median :-2.000   Median : 0.0000   Median : 0.0000  
+##  Mean   :-0.9796   Mean   :-1.893   Mean   : 0.3421   Mean   :-0.3138  
+##  3rd Qu.: 1.0000   3rd Qu.:-2.000   3rd Qu.: 1.0000   3rd Qu.: 0.0000  
+##  Max.   : 2.0000   Max.   : 1.000   Max.   : 1.0000   Max.   : 1.0000  
+##       DVR2           OTHERSTB3           VCR2            PCTYPE1    
+##  Min.   :-2.0000   Min.   :-2.000   Min.   :-2.0000   Min.   :-2.0  
+##  1st Qu.:-2.0000   1st Qu.:-2.000   1st Qu.: 0.0000   1st Qu.: 1.0  
+##  Median : 0.0000   Median :-2.000   Median : 0.0000   Median : 1.0  
+##  Mean   :-0.6075   Mean   :-1.082   Mean   :-0.3344   Mean   : 0.7  
+##  3rd Qu.: 0.0000   3rd Qu.: 0.000   3rd Qu.: 0.0000   3rd Qu.: 2.0  
+##  Max.   : 1.0000   Max.   : 1.000   Max.   : 1.0000   Max.   : 2.0  
+##     PCTYPE3          MONITOR3        OTHERSTB2            DVD2        
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.0000   Min.   :-2.0000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.: 0.0000   1st Qu.: 0.0000  
+##  Median :-2.000   Median :-2.000   Median : 0.0000   Median : 0.0000  
+##  Mean   :-1.478   Mean   :-1.843   Mean   :-0.4185   Mean   :-0.1868  
+##  3rd Qu.:-2.000   3rd Qu.:-2.000   3rd Qu.: 0.0000   3rd Qu.: 0.0000  
+##  Max.   : 2.000   Max.   : 1.000   Max.   : 1.0000   Max.   : 1.0000  
+##   TVAUDIOSYS2        EQUIPAUX          PLAYSTA1          KOWNRENT    
+##  Min.   :-2.000   Min.   :-2.0000   Min.   :-2.0000   Min.   :1.000  
+##  1st Qu.: 0.000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:1.000  
+##  Median : 0.000   Median : 0.0000   Median : 0.0000   Median :1.000  
+##  Mean   :-0.391   Mean   : 0.3029   Mean   : 0.2414   Mean   :1.338  
+##  3rd Qu.: 0.000   3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.:2.000  
+##  Max.   : 1.000   Max.   : 1.0000   Max.   : 1.0000   Max.   :3.000  
+##     CONDCOOP        CONVERSION        ORIG1FAM         LOOKLIKE     
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median :-2.000   Median :-2.000   Median :-2.000   Median :-2.000  
+##  Mean   :-1.801   Mean   :-1.753   Mean   :-1.952   Mean   :-1.956  
+##  3rd Qu.:-2.000   3rd Qu.:-2.000   3rd Qu.:-2.000   3rd Qu.:-2.000  
+##  Max.   : 2.000   Max.   : 2.000   Max.   : 1.000   Max.   : 2.000  
+##  METROMICRO       REVERSE            MONITOR2          INDSL        
+##  METRO:10302   Min.   :-2.00000   Min.   :-2.000   Min.   :-2.0000  
+##  MICRO: 1109   1st Qu.: 0.00000   1st Qu.:-2.000   1st Qu.:-2.0000  
+##  NONE :  672   Median : 0.00000   Median :-2.000   Median : 0.0000  
+##                Mean   :-0.06257   Mean   :-1.596   Mean   :-0.2103  
+##                3rd Qu.: 0.00000   3rd Qu.:-2.000   3rd Qu.: 1.0000  
+##                Max.   : 1.00000   Max.   : 1.000   Max.   : 1.0000  
+##     BASECOOL         BASEHEAT         BASECL2          BASEHT2      
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median :-2.000   Median :-2.000   Median :-2.000   Median :-2.000  
+##  Mean   :-1.255   Mean   :-1.171   Mean   :-1.699   Mean   :-1.419  
+##  3rd Qu.: 0.000   3rd Qu.: 0.000   3rd Qu.:-2.000   3rd Qu.:-2.000  
+##  Max.   : 1.000   Max.   : 1.000   Max.   : 2.000   Max.   : 2.000  
+##     PRKGPLC1           GARGHEAT          STOVE           ATTCCOOL     
+##  Min.   :-2.00000   Min.   :-2.000   Min.   :0.0000   Min.   :-2.000  
+##  1st Qu.: 0.00000   1st Qu.:-2.000   1st Qu.:0.0000   1st Qu.:-2.000  
+##  Median : 0.00000   Median :-2.000   Median :0.0000   Median :-2.000  
+##  Mean   :-0.06306   Mean   :-1.161   Mean   :0.1233   Mean   :-1.488  
+##  3rd Qu.: 1.00000   3rd Qu.: 0.000   3rd Qu.:0.0000   3rd Qu.: 0.000  
+##  Max.   : 1.00000   Max.   : 1.000   Max.   :2.0000   Max.   : 1.000  
+##     ATTCCL2         UPRTFRZR2          ATTIC            ATTICFIN     
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.0000   Min.   :-2.000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.: 0.0000   1st Qu.:-2.000  
+##  Median :-2.000   Median :-2.000   Median : 0.0000   Median :-2.000  
+##  Mean   :-1.976   Mean   :-1.917   Mean   :-0.1554   Mean   :-1.473  
+##  3rd Qu.:-2.000   3rd Qu.:-2.000   3rd Qu.: 1.0000   3rd Qu.: 0.000  
+##  Max.   : 2.000   Max.   : 2.000   Max.   : 1.0000   Max.   : 1.000  
+##     FREEZER2         ATTCHT2          ATTCHEAT         GARGCOOL     
+##  Min.   :-2.000   Min.   :-2.000   Min.   :-2.000   Min.   :-2.000  
+##  1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000   1st Qu.:-2.000  
+##  Median :-2.000   Median :-2.000   Median :-2.000   Median :-2.000  
+##  Mean   :-1.925   Mean   :-1.969   Mean   :-1.486   Mean   :-1.172  
+##  3rd Qu.:-2.000   3rd Qu.:-2.000   3rd Qu.: 0.000   3rd Qu.: 0.000  
+##  Max.   : 2.000   Max.   : 2.000   Max.   : 1.000   Max.   : 1.000</code></pre>
+<p>My hope is to spot those that are TF with missing. Lets refine it so we only have numerical codes with a min of exactly -2 and a max of exactly 1.</p>
+<pre class="r"><code>#Returns true if three codes with max of 1 and min of -2
+FindTFWMissing&lt;-function(x){
+  length(table(x))==3 &amp; max(x)==1 &amp; min(x)==-2
+}
+
+#tests
+# FindTFWMissing(All2009$GARGCOOL)
+# FindTFWMissing(All2009$FREEZER2)</code></pre>
 </div>
 <div id="recs-2005" class="section level1">
 <h1>RECS 2005</h1>
