@@ -518,6 +518,7 @@ Putting them all in one place so I can deal with them algorymically.
 
 # Names2009 just contains the 2009 variable names we want
 Cols2009<-read.table("Names2009.csv")
+Cols2009$Status<-"Uncoded"
 
 ```
 
@@ -539,15 +540,17 @@ OnlyTwoCodes<-OnlyTwoCodes[OnlyTwoCodes!="UR"]
 
 #UR looks like it is coded
 summary(All2009$UR)
+Cols2009$Status[Cols2009$V1=="UR"]<-"Coded"
 
 source("RECSHelper.R")
-
-
 
 All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
 
 summary(All2009[OnlyTwoCodes])
+
+Cols2009[is.element(Cols2009$V1,OnlyTwoCodes),]$Status<-"Coded"
 ```
+
 Fixed all those in one fell swoop.
 
 Lets check the ones with three potential codes
@@ -568,6 +571,7 @@ FindTFWMissing<-function(x){
 #tests
 # FindTFWMissing(All2009$GARGCOOL)
 # FindTFWMissing(All2009$FREEZER2)
+
 
 
 ```
