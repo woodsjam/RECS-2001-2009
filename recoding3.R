@@ -1,13 +1,80 @@
-#May have fixed the problem
-
 recs2009_public <- read.csv("2009/recs2009_public.csv")
-
 
 All2009<-recs2009_public
 
 library(plyr)
 
 library(reshape)
+
+All2009$DOEID<-as.factor(All2009$DOEID)
+
+
+#Region 
+
+
+table(All2009$REGIONC)
+
+All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE","2"="Midwest","3"="South","4"="West"))
+
+summary(All2009$REGIONC)
+
+#Division
+
+summary(All2009$DIVISION)
+
+All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
+
+#Reportable_Domain
+
+summary(All2009$REPORTABLE_DOMAIN)
+
+All2009$REPORTABLE_DOMAIN<-revalue(as.factor(All2009$REPORTABLE_DOMAIN),c("1"="CT.ME.NH.RI.VT","2"="MA","3"="NY","4"="NJ","5"="PA","6"="IL","7"="IN.OH","8"="MI","9"="WI","10"="IA.MN.ND.SD","11"="KS.NE","12"="MO","13"="VA","14"="DE.DC.MA.WV","15"="GA","16"="NC.SC","17"="FL","18"="AL.KY.MS","19"="TN","20"="AR.LA.OK","21"="TX","22"="CO","23"="ID.MT.UT.WY","24"="AZ","25"="NV.NM","26"="CA","27"="AK.HI.OR.WA"))
+
+# TYPEHUQ
+
+All2009$TYPEHUQ<-revalue(as.factor(All2009$TYPEHUQ),c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
+
+summary(All2009$TYPEHUQ)
+
+#NWEIGHT (No NA values present)
+
+summary(All2009$NWEIGHT)
+
+summary(is.na(All2009$NWEIGHT))
+
+#HDD65 (NO NA values present)
+
+summary(All2009$HDD65)
+
+summary(is.na(All2009$HDD65))
+
+#CDD65 (No NA values present)
+
+summary(All2009$CDD65)
+
+summary(is.na(All2009$CDD65))
+
+#HDD30YR (min value = 0 ; no '-2' values present)
+
+summary(All2009$HDD30YR)
+
+summary(is.na(All2009$HDD30YR))
+
+#CDD30YR (No NA values present)
+
+summary(All2009$CDD30YR)
+
+summary(is.na(All2009$CDD30YR))
+
+#Climate_Region_Pub
+
+All2009$Climate_Region_Pub<-revalue(as.factor(All2009$Climate_Region_Pub),c("1"=" VeryCold/Cold","2"="Hot.Dry/Mixed.Dry","3"="Hot.Humid","4"="Mixed.Humid","5"="Marine"))
+
+summary(All2009$Climate_Region_Pub)
+
+summary
+
+
 
 #AIA_ZONE issue with revalue producing results
 
@@ -22,14 +89,16 @@ All2009$AIA_ZONE<-revalue(as.factor(All2009$AIA_Zone),
 
 summary(All2009$AIA_Zone)
 
-#METROMICRO (Description seem more complex than response code.
-#Adjustment needed?)
+#METROMICRO (No NA values)
+
+summary(is.na(All2009$METROMICRO))
 
 #UR
 
 All2009$UR<-revalue(as.factor(All2009$UR),c("U"="Urban","R"="Residential"))
 
 summary(All2009$UR)
+
 
 #KOWNRENT
 
@@ -38,7 +107,7 @@ All2009$KOWNRENT<-revalue(as.factor(All2009$KOWNRENT),
 
 summary(All2009$KOWNRENT)
 
-#CONDCOOP (NA = -2) 
+#CONDCOOP  
 
 All2009$CONDCOOP[All2009$CONDCOOP==-2]<- NA
 
@@ -61,11 +130,7 @@ All2009$OCCUPYYRANGE<-revalue(as.factor(All2009$OCCUPYYRANGE),c("1"="PRE1950","2
 
 summary(All2009$OCCUPYYRANGE)
 
-#Conversion - NA still
-
-summary(All2009$CONVERSION)
-
-sum(is.na(All2009$CONVERSION))
+#Conversion
 
 All2009$CONVERSION[All2009$CONVERSION==-2]<-NA
 
@@ -115,5 +180,93 @@ All2009$NUMAPTS<-revalue(as.factor(All2009$NUMAPTS),c("5"="5units","6"="6units",
 
 summary(All2009$NUMAPTS)
 
+#WALLTYPE
 
+All2009$WALLTYPE<-revalue(as.factor(All2009$WALLTYPE),c("1"="Brick","2"="Wood","3"="Siding","4"="Stucco","5"="Composition","6"="Stone","7"="Concrete","8"="Glass","9"="Other"))
 
+summary(All2009$WALLTYPE)
+
+#ROOFTYPE
+
+All2009$ROOFTYPE[All2009$ROOFTYPE==-2]<-NA
+
+All2009$ROOFTYPE<-revalue(as.factor(All2009$ROOFTYPE),c("1"="Ceramic.Clay","2"="WoodShingles.Shakes","3"="Metal","4"="Slate.SyntheticSlate","5"="CompositionShingles","6"="Asphalt","7"="ConcreteTiles","8"="Other"))
+
+summary(All2009$ROOFTYPE)
+
+#STUDIO
+
+All2009$STUDIO[All2009$STUDIO==-2]<-NA
+
+All2009$STUDIO<-revalue(as.factor(All2009$STUDIO),c("0"="NO","1"="YES"))
+
+summary(All2009$STUDIO)
+
+#NAPTFLRS
+
+table(All2009$NAPTFLRS)
+
+All2009$NAPTFLRS[All2009$NAPTFLRS==-2]<-NA
+
+All2009$NAPTFLRS<-revalue(as.factor(All2009$NAPTFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors"))
+
+summary(All2009$NAPTFLRS)
+
+#STORIEs
+
+summary(is.na(All2009$STORIES))
+
+All2009$STORIES[All2009$STORIES==-2]<- NA
+
+All2009$STORIES<-revalue(as.factor(All2009$STORIES),c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType"))
+
+summary(All2009$STORIES)
+
+#TYPEHUQ$ (addition to mobile home)
+
+summary(is.na(All2009$TYPEHUQ4))
+
+All2009$TYPEHUQ4[All2009$TYPEHUQ4==-2]<-NA
+
+All2009$TYPEHUQ4<-revalue(as.factor(All2009$TYPEHUQ4),c("0"="NO","1"="YES"))
+
+#BEDROOMS
+
+table(All2009$BEDROOMS)
+
+All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
+
+All2009$BEDROOMS<-revalue(as.factor(All2009$BEDROOMS),c("0"="NoBedrooms","1"="OneBedroom","2"="TwoBedrooms","3"="ThreeBedrooms","4"="FourBedrooms","5"="FiveBedrooms","6"="SixBedrooms","7"="SevenBedrooms","8"="EightBedrooms","9"="NineBedrooms","13"="ThirteenBedrooms"))
+
+summary(All2009$BEDROOMS)
+
+#NCOMBATH
+
+table(All2009$NCOMBATH)
+
+All2009$NCOMBATH[All2009$NCOMBATH==-2]<-NA
+
+All2009$NCOMBATH<-revalue(as.factor(All2009$NCOMBATH),c("0"="NoFullBath","1"="OneFullBath","2"="TwoFullBath","3"="ThreeFullBath","4"="FourFullBath","5"="FiveFullBath","6"="SixFullBath","7"="SevenFullBath","8"="EightFullBath"))
+
+summary(All2009$NCOMBATH)
+#NHAFBATH
+
+table(All2009$NHAFBATH)
+
+All2009$NHAFBATH<revalue(as.factor(All2009$NHAFBATH),c("0"="NoHalfBath","1"="OneHalfBath","2"="TwoHalfBath","3"="ThreeHalfBath","9"="NineHalfBath"))
+
+summary(All2009$NHAFBATH)
+
+#OTHROOMS
+
+table(All2009$OTHROOMS)
+
+All2009$OTHROOMS<-revalue(as.factor(All2009$OTHROOMS),c("1"="OneOtherRoom","2"="TwoOtherRooms","3"="ThreeOtherRooms","4"="FourOtherRooms","5"="FiveOtherRooms","6"="SixOtherRooms","7"="SevenOtherRooms","8"="EightOtherRooms","9"="NineOtherRomms","10"="TenOtherRooms","11"="ElevenOtherRooms","12"="TwelveOtherRooms","13"="ThriteenOtherRooms","14"="FourteenOtherRooms","17"="SeventeenOtherRooms"))
+
+summary(All2009$OTHROOMS)
+
+#TOTROOMS
+
+table(All2009$TOTROOMS)
+                         
+All2009$TOTROOMS<-revalue(as.factor(All2009$TOTROOMS),c("1"
