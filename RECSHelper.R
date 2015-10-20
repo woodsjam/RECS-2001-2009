@@ -2,6 +2,14 @@
 
 library(plyr)
 
+
+
+MarkCoded<-function(nameCol){
+  Cols2009[Cols2009$V1==nameCol,]$Status<-"Coded"
+  
+}
+
+
 #Convert to TRUE and FALSE with options on NA treatment
 #column is a column in the data frame
 #na.action is either KEEP means to code as NA, TRUE means convert to TRUE, or FALSE means convert to FALSE
@@ -43,6 +51,7 @@ fix.na<-function(column, na.key=-2){
 # column is a datafram
 # key is a c in the format used for revalue
 recode<-function(column, key){
+  #MarkCoded(names(column))
   revalue(as.factor(column),key)
 }
 
@@ -61,5 +70,10 @@ FuelType<-c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="So
 
 # Example
 # summary(recode(All2009$FUELPOOL,FuelType))
+
+
+##
+# Mark one colum as coded
+
 
 
