@@ -93,18 +93,17 @@ summary(All2009$LOOKLIKE)
 
 #NUMFLRS
 
-All2009$NMFLRS[All2009$NUMFLRS==-2] <- NA
+All2009$NUMFLRS[All2009$NUMFLRS==-2] <- NA
 
-All2009$NUMFLRS<-revalue(as.factor(All2009$NUMFLRS),c("1"="1Floor","2"="2Floors"
-                                                       ,"3"="3Floors","4"="4Floors
-                                                       ","5"="5Floors","6"="6Flo
-                                                       ors","7"="7Floors","8"="8
-                                                       Floors","9"="9Floors","10
-                                                       "="10Floor","11"="11Floor
-                                                       s","12"="12Floors","13"=
-                                                        "13Floors","14"="14Floor
-                                                       s","15"="15Floors","20"="
-                                                       20Floors","21"="21Floors"
-                                                       ,"35"="35Floors"))
-
+All2009$NUMFLRS<-revalue(as.factor(All2009$NUMFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors","4"="4Floors","5"="5Floors","6"="6Floors","7"="7Floors","8"="8Floors","9"="9Floors","10"="10Floor","11"="11Floors","12"="12Floors","13"="13Floors","14"="14Floors","15"="15Floors","20"="20Floors","21"="21Floors","35"="35Floors"))
+                                                       
+                                                       
 summary(All2009$NUMFLRS)
+
+#NUMAPTS
+
+table(All2009$NUMAPTS)
+
+All2009$NUMAPTS[All2009$NUMAPTS==-2]<-NA
+
+All2009$NUMAPTS<-revalue(as.factor(All2009$NUMAPTS),c("5"="5units","6"="6unit","7"=""))
