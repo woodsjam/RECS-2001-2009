@@ -565,17 +565,24 @@ My hope is to spot those that are TF with missing.  Lets refine it so we only ha
 ```{r}
 #Returns true if three codes with max of 1 and min of -2
 FindTFWMissing<-function(x){
-  length(table(x))==3 & max(x)==1 & min(x)==-2
+  ret<-FALSE
+  if(length(table(x))==3 & max(x)==1 & min(x)==-2) ret<-TRUE;
+  ret
 }
 
 #tests
-# FindTFWMissing(All2009$GARGCOOL)
-# FindTFWMissing(All2009$FREEZER2)
+FindTFWMissing(All2009$GARGCOOL)
+FindTFWMissing(All2009$FREEZER2)
+FindTFWMissing(All2009$BASEUSE)
+summary(All2009$BASEUSE)
 
+#Broken somehow
+table(apply(data.frame(All2009$GARGCOOL,All2009$FREEZER2,All2009$BASEUSE   ),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+
+table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
 
 
 ```
-
 
 
 # RECS 2005
