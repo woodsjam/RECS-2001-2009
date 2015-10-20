@@ -531,11 +531,15 @@ fix.na<-function(column, na.key=-2){
     column
   }
 
+'''{r}
 
 All2009$DOEID<-as.factor(All2009$DOEID)
 
+'''
+
 
 #Region 
+
 
 
 table(All2009$REGIONC)
@@ -868,6 +872,7 @@ All2009$AMTMICRO[All2009$AMTMICRO==-2]<-NA
 All2009$AMTMICRO<-revalue(as.factor(All2009$AMTMICRO),c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle"))
 
 summary(All2009$AMTMICRO)
+
 
 #OUTGRILL
 
@@ -1222,6 +1227,116 @@ All2009$TVSIZE1[All2009$TVSIZE1==-2]<-NA
 All2009$TVSIZE1<-revalue(as.factor(All2009$TVSIZE1),c("1"="<=20inch","2"="21-26inch","3"=">=37inch"))
 
 summary(All2009$TVSIZE1)
+
+
+```{r}
+
+#TVTYPE1
+
+All2009$TVTYPE1[All2009$TVTYPE1==-2]<-NA
+
+All2009$TVTYPE1<-recode(All2009$TVTYPE1,c("1"="StandardTube","2"="LCD","3"="Plasma","4"="Projection","5"="LED"))
+
+summary(All2009$TVTYPE1)
+
+#CABLESAT1
+
+All2009$CABLESAT1[All2009$CABLESAT1==-2]<-NA
+
+All2009$CABLESAT1<-recode(All2009$CABLESAT1,c("0"="Neither","1"="CableBox","2"="SatelliteBox"))
+
+summary(All2009$CABLESAT1)   
+
+#COMBODVR1
+
+All2009$COMBODVR1[All2009$COMBODVR1==-2]<-NA
+
+All2009$COMBODVR1<-recode(All2009$COMBODVR1,c("0"="NO","1"="YES"))
+
+summary(All2009$COMBODVR1)
+
+#DVR1
+
+All2009$DVR1[All2009$DVR1==-2]<-NA
+
+All2009$DVR1<-recode(All2009$DVR1,c("0"="NO","1"="YES"))
+
+summary(All2009$DVR1)
+
+#DIGITSTB1
+
+All2009$DIGITSTB1[All2009$DIGITSTB1==-2]<-NA
+
+All2009$DIGITSTB1<-recode(All2009$DIGITSTB1,c("0"="NO","1"="YES"))
+
+summary(All2009$DIGITSTB1)
+
+#PLAYSTA1
+
+All2009$PLAYSTA1[All2009$PLAYSTA1==-2]<-NA
+
+All2009$PLAYSTA1<-recode(All2009$PLAYSTA1,c("0"="NO","1"="YES"))
+
+summary(All2009$PLAYSTA1)
+
+#COMBOVCRDVD1
+
+All2009$COMBOVCRDVD1[All2009$COMBOVCRDVD1==-2]<-NA
+
+All2009$COMBOVCRDVD1<-recode(All2009$COMBOVCRDVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$COMBOVCRDVD1)
+
+#VCR1 
+
+All2009$VCR1[All2009$VCR1==-2]<-NA
+
+All2009$VCR1<-recode(All2009$VCR1,c("0"="NO","1"="YES"))
+
+summary(All2009$VCR1)
+
+#DVD1
+
+All2009$DVD1[All2009$DVD1==-2]<-NA
+
+All2009$DVD1<-recode(All2009$DVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$DVD1)
+
+#TVAUDIOSYS1
+
+All2009$TVAUDIOSYS1[All2009$TVAUDIOSYS1==-2]<-NA
+
+All2009$TVAUDIOSYS1<-recode(All2009$TVAUDIOSYS1,c("0"="NO","1"="YES"))
+
+summary(All2009$TVAUDIOSYS1)
+
+#OTHERSTB1
+
+All2009$OTHERSTB1<-recode(All2009$OTHERSTB1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$OTHERSTB1)
+
+#TVONWD1
+
+All2009$TVONWD1<-recode(All2009$TVONWD1,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+
+summary(All2009$TVONWD1)
+
+
+
+
+
+                                                    
+
+```
+
+
+
+
+
+
+
 
 Now identify those that are clearly TF binary.  First look for those with only two codes
 
