@@ -35,8 +35,6 @@ library(stringr)
 #Clean up name space
 rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001','publicuse22001','publicuse32001','publicuse42001','publicuse52001','publicuse62001','publicuse72001','publicuse82001','publicuse92001'))
 
-
-
 ```
 
 # RECS 2009
@@ -519,20 +517,20 @@ TOTALDOLOTH
 Putting them all in one place so I can deal with them algorymically. 
 ```{r}
 
-
 # Names2009 just contains the 2009 variable names we want
 Cols2009<-read.table("Names2009.csv")
 Cols2009$Status<-"Uncoded"
 source("RECSHelper.R")
 ```
 
-
 ```{r}
 
 All2009$DOEID<-as.factor(All2009$DOEID)
-MarkCoded("UR")
+
+
 
 #Region 
+
 
 
 table(All2009$REGIONC)
@@ -540,33 +538,24 @@ table(All2009$REGIONC)
 All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE","2"="Midwest","3"="South","4"="West"))
 
 summary(All2009$REGIONC)
-MarkCoded("REGIONC")
-
 
 #Division
 
-table(All2009$DIVISION)
+summary(All2009$DIVISION)
 
 All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
 
-MarkCoded("DIVISION")
-
-
 #Reportable_Domain
 
-table(All2009$REPORTABLE_DOMAIN)
+summary(All2009$REPORTABLE_DOMAIN)
 
 All2009$REPORTABLE_DOMAIN<-revalue(as.factor(All2009$REPORTABLE_DOMAIN),c("1"="CT.ME.NH.RI.VT","2"="MA","3"="NY","4"="NJ","5"="PA","6"="IL","7"="IN.OH","8"="MI","9"="WI","10"="IA.MN.ND.SD","11"="KS.NE","12"="MO","13"="VA","14"="DE.DC.MA.WV","15"="GA","16"="NC.SC","17"="FL","18"="AL.KY.MS","19"="TN","20"="AR.LA.OK","21"="TX","22"="CO","23"="ID.MT.UT.WY","24"="AZ","25"="NV.NM","26"="CA","27"="AK.HI.OR.WA"))
 
-MarkCoded("REPORTABLE_DOMAIN")
-
 # TYPEHUQ
 
-All2009$TYPEHUQ<-recode(All2009$TYPEHUQ,c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
+All2009$TYPEHUQ<-revalue(as.factor(All2009$TYPEHUQ),c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
 
 summary(All2009$TYPEHUQ)
-
-MarkCoded("TYPEHUQ")
 
 #NWEIGHT (No NA values present)
 
@@ -574,16 +563,11 @@ summary(All2009$NWEIGHT)
 
 summary(is.na(All2009$NWEIGHT))
 
-MarkCoded("NWEIGHT")
-
-
 #HDD65 (NO NA values present)
 
 summary(All2009$HDD65)
 
 summary(is.na(All2009$HDD65))
-
-MarkCoded("HDD65")
 
 #CDD65 (No NA values present)
 
@@ -591,43 +575,62 @@ summary(All2009$CDD65)
 
 summary(is.na(All2009$CDD65))
 
-MarkCoded("CDD65")
+#HDD30YR (min value = 0 ; no '-2' values present)
+
+summary(All2009$HDD30YR)
+
+summary(is.na(All2009$HDD30YR))
+
+#CDD30YR (No NA values present)
+
+summary(All2009$CDD30YR)
+
+summary(is.na(All2009$CDD30YR))
 
 #Climate_Region_Pub
 
-
-All2009$Climate_Region_Pub<-recode(All2009$Climate_Region_Pub,c("1"=" VeryCold/Cold","2"="HotDry/MixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
+All2009$Climate_Region_Pub<-revalue(as.factor(All2009$Climate_Region_Pub),c("1"=" VeryCold/Cold","2"="Hot.Dry/Mixed.Dry","3"="Hot.Humid","4"="Mixed.Humid","5"="Marine"))
 
 summary(All2009$Climate_Region_Pub)
+
+summary
 
 
 
 #AIA_ZONE issue with revalue producing results
 
-All2009$AIA_ZONE<-recode(All2009$AIA_Zone,c("1"="LT2000CDDGT7000HDD","2"="LT2000CDDAnd5500-7000HDD","3"="LT2000CDDAnd4000-5499HDD","4"="LT2000CDDLT4000DD","5"="GT2000CDDLT4000HDD"))
+All2009$AIA_ZONE<-revalue(as.factor(All2009$AIA_Zone),
+                          c("1"="lessthan2000CDD_greaterthan_7000HDD","2"=
+                              "lessthan2000CDD_between5500-7000HDD"
+                            ,"3"="lessthan2000CDD_between4000-5499HDD","4"=
+                              "lessthan2000CDD_lessthan4000DD",
+                            "5"="greaterthan2000CDD_lessthan4000HDD"))
 
-summary(All2009$AIA_ZONE)
+
+
+summary(All2009$AIA_Zone)
 
 #METROMICRO (No NA values)
 
 summary(is.na(All2009$METROMICRO))
 
-MarkCoded("METROMICRO")
-
 #UR
 
-All2009$UR<-recode(All2009$UR,c("U"="Urban","R"="Residential"))
+All2009$UR<-revalue(as.factor(All2009$UR),c("U"="Urban","R"="Residential"))
 
 summary(All2009$UR)
 
+
 #KOWNRENT
 
-All2009$KOWNRENT<-recode(All2009$KOWNRENT,
+All2009$KOWNRENT<-revalue(as.factor(All2009$KOWNRENT),
                           c("1"="Ownded","2"="Rented","3"="Occupied"))
 
 summary(All2009$KOWNRENT)
 
 #CONDCOOP  
+
+All2009$CONDCOOP[All2009$CONDCOOP==-2]<- NA
 
 
 All2009$CONDCOOP<-recode(All2009$CONDCOOP,
@@ -867,6 +870,7 @@ All2009$AMTMICRO[All2009$AMTMICRO==-2]<-NA
 All2009$AMTMICRO<-revalue(as.factor(All2009$AMTMICRO),c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle"))
 
 summary(All2009$AMTMICRO)
+
 
 #OUTGRILL
 
@@ -1221,6 +1225,116 @@ All2009$TVSIZE1[All2009$TVSIZE1==-2]<-NA
 All2009$TVSIZE1<-revalue(as.factor(All2009$TVSIZE1),c("1"="<=20inch","2"="21-26inch","3"=">=37inch"))
 
 summary(All2009$TVSIZE1)
+
+
+```{r}
+
+#TVTYPE1
+
+All2009$TVTYPE1[All2009$TVTYPE1==-2]<-NA
+
+All2009$TVTYPE1<-recode(All2009$TVTYPE1,c("1"="StandardTube","2"="LCD","3"="Plasma","4"="Projection","5"="LED"))
+
+summary(All2009$TVTYPE1)
+
+#CABLESAT1
+
+All2009$CABLESAT1[All2009$CABLESAT1==-2]<-NA
+
+All2009$CABLESAT1<-recode(All2009$CABLESAT1,c("0"="Neither","1"="CableBox","2"="SatelliteBox"))
+
+summary(All2009$CABLESAT1)   
+
+#COMBODVR1
+
+All2009$COMBODVR1[All2009$COMBODVR1==-2]<-NA
+
+All2009$COMBODVR1<-recode(All2009$COMBODVR1,c("0"="NO","1"="YES"))
+
+summary(All2009$COMBODVR1)
+
+#DVR1
+
+All2009$DVR1[All2009$DVR1==-2]<-NA
+
+All2009$DVR1<-recode(All2009$DVR1,c("0"="NO","1"="YES"))
+
+summary(All2009$DVR1)
+
+#DIGITSTB1
+
+All2009$DIGITSTB1[All2009$DIGITSTB1==-2]<-NA
+
+All2009$DIGITSTB1<-recode(All2009$DIGITSTB1,c("0"="NO","1"="YES"))
+
+summary(All2009$DIGITSTB1)
+
+#PLAYSTA1
+
+All2009$PLAYSTA1[All2009$PLAYSTA1==-2]<-NA
+
+All2009$PLAYSTA1<-recode(All2009$PLAYSTA1,c("0"="NO","1"="YES"))
+
+summary(All2009$PLAYSTA1)
+
+#COMBOVCRDVD1
+
+All2009$COMBOVCRDVD1[All2009$COMBOVCRDVD1==-2]<-NA
+
+All2009$COMBOVCRDVD1<-recode(All2009$COMBOVCRDVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$COMBOVCRDVD1)
+
+#VCR1 
+
+All2009$VCR1[All2009$VCR1==-2]<-NA
+
+All2009$VCR1<-recode(All2009$VCR1,c("0"="NO","1"="YES"))
+
+summary(All2009$VCR1)
+
+#DVD1
+
+All2009$DVD1[All2009$DVD1==-2]<-NA
+
+All2009$DVD1<-recode(All2009$DVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$DVD1)
+
+#TVAUDIOSYS1
+
+All2009$TVAUDIOSYS1[All2009$TVAUDIOSYS1==-2]<-NA
+
+All2009$TVAUDIOSYS1<-recode(All2009$TVAUDIOSYS1,c("0"="NO","1"="YES"))
+
+summary(All2009$TVAUDIOSYS1)
+
+#OTHERSTB1
+
+All2009$OTHERSTB1<-recode(All2009$OTHERSTB1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$OTHERSTB1)
+
+#TVONWD1
+
+All2009$TVONWD1<-recode(All2009$TVONWD1,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+
+summary(All2009$TVONWD1)
+
+
+
+
+
+                                                    
+
+```
+
+
+
+
+
+
+
 
 Now identify those that are clearly TF binary.  First look for those with only two codes
 
