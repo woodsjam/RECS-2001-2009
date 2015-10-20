@@ -35,7 +35,7 @@ library(stringr)
 #Clean up name space
 rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001','publicuse22001','publicuse32001','publicuse42001','publicuse52001','publicuse62001','publicuse72001','publicuse82001','publicuse92001'))
 
-source("RECSHelper.R")
+
 
 ```
 
@@ -523,7 +523,7 @@ Putting them all in one place so I can deal with them algorymically.
 # Names2009 just contains the 2009 variable names we want
 Cols2009<-read.table("Names2009.csv")
 Cols2009$Status<-"Uncoded"
-
+source("RECSHelper.R")
 ```
 
 
@@ -634,25 +634,26 @@ All2009$CONDCOOP<-recode(All2009$CONDCOOP,
                           c("1"="Condo","2"="Cooperative","-2"=NA))
 
 summary(All2009$CONDCOOP)
-```
-
-
-
-summary(All2009$CONDCOOP)
 
 #YEARMADE - Numeric years seem applicable, advise if change needed
 
-#YEARMADERANGE
+summary(All2009$YEARMADE)
 
-All2009$YEARMADERANGE<-revalue(as.factor(All2009$YEARMADERANGE),c("1"="PRE1950","2"="1950-59","3"="1960-69","4"="1970-79","5"="1980-89","6"="1990-99","7"="2000-04","8"="2005-09"))
+#YEARMADERANGE
+sys.call(-1)
+All2009$YEARMADERANGE<-recode(All2009$YEARMADERANGE,c("1"="PRE1950","2"="195059","3"="196069","4"="197079","5"="198089","6"="199099","7"="200004","8"="200509"))
 
 summary(All2009$YEARMADERANGE)
 
 #OCCUPYRANGE
 
-All2009$OCCUPYYRANGE<-revalue(as.factor(All2009$OCCUPYYRANGE),c("1"="PRE1950","2"="1950-59","3"="1960-69","4"="1970-79","5"="1980-89","6"="1990-99","7"="2000-04","8"="2005-09"))
+All2009$OCCUPYYRANGE<-recode(All2009$OCCUPYYRANGE,c("1"="PRE1950","2"="195059","3"="196069","4"="197079","5"="198089","6"="199099","7"="200004","8"="200509"))
 
-summary(All2009$OCCUPYYRANGE)
+table(All2009$OCCUPYYRANGE)
+
+```
+
+
 
 #Conversion
 
