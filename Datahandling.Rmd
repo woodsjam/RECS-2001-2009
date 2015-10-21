@@ -34,6 +34,9 @@ All2001<-merge_recurse(list(publicuse102001,publicuse112001,publicuse122001,publ
 library(stringr)
 #Clean up name space
 rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001','publicuse22001','publicuse32001','publicuse42001','publicuse52001','publicuse62001','publicuse72001','publicuse82001','publicuse92001'))
+
+source("RECSHelper.R")
+
 ```
 
 # RECS 2009
@@ -516,27 +519,27 @@ TOTALDOLOTH
 Putting them all in one place so I can deal with them algorymically. 
 ```{r}
 
+
 # Names2009 just contains the 2009 variable names we want
 Cols2009<-read.table("Names2009.csv")
 Cols2009$Status<-"Uncoded"
 
 ```
 
-recode<-function(column, key){
-  revalue(as.factor(column),key)
-}
 
-fix.na<-function(column, na.key=-2){
-    column[column==na.key]<-NA
-    column
-  }
-
+<<<<<<< HEAD
 '''{r}
 
 All2009$DOEID<-as.factor(All2009$DOEID)
 
 '''
 
+=======
+```{r}
+
+All2009$DOEID<-as.factor(All2009$DOEID)
+MarkCoded("UR")
+>>>>>>> 5a0bd0a5e7af60f891e4ae6ae58b9fac1cf9de2a
 
 #Region 
 
@@ -547,24 +550,33 @@ table(All2009$REGIONC)
 All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE","2"="Midwest","3"="South","4"="West"))
 
 summary(All2009$REGIONC)
+MarkCoded("REGIONC")
+
 
 #Division
 
-summary(All2009$DIVISION)
+table(All2009$DIVISION)
 
 All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
 
+MarkCoded("DIVISION")
+
+
 #Reportable_Domain
 
-summary(All2009$REPORTABLE_DOMAIN)
+table(All2009$REPORTABLE_DOMAIN)
 
 All2009$REPORTABLE_DOMAIN<-revalue(as.factor(All2009$REPORTABLE_DOMAIN),c("1"="CT.ME.NH.RI.VT","2"="MA","3"="NY","4"="NJ","5"="PA","6"="IL","7"="IN.OH","8"="MI","9"="WI","10"="IA.MN.ND.SD","11"="KS.NE","12"="MO","13"="VA","14"="DE.DC.MA.WV","15"="GA","16"="NC.SC","17"="FL","18"="AL.KY.MS","19"="TN","20"="AR.LA.OK","21"="TX","22"="CO","23"="ID.MT.UT.WY","24"="AZ","25"="NV.NM","26"="CA","27"="AK.HI.OR.WA"))
 
+MarkCoded("REPORTABLE_DOMAIN")
+
 # TYPEHUQ
 
-All2009$TYPEHUQ<-revalue(as.factor(All2009$TYPEHUQ),c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
+All2009$TYPEHUQ<-recode(All2009$TYPEHUQ,c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
 
 summary(All2009$TYPEHUQ)
+
+MarkCoded("TYPEHUQ")
 
 #NWEIGHT (No NA values present)
 
@@ -572,11 +584,16 @@ summary(All2009$NWEIGHT)
 
 summary(is.na(All2009$NWEIGHT))
 
+MarkCoded("NWEIGHT")
+
+
 #HDD65 (NO NA values present)
 
 summary(All2009$HDD65)
 
 summary(is.na(All2009$HDD65))
+
+MarkCoded("HDD65")
 
 #CDD65 (No NA values present)
 
@@ -584,65 +601,52 @@ summary(All2009$CDD65)
 
 summary(is.na(All2009$CDD65))
 
-#HDD30YR (min value = 0 ; no '-2' values present)
-
-summary(All2009$HDD30YR)
-
-summary(is.na(All2009$HDD30YR))
-
-#CDD30YR (No NA values present)
-
-summary(All2009$CDD30YR)
-
-summary(is.na(All2009$CDD30YR))
+MarkCoded("CDD65")
 
 #Climate_Region_Pub
 
-All2009$Climate_Region_Pub<-revalue(as.factor(All2009$Climate_Region_Pub),c("1"=" VeryCold/Cold","2"="Hot.Dry/Mixed.Dry","3"="Hot.Humid","4"="Mixed.Humid","5"="Marine"))
+
+All2009$Climate_Region_Pub<-recode(All2009$Climate_Region_Pub,c("1"=" VeryCold/Cold","2"="HotDry/MixedDry","3"="HotHumid","4"="MixedHumid","5"="Marine"))
 
 summary(All2009$Climate_Region_Pub)
-
-summary
 
 
 
 #AIA_ZONE issue with revalue producing results
 
-All2009$AIA_ZONE<-revalue(as.factor(All2009$AIA_Zone),
-                          c("1"="lessthan2000CDD_greaterthan_7000HDD","2"=
-                              "lessthan2000CDD_between5500-7000HDD"
-                            ,"3"="lessthan2000CDD_between4000-5499HDD","4"=
-                              "lessthan2000CDD_lessthan4000DD",
-                            "5"="greaterthan2000CDD_lessthan4000HDD"))
+All2009$AIA_ZONE<-recode(All2009$AIA_Zone,c("1"="LT2000CDDGT7000HDD","2"="LT2000CDDAnd5500-7000HDD","3"="LT2000CDDAnd4000-5499HDD","4"="LT2000CDDLT4000DD","5"="GT2000CDDLT4000HDD"))
 
-
-
-summary(All2009$AIA_Zone)
+summary(All2009$AIA_ZONE)
 
 #METROMICRO (No NA values)
 
 summary(is.na(All2009$METROMICRO))
 
+MarkCoded("METROMICRO")
+
 #UR
 
-All2009$UR<-revalue(as.factor(All2009$UR),c("U"="Urban","R"="Residential"))
+All2009$UR<-recode(All2009$UR,c("U"="Urban","R"="Residential"))
 
 summary(All2009$UR)
 
-
 #KOWNRENT
 
-All2009$KOWNRENT<-revalue(as.factor(All2009$KOWNRENT),
+All2009$KOWNRENT<-recode(All2009$KOWNRENT,
                           c("1"="Ownded","2"="Rented","3"="Occupied"))
 
 summary(All2009$KOWNRENT)
 
 #CONDCOOP  
 
-All2009$CONDCOOP[All2009$CONDCOOP==-2]<- NA
 
-All2009$CONDCOOP<-revalue(as.factor(All2009$CONDCOOP),
-                          c("1"="Condo","2"="Cooperative"))
+All2009$CONDCOOP<-recode(All2009$CONDCOOP,
+                          c("1"="Condo","2"="Cooperative","-2"=NA))
+
+summary(All2009$CONDCOOP)
+```
+
+
 
 summary(All2009$CONDCOOP)
 
