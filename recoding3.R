@@ -706,3 +706,6 @@ All2009$TVSIZE1[All2009$TVSIZE1==-2]<-NA
 All2009$TVSIZE1<-revalue(as.factor(All2009$TVSIZE1),c("1"="<=20inch","2"="21-26inch","3"=">=37inch"))
 
 summary(All2009$TVSIZE1)
+
+#TVTYPE
+
