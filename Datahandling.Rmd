@@ -1412,7 +1412,49 @@ All2009$DVD2<-recode(All2009$DVD2,c("0"="NO","1"="YES","-2",NA))
 
 summary(All2009$DVD2)
 
-#
+#TVAUDIOSYS2
+
+All2009$TVAUDIOSYS2<-recode(All2009$TVAUDIOSYS2,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$TVAUDIOSYS2)
+
+#OTHERSTB2
+
+All2009$OTHERSTB2<-recode(All2009$OTHERSTB2,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$OTHERSTB2)
+
+#TVONWD2
+
+All2009$TVONWD2<-recode(All2009$TVONWD2,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+
+summary(All2009$TVONWD2)
+
+#TVONWDWATCH2
+
+All2009$TVONWDWATCH2<-recode(All2009$TVONWDWATCH2,c("0"="None","1"="All","2"="Most","3"="Half","4"="Little","-2"=NA))
+
+summary(All2009$TVONWDWATCH2)
+
+#TVONWE2
+
+All2009$TVONWE2<-recode(All2009$TVONWE2,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+
+summary(All2009$TVONWE2)
+
+#TVONWEWATCH2
+
+All2009$TVONWEWATCH2<-recode(All2009$TVONWEWATCH2,c("0"="None","1"="All","2"="Most","3"="Half","4"="Little","-2"=NA))
+
+summary(All2009$TVONWEWATCH2)
+
+#NUMPC
+
+table(All2009$NUMPC)
+
+All2009$NUMPC<-recode(All2009$NUMPC,c("0"="None","1"="OnePC","2"="TwoPC","3"="ThreePC","4"="FourPC","5"="FivePC","6"="SixPC","7"="SevenPC","8"="EightPC","9"="NinePC","10"="TenPC","15"="FifteenPC"))
+
+summary(All2009$NUMPC)
 
 
 

@@ -51,7 +51,10 @@ fix.na<-function(column, na.key=-2){
 # column is a datafram
 # key is a c in the format used for revalue
 recode<-function(column, key){
-  #MarkCoded(names(column))
+  theFullCol<-as.character(as.list( sys.call(sys.parent()) )[-1])
+  theDollar<-str_locate(theFullCol,"\\$")
+  ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
+  MarkCoded(ColName)
   revalue(as.factor(column),key)
 }
 
