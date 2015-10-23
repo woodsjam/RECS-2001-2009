@@ -748,8 +748,6 @@ summary(All2009$STORIES)
 All2009$TYPEHUQ4<-revalue(as.factor(All2009$TYPEHUQ4),c("0"="NO","1"="YES","-2"=NA))
 
 summary(All2009$TYPEHUQ4)
-```
-
 
 
 #BEDROOMS
@@ -757,10 +755,14 @@ summary(All2009$TYPEHUQ4)
 table(All2009$BEDROOMS)
 
 All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
+# 
+# All2009$BEDROOMS<-revalue(as.factor(All2009$BEDROOMS),c("0"="NoBedrooms","1"="OneBedroom","2"="TwoBedrooms","3"="ThreeBedrooms","4"="FourBedrooms","5"="FiveBedrooms","6"="SixBedrooms","7"="SevenBedrooms","8"="EightBedrooms","9"="NineBedrooms","13"="ThirteenBedrooms"))
 
-All2009$BEDROOMS<-revalue(as.factor(All2009$BEDROOMS),c("0"="NoBedrooms","1"="OneBedroom","2"="TwoBedrooms","3"="ThreeBedrooms","4"="FourBedrooms","5"="FiveBedrooms","6"="SixBedrooms","7"="SevenBedrooms","8"="EightBedrooms","9"="NineBedrooms","13"="ThirteenBedrooms"))
+All2009$BEDROOMS<-as.numeric(All2009$BEDROOMS)
 
 summary(All2009$BEDROOMS)
+MarkCoded("BEDROOMS")
+
 
 #NCOMBATH
 
@@ -768,16 +770,24 @@ table(All2009$NCOMBATH)
 
 All2009$NCOMBATH[All2009$NCOMBATH==-2]<-NA
 
-All2009$NCOMBATH<-revalue(as.factor(All2009$NCOMBATH),c("0"="NoFullBath","1"="OneFullBath","2"="TwoFullBath","3"="ThreeFullBath","4"="FourFullBath","5"="FiveFullBath","6"="SixFullBath","7"="SevenFullBath","8"="EightFullBath"))
+# All2009$NCOMBATH<-revalue(as.factor(All2009$NCOMBATH),c("0"="NoFullBath","1"="OneFullBath","2"="TwoFullBath","3"="ThreeFullBath","4"="FourFullBath","5"="FiveFullBath","6"="SixFullBath","7"="SevenFullBath","8"="EightFullBath"))
 
+All2009$NCOMBATH<-as.numeric(All2009$NCOMBATH)
 summary(All2009$NCOMBATH)
+MarkCoded("NCOMBATH")
+
+
 #NHAFBATH
 
 table(All2009$NHAFBATH)
 
-All2009$NHAFBATH<-revalue(as.factor(All2009$NHAFBATH),c("0"="NoHalfBath","1"="OneHalfBath","2"="TwoHalfBath","3"="ThreeHalfBath","9"="NineHalfBath"))
+# All2009$NHAFBATH<-revalue(as.factor(All2009$NHAFBATH),c("0"="NoHalfBath","1"="OneHalfBath","2"="TwoHalfBath","3"="ThreeHalfBath","9"="NineHalfBath"))
 
+All2009$NHAFBATH<-as.numeric(All2009$NHAFBATH)
 summary(All2009$NHAFBATH)
+
+MarkCoded("NHAFBATH")
+
 
 #OTHROOMS
 
@@ -787,43 +797,46 @@ All2009$OTHROOMS<-revalue(as.factor(All2009$OTHROOMS),c("1"="OneOtherRoom","2"="
 
 summary(All2009$OTHROOMS)
 
+
 #TOTROOMS
 
 table(All2009$TOTROOMS)
                          
-All2009$TOTROOMS<-revalue(as.factor(All2009$TOTROOMS),c("1"="OneRoom","2"="TwoRooms","3"="ThreeRooms","4"="FourRooms","5"="FiveRooms","6"="SixRooms","7"="SevenRooms","8"="EightRooms","9"="NineRooms","10"="TenRooms","11"="ElevenRooms","12"="TwelveRooms","13"="ThirteenRooms","14"="FourteenRooms","15"="FifteenRooms","16"="SixteenRooms","18"="EighteenRooms","19"="NineteenRooms","21"="TwentyOneRooms","23"="TwentyThreeRooms"))
+# All2009$TOTROOMS<-revalue(as.factor(All2009$TOTROOMS),c("1"="OneRoom","2"="TwoRooms","3"="ThreeRooms","4"="FourRooms","5"="FiveRooms","6"="SixRooms","7"="SevenRooms","8"="EightRooms","9"="NineRooms","10"="TenRooms","11"="ElevenRooms","12"="TwelveRooms","13"="ThirteenRooms","14"="FourteenRooms","15"="FifteenRooms","16"="SixteenRooms","18"="EighteenRooms","19"="NineteenRooms","21"="TwentyOneRooms","23"="TwentyThreeRooms"))
+
+All2009$TOTROOMS<-as.numeric(All2009$TOTROOMS)
 
 summary(All2009$TOTROOMS)
+
+MarkCoded("TOTROOMS")
+
 
 #STOVEN (Number of Stoves with oven)
 
 table(All2009$STOVEN)
 
-All2009$STOVEN<-revalue(as.factor(All2009$STOVEN),c("0"="NoStove","1"="1Stove","2"="TwoStoves","3"="ThreeStoves"))
+All2009$STOVEN<-recode(All2009$STOVEN,c("0"="NoStove","1"="1Stove","2"="TwoStoves","3"="ThreeStoves"))
 
 summary(All2009$STOVEN)
 
 #STOVENFUEL (Fuel used by most frequently used stove)
 
-All2009$STOVENFUEL[All2009$STOVENFUEL==-2]<-NA
-
-All2009$STOVENFUEL<-revalue(as.factor(All2009$STOVENFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$STOVENFUEL<-recode(All2009$STOVENFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$STOVENFUEL)
+
 
 #STOVE Number of sepeate cooktops
 
 table(All2009$STOVE)
 
-All2009$STOVE<-revalue(as.factor(All2009$STOVE),c("0"="ZeroCookTops","1"="OneCookTop","2"="TwoCookTops"))
+All2009$STOVE<-recode(All2009$STOVE,c("0"="ZeroCookTops","1"="OneCookTop","2"="TwoCookTops"))
 
 summary(All2009$STOVE)
 
 #STOVEFUEL
 
-All2009$STOVEFUEL[All2009$STOVEFUEL==-2]<-NA
-
-All2009$STOVEFUEL<-revalue(as.factor(All2009$STOVEFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$STOVEFUEL<-recode(All2009$STOVEFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$STOVEFUEL)
 
@@ -831,82 +844,91 @@ summary(All2009$STOVEFUEL)
 
 table(All2009$OVEN)
 
-All2009$OVEN<-revalue(as.factor(All2009$OVEN),c("0"="NoOven","1"="OneOven","2"="TwoOvens","3"="ThreeOvens"))
+All2009$OVEN<-recode(All2009$OVEN,c("0"="NoOven","1"="OneOven","2"="TwoOvens","3"="ThreeOvens"))
 
 summary(All2009$OVEN)
 
 #OVENFUEL 
 
-All2009$OVENFUEL[All2009$OVENFUEL==-2]<-NA
-
-All2009$OVENFUEL<-revalue(as.factor(All2009$OVENFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$OVENFUEL<-recode(All2009$OVENFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$OVENFUEL)
 
+
+
 #OVENUSE
 
-All2009$OVENUSE[All2009$OVENUSE==-2]<-NA
 
-All2009$OVENUSE<-revalue(as.factor(All2009$OVENUSE),c("0"="NotUsed","1"="3Plus/Day","2"="Two/Day","3"="Once/Day","4"="Few/Week","5"="Once/Week","6"="LessThanOnce/Week"))
+All2009$OVENUSE<-recode(All2009$OVENUSE,c("0"="NotUsed","1"="3Plus/Day","2"="Two/Day","3"="Once/Day","4"="Few/Week","5"="Once/Week","6"="LessThanOnce/Week","-2"=NA))
 
 summary(All2009$OVENUSE)
 
 #MICRO (Microwave Used)
 
-All2009$MICRO<-revalue(as.factor(All2009$MICRO),c("0"="NO","1"="YES"))
+All2009$MICRO<-recode(All2009$MICRO,c("0"="NO","1"="YES"))
 
 summary(All2009$MICRO)
 
+
+
 #AMTMICRO
 
-All2009$AMTMICRO[All2009$AMTMICRO==-2]<-NA
-
-All2009$AMTMICRO<-revalue(as.factor(All2009$AMTMICRO),c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle"))
+All2009$AMTMICRO<-recode(All2009$AMTMICRO,c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle","-2"=NA))
 
 summary(All2009$AMTMICRO)
 
-
 #OUTGRILL
 
-All2009$OUTGRILL<-revalue(as.factor(All2009$OUTGRILL),c("0"="NO","1"="YES"))
+All2009$OUTGRILL<-recode(All2009$OUTGRILL,c("0"="NO","1"="YES"))
 
 summary(All2009$OUTGRILL)
 
 #OUTGRILLFUEL
 
-All2009$OUTGRILLFUEL[All2009$OUTGRILLFUEL==-2]<-NA
 
-All2009$OUTGRILLFUEL<-revalue(as.factor(All2009$OUTGRILLFUEL),c("1"="NaturalGas","2"="Propane/LPG","21"="OtherFuel"))
+All2009$OUTGRILLFUEL<-recode(All2009$OUTGRILLFUEL,c("1"="NaturalGas","2"="Propane/LPG","21"="OtherFuel","-2"=NA))
 
 summary(All2009$OUTGRILLFUEL)
 
+
 #TOASTER
 
-All2009$TOASTER<-revalue(as.factor(All2009$TOASTER),c("0"="NO","1"="YES"))
+All2009$TOASTER<-recode(All2009$TOASTER,c("0"="NO","1"="YES"))
 
 summary(All2009$TOASTER)
 
+
+
+
 #NUMMEAL
 
-All2009$NUMMEAL<-revalue(as.factor(All2009$NUMMEAL),c("0"="NeverCooks","1"="ThreePlusTimes/Day","2"="TwoTimes/Day","3"="Once/Day","4"="FewTimes/Week","5"="Once/Week","6"="LessThanOnce/Week"))
+All2009$NUMMEAL<-recode(All2009$NUMMEAL,c("0"="NeverCooks","1"="ThreePlusTimes/Day","2"="TwoTimes/Day","3"="Once/Day","4"="FewTimes/Week","5"="Once/Week","6"="LessThanOnce/Week"))
 
 summary(All2009$NUMMEAL)
 
+
 #FUELFOOD
 
-All2009$FUELFOOD[All2009$FUELFOOD==-2]<-NA
 
-All2009$FUELFOOD<-revalue(as.factor(All2009$FUELFOOD),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$FUELFOOD<-recode(All2009$FUELFOOD,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$FUELFOOD)
+
 
 #NUMFRIG
 
 table(All2009$NUMFRIG)
 
-All2009$NUMFRIG<-revalue(as.factor(All2009$NUMFRIG),c("0"="NoFridege","1"="OneFridge","2"="TwoFridge","3"="ThreeFridge","4"="FourFidge","5"="FiveFridge","6"="SixFridge","7"="SevenFridge"))
+# All2009$NUMFRIG<-revalue(as.factor(All2009$NUMFRIG),c("0"="NoFridege","1"="OneFridge","2"="TwoFridge","3"="ThreeFridge","4"="FourFidge","5"="FiveFridge","6"="SixFridge","7"="SevenFridge"))
 
+All2009$NUMFRIG<-as.numeric(All2009$NUMFRIG)
 summary(All2009$NUMFRIG)
+
+```
+
+
+
+
 
 #TYPERFR1
 
