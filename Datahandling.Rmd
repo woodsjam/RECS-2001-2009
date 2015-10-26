@@ -35,7 +35,7 @@ library(stringr)
 #Clean up name space
 rm(list=c('publicuse102001','publicuse112001','publicuse122001','publicuse2001','publicuse22001','publicuse32001','publicuse42001','publicuse52001','publicuse62001','publicuse72001','publicuse82001','publicuse92001'))
 
-source("RECSHelper.R")
+
 
 ```
 
@@ -523,23 +523,16 @@ Putting them all in one place so I can deal with them algorymically.
 # Names2009 just contains the 2009 variable names we want
 Cols2009<-read.table("Names2009.csv")
 Cols2009$Status<-"Uncoded"
+source("RECSHelper.R")
 
 ```
 
 
-<<<<<<< HEAD
-'''{r}
 
-All2009$DOEID<-as.factor(All2009$DOEID)
-
-'''
-
-=======
 ```{r}
 
 All2009$DOEID<-as.factor(All2009$DOEID)
 MarkCoded("UR")
->>>>>>> 5a0bd0a5e7af60f891e4ae6ae58b9fac1cf9de2a
 
 #Region 
 
@@ -644,75 +637,70 @@ All2009$CONDCOOP<-recode(All2009$CONDCOOP,
                           c("1"="Condo","2"="Cooperative","-2"=NA))
 
 summary(All2009$CONDCOOP)
-```
-
-
-
-summary(All2009$CONDCOOP)
 
 #YEARMADE - Numeric years seem applicable, advise if change needed
+summary(All2009$YEARMADE)
+MarkCoded("YEARMADE")
+
 
 #YEARMADERANGE
 
-All2009$YEARMADERANGE<-revalue(as.factor(All2009$YEARMADERANGE),c("1"="PRE1950","2"="1950-59","3"="1960-69","4"="1970-79","5"="1980-89","6"="1990-99","7"="2000-04","8"="2005-09"))
+All2009$YEARMADERANGE<-recode(All2009$YEARMADERANGE,c("1"="PRE1950","2"="1950To59","3"="1960To69","4"="1970To79","5"="1980To89","6"="1990To99","7"="2000To04","8"="2005To09"))
 
 summary(All2009$YEARMADERANGE)
 
+
 #OCCUPYRANGE
 
-All2009$OCCUPYYRANGE<-revalue(as.factor(All2009$OCCUPYYRANGE),c("1"="PRE1950","2"="1950-59","3"="1960-69","4"="1970-79","5"="1980-89","6"="1990-99","7"="2000-04","8"="2005-09"))
+All2009$OCCUPYYRANGE<-recode(All2009$OCCUPYYRANGE,c("1"="PRE1950","2"="1950To59","3"="1960To69","4"="1970To79","5"="1980To89","6"="1990To99","7"="2000To04","8"="2005To09"))
 
 summary(All2009$OCCUPYYRANGE)
 
 #Conversion
 
-All2009$CONVERSION[All2009$CONVERSION==-2]<-NA
-
-
-All2009$CONVERSION<-revalue(as.factor(All2009$CONVERSION),c("1"="BuiltAsApart","2"="ConverToApart"))
-
-
+All2009$CONVERSION<-recode(All2009$CONVERSION,c("1"="BuiltAsApart","2"="ConverToApart","-2"=NA))
 summary(All2009$CONVERSION)
+
+
 
 #ORIG1FAM
 
-All2009$ORIG1FAM[All2009$ORIG1FAM==-2]<-NA
-
-All2009$ORIG1FAM<-revalue(as.factor(All2009$ORIG1FAM),c("1"="YES","0"="NO"))
+All2009$ORIG1FAM<-recode(All2009$ORIG1FAM,c("1"=TRUE,"0"=FALSE,"-2"=NA))
 
 summary(All2009$ORIG1FAM)
 
 #LOOKLIKE
 
-All2009$LOOKLIKE[All2009$LOOKLIKE==-2]<-NA
 
-All2009$LOOKLIKE<-revalue(as.factor(All2009$LOOKLIKE),c("1"="MoreLikeHouse","2"="MoreLikeApart"))
+All2009$LOOKLIKE<-recode(All2009$LOOKLIKE,c("1"="MoreLikeHouse","2"="MoreLikeApart","-2"=NA))
+
 
 summary(All2009$LOOKLIKE)
 
 #NUMFLRS
 
-All2009$NUMFLRS[All2009$NUMFLRS==-2] <- NA
-
-All2009$NUMFLRS<-revalue(as.factor(All2009$NUMFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors","4"="4Floors","5"="5Floors","6"="6Floors","7"="7Floors","8"="8Floors","9"="9Floors","10"="10Floor","11"="11Floors","12"="12Floors","13"="13Floors","14"="14Floors","15"="15Floors","20"="20Floors","21"="21Floors","35"="35Floors"))
+All2009$NUMFLRS<-recode(All2009$NUMFLRS,c("1"="1Floor","2"="2Floors","3"="3Floors","4"="4Floors","5"="5Floors","6"="6Floors","7"="7Floors","8"="8Floors","9"="9Floors","10"="10Floor","11"="11Floors","12"="12Floors","13"="13Floors","14"="14Floors","15"="15Floors","20"="20Floors","21"="21Floors","35"="35Floors","-2"=NA))
 
 
 summary(All2009$NUMFLRS)
 
+
 #NUMAPTS
 
 table(All2009$NUMAPTS)
-
-All2009$NUMAPTS[All2009$NUMAPTS==-2]<-NA
 
 #NUMAPTS  Every value is accounted for in the table however when I look at the
 #summary there is 9 values labled as 'other'.  I went throught the entire 
 #column and could not find any such values that do not match the code or table.
 #NOTE: The NA values match the '-2' values
 
-All2009$NUMAPTS<-revalue(as.factor(All2009$NUMAPTS),c("5"="5units","6"="6units","7"="7units","8"="8units","9"="9units","10"="10units","11"="11units","12"="12units","13"="13units","14"="14units","15"="15units","16"="16units","17"="17units","18"="18units","19"="19units","20"="20units","21"="21units","22"="22units","23"="23units","24"="24units","25"="25units","26"="26units","27"="27units","28"="28units","30"="30units","31"="31units","32"="32units","33"="33units","34"="34units","35"="35units","36"="36units","37"="37units","39"="39units","40"="40units","41"="41units","42"="42units","43"="43units","44"="44units","45"="45units","46"="46units","47"="47units","48"="48units","49"="49units","50"="50units","51"="51units","52"="52units","53"="53units","54"="54units","55"="55units","56"="56units","57"="57units","58"="58units","59"="59units","60"="60units","63"="63units","64"="64units","65"="65units","66"="66units","68"="68units","70"="70units","72"="72units","75"="75units","76"="76units","80"="80units","81"="81units","84"="84units","86"="86units","88"="88units","90"="90units","95"="95units","96"="96units","99"="99units","100"="100units","102"="102units","105"="105units","108"="108units","110"="110units","112"="112units","115"="115units","116"="116units","118"="118units","120"="120units","123"="123units","125"="125units","126"="126units","130"="130units","133"="133units","135"="135units","140"="140units","141"="141units","145"="145units","150"="150units","155"="155units","160"="160units","168"="168units","170"="170units","175"="175units","178"="178units","180"="180units","187"="187units","192"="192units","199"="199units","200"="200units","313"="313units","316"="316units","322"="322units","365"="365units"))
+# All2009$NUMAPTS<-revalue(as.factor(All2009$NUMAPTS),c("5"="5units","6"="6units","7"="7units","8"="8units","9"="9units","10"="10units","11"="11units","12"="12units","13"="13units","14"="14units","15"="15units","16"="16units","17"="17units","18"="18units","19"="19units","20"="20units","21"="21units","22"="22units","23"="23units","24"="24units","25"="25units","26"="26units","27"="27units","28"="28units","30"="30units","31"="31units","32"="32units","33"="33units","34"="34units","35"="35units","36"="36units","37"="37units","39"="39units","40"="40units","41"="41units","42"="42units","43"="43units","44"="44units","45"="45units","46"="46units","47"="47units","48"="48units","49"="49units","50"="50units","51"="51units","52"="52units","53"="53units","54"="54units","55"="55units","56"="56units","57"="57units","58"="58units","59"="59units","60"="60units","63"="63units","64"="64units","65"="65units","66"="66units","68"="68units","70"="70units","72"="72units","75"="75units","76"="76units","80"="80units","81"="81units","84"="84units","86"="86units","88"="88units","90"="90units","95"="95units","96"="96units","99"="99units","100"="100units","102"="102units","105"="105units","108"="108units","110"="110units","112"="112units","115"="115units","116"="116units","118"="118units","120"="120units","123"="123units","125"="125units","126"="126units","130"="130units","133"="133units","135"="135units","140"="140units","141"="141units","145"="145units","150"="150units","155"="155units","160"="160units","168"="168units","170"="170units","175"="175units","178"="178units","180"="180units","187"="187units","192"="192units","199"="199units","200"="200units","313"="313units","316"="316units","322"="322units","365"="365units"))
 
-summary(All2009$NUMAPTS)
+
+All2009$NUMAPTS[All2009$NUMAPTS==-2]<-NA
+All2009$NUMAPTS<-as.numeric(All2009$NUMAPTS)
+table(All2009$NUMAPTS)
+MarkCoded("NUMAPTS")
 
 #WALLTYPE
 
@@ -720,21 +708,22 @@ All2009$WALLTYPE<-revalue(as.factor(All2009$WALLTYPE),c("1"="Brick","2"="Wood","
 
 summary(All2009$WALLTYPE)
 
-#ROOFTYPE
+# #ROOFTYPE
+# 
+# All2009$ROOFTYPE[All2009$ROOFTYPE==-2]<-NA
+# 
+# All2009$ROOFTYPE<-recode(All2009$ROOFTYPE,c("1"="Ceramic.Clay","2"="WoodShingles.Shakes","3"="Metal","4"="Slate.SyntheticSlate","5"="CompositionShingles","6"="Asphalt","7"="ConcreteTiles","8"="Other","-2"=NA))
+# 
+# summary(All2009$ROOFTYPE)
 
-All2009$ROOFTYPE[All2009$ROOFTYPE==-2]<-NA
 
-All2009$ROOFTYPE<-revalue(as.factor(All2009$ROOFTYPE),c("1"="Ceramic.Clay","2"="WoodShingles.Shakes","3"="Metal","4"="Slate.SyntheticSlate","5"="CompositionShingles","6"="Asphalt","7"="ConcreteTiles","8"="Other"))
-
-summary(All2009$ROOFTYPE)
 
 #STUDIO
 
-All2009$STUDIO[All2009$STUDIO==-2]<-NA
-
-All2009$STUDIO<-revalue(as.factor(All2009$STUDIO),c("0"="NO","1"="YES"))
+All2009$STUDIO<-revalue(as.factor(All2009$STUDIO),c("0"="NO","1"="YES","-2"=NA))
 
 summary(All2009$STUDIO)
+
 
 #NAPTFLRS
 
@@ -742,37 +731,38 @@ table(All2009$NAPTFLRS)
 
 All2009$NAPTFLRS[All2009$NAPTFLRS==-2]<-NA
 
-All2009$NAPTFLRS<-revalue(as.factor(All2009$NAPTFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors"))
+All2009$NAPTFLRS<-revalue(as.factor(All2009$NAPTFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors","-2"=NA))
 
 summary(All2009$NAPTFLRS)
 
 #STORIES
 
-summary(is.na(All2009$STORIES))
 
-All2009$STORIES[All2009$STORIES==-2]<- NA
-
-All2009$STORIES<-revalue(as.factor(All2009$STORIES),c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType"))
+All2009$STORIES<-revalue(as.factor(All2009$STORIES),c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType","-2"=NA))
 
 summary(All2009$STORIES)
 
 #TYPEHUQ$ (addition to mobile home)
 
-summary(is.na(All2009$TYPEHUQ4))
 
-All2009$TYPEHUQ4[All2009$TYPEHUQ4==-2]<-NA
+All2009$TYPEHUQ4<-revalue(as.factor(All2009$TYPEHUQ4),c("0"="NO","1"="YES","-2"=NA))
 
-All2009$TYPEHUQ4<-revalue(as.factor(All2009$TYPEHUQ4),c("0"="NO","1"="YES"))
+summary(All2009$TYPEHUQ4)
+
 
 #BEDROOMS
 
 table(All2009$BEDROOMS)
 
 All2009$BEDROOMS[All2009$BEDROOMS==-2]<-NA
+# 
+# All2009$BEDROOMS<-revalue(as.factor(All2009$BEDROOMS),c("0"="NoBedrooms","1"="OneBedroom","2"="TwoBedrooms","3"="ThreeBedrooms","4"="FourBedrooms","5"="FiveBedrooms","6"="SixBedrooms","7"="SevenBedrooms","8"="EightBedrooms","9"="NineBedrooms","13"="ThirteenBedrooms"))
 
-All2009$BEDROOMS<-revalue(as.factor(All2009$BEDROOMS),c("0"="NoBedrooms","1"="OneBedroom","2"="TwoBedrooms","3"="ThreeBedrooms","4"="FourBedrooms","5"="FiveBedrooms","6"="SixBedrooms","7"="SevenBedrooms","8"="EightBedrooms","9"="NineBedrooms","13"="ThirteenBedrooms"))
+All2009$BEDROOMS<-as.numeric(All2009$BEDROOMS)
 
 summary(All2009$BEDROOMS)
+MarkCoded("BEDROOMS")
+
 
 #NCOMBATH
 
@@ -780,16 +770,24 @@ table(All2009$NCOMBATH)
 
 All2009$NCOMBATH[All2009$NCOMBATH==-2]<-NA
 
-All2009$NCOMBATH<-revalue(as.factor(All2009$NCOMBATH),c("0"="NoFullBath","1"="OneFullBath","2"="TwoFullBath","3"="ThreeFullBath","4"="FourFullBath","5"="FiveFullBath","6"="SixFullBath","7"="SevenFullBath","8"="EightFullBath"))
+# All2009$NCOMBATH<-revalue(as.factor(All2009$NCOMBATH),c("0"="NoFullBath","1"="OneFullBath","2"="TwoFullBath","3"="ThreeFullBath","4"="FourFullBath","5"="FiveFullBath","6"="SixFullBath","7"="SevenFullBath","8"="EightFullBath"))
 
+All2009$NCOMBATH<-as.numeric(All2009$NCOMBATH)
 summary(All2009$NCOMBATH)
+MarkCoded("NCOMBATH")
+
+
 #NHAFBATH
 
 table(All2009$NHAFBATH)
 
-All2009$NHAFBATH<-revalue(as.factor(All2009$NHAFBATH),c("0"="NoHalfBath","1"="OneHalfBath","2"="TwoHalfBath","3"="ThreeHalfBath","9"="NineHalfBath"))
+# All2009$NHAFBATH<-revalue(as.factor(All2009$NHAFBATH),c("0"="NoHalfBath","1"="OneHalfBath","2"="TwoHalfBath","3"="ThreeHalfBath","9"="NineHalfBath"))
 
+All2009$NHAFBATH<-as.numeric(All2009$NHAFBATH)
 summary(All2009$NHAFBATH)
+
+MarkCoded("NHAFBATH")
+
 
 #OTHROOMS
 
@@ -799,43 +797,46 @@ All2009$OTHROOMS<-revalue(as.factor(All2009$OTHROOMS),c("1"="OneOtherRoom","2"="
 
 summary(All2009$OTHROOMS)
 
+
 #TOTROOMS
 
 table(All2009$TOTROOMS)
                          
-All2009$TOTROOMS<-revalue(as.factor(All2009$TOTROOMS),c("1"="OneRoom","2"="TwoRooms","3"="ThreeRooms","4"="FourRooms","5"="FiveRooms","6"="SixRooms","7"="SevenRooms","8"="EightRooms","9"="NineRooms","10"="TenRooms","11"="ElevenRooms","12"="TwelveRooms","13"="ThirteenRooms","14"="FourteenRooms","15"="FifteenRooms","16"="SixteenRooms","18"="EighteenRooms","19"="NineteenRooms","21"="TwentyOneRooms","23"="TwentyThreeRooms"))
+# All2009$TOTROOMS<-revalue(as.factor(All2009$TOTROOMS),c("1"="OneRoom","2"="TwoRooms","3"="ThreeRooms","4"="FourRooms","5"="FiveRooms","6"="SixRooms","7"="SevenRooms","8"="EightRooms","9"="NineRooms","10"="TenRooms","11"="ElevenRooms","12"="TwelveRooms","13"="ThirteenRooms","14"="FourteenRooms","15"="FifteenRooms","16"="SixteenRooms","18"="EighteenRooms","19"="NineteenRooms","21"="TwentyOneRooms","23"="TwentyThreeRooms"))
+
+All2009$TOTROOMS<-as.numeric(All2009$TOTROOMS)
 
 summary(All2009$TOTROOMS)
+
+MarkCoded("TOTROOMS")
+
 
 #STOVEN (Number of Stoves with oven)
 
 table(All2009$STOVEN)
 
-All2009$STOVEN<-revalue(as.factor(All2009$STOVEN),c("0"="NoStove","1"="1Stove","2"="TwoStoves","3"="ThreeStoves"))
+All2009$STOVEN<-recode(All2009$STOVEN,c("0"="NoStove","1"="1Stove","2"="TwoStoves","3"="ThreeStoves"))
 
 summary(All2009$STOVEN)
 
 #STOVENFUEL (Fuel used by most frequently used stove)
 
-All2009$STOVENFUEL[All2009$STOVENFUEL==-2]<-NA
-
-All2009$STOVENFUEL<-revalue(as.factor(All2009$STOVENFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$STOVENFUEL<-recode(All2009$STOVENFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$STOVENFUEL)
+
 
 #STOVE Number of sepeate cooktops
 
 table(All2009$STOVE)
 
-All2009$STOVE<-revalue(as.factor(All2009$STOVE),c("0"="ZeroCookTops","1"="OneCookTop","2"="TwoCookTops"))
+All2009$STOVE<-recode(All2009$STOVE,c("0"="ZeroCookTops","1"="OneCookTop","2"="TwoCookTops"))
 
 summary(All2009$STOVE)
 
 #STOVEFUEL
 
-All2009$STOVEFUEL[All2009$STOVEFUEL==-2]<-NA
-
-All2009$STOVEFUEL<-revalue(as.factor(All2009$STOVEFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$STOVEFUEL<-recode(All2009$STOVEFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$STOVEFUEL)
 
@@ -843,82 +844,91 @@ summary(All2009$STOVEFUEL)
 
 table(All2009$OVEN)
 
-All2009$OVEN<-revalue(as.factor(All2009$OVEN),c("0"="NoOven","1"="OneOven","2"="TwoOvens","3"="ThreeOvens"))
+All2009$OVEN<-recode(All2009$OVEN,c("0"="NoOven","1"="OneOven","2"="TwoOvens","3"="ThreeOvens"))
 
 summary(All2009$OVEN)
 
 #OVENFUEL 
 
-All2009$OVENFUEL[All2009$OVENFUEL==-2]<-NA
-
-All2009$OVENFUEL<-revalue(as.factor(All2009$OVENFUEL),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$OVENFUEL<-recode(All2009$OVENFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$OVENFUEL)
 
+
+
 #OVENUSE
 
-All2009$OVENUSE[All2009$OVENUSE==-2]<-NA
 
-All2009$OVENUSE<-revalue(as.factor(All2009$OVENUSE),c("0"="NotUsed","1"="3Plus/Day","2"="Two/Day","3"="Once/Day","4"="Few/Week","5"="Once/Week","6"="LessThanOnce/Week"))
+All2009$OVENUSE<-recode(All2009$OVENUSE,c("0"="NotUsed","1"="3Plus/Day","2"="Two/Day","3"="Once/Day","4"="Few/Week","5"="Once/Week","6"="LessThanOnce/Week","-2"=NA))
 
 summary(All2009$OVENUSE)
 
 #MICRO (Microwave Used)
 
-All2009$MICRO<-revalue(as.factor(All2009$MICRO),c("0"="NO","1"="YES"))
+All2009$MICRO<-recode(All2009$MICRO,c("0"="NO","1"="YES"))
 
 summary(All2009$MICRO)
 
+
+
 #AMTMICRO
 
-All2009$AMTMICRO[All2009$AMTMICRO==-2]<-NA
-
-All2009$AMTMICRO<-revalue(as.factor(All2009$AMTMICRO),c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle"))
+All2009$AMTMICRO<-recode(All2009$AMTMICRO,c("1"="Cook/ReheatMostMeals","2"="Cook/ReheasHalfMeals","3"="Cook/ReheatFewMeals","4"="UsedVeryLittle","-2"=NA))
 
 summary(All2009$AMTMICRO)
 
-
 #OUTGRILL
 
-All2009$OUTGRILL<-revalue(as.factor(All2009$OUTGRILL),c("0"="NO","1"="YES"))
+All2009$OUTGRILL<-recode(All2009$OUTGRILL,c("0"="NO","1"="YES"))
 
 summary(All2009$OUTGRILL)
 
 #OUTGRILLFUEL
 
-All2009$OUTGRILLFUEL[All2009$OUTGRILLFUEL==-2]<-NA
 
-All2009$OUTGRILLFUEL<-revalue(as.factor(All2009$OUTGRILLFUEL),c("1"="NaturalGas","2"="Propane/LPG","21"="OtherFuel"))
+All2009$OUTGRILLFUEL<-recode(All2009$OUTGRILLFUEL,c("1"="NaturalGas","2"="Propane/LPG","21"="OtherFuel","-2"=NA))
 
 summary(All2009$OUTGRILLFUEL)
 
+
 #TOASTER
 
-All2009$TOASTER<-revalue(as.factor(All2009$TOASTER),c("0"="NO","1"="YES"))
+All2009$TOASTER<-recode(All2009$TOASTER,c("0"="NO","1"="YES"))
 
 summary(All2009$TOASTER)
 
+
+
+
 #NUMMEAL
 
-All2009$NUMMEAL<-revalue(as.factor(All2009$NUMMEAL),c("0"="NeverCooks","1"="ThreePlusTimes/Day","2"="TwoTimes/Day","3"="Once/Day","4"="FewTimes/Week","5"="Once/Week","6"="LessThanOnce/Week"))
+All2009$NUMMEAL<-recode(All2009$NUMMEAL,c("0"="NeverCooks","1"="ThreePlusTimes/Day","2"="TwoTimes/Day","3"="Once/Day","4"="FewTimes/Week","5"="Once/Week","6"="LessThanOnce/Week"))
 
 summary(All2009$NUMMEAL)
 
+
 #FUELFOOD
 
-All2009$FUELFOOD[All2009$FUELFOOD==-2]<-NA
 
-All2009$FUELFOOD<-revalue(as.factor(All2009$FUELFOOD),c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel"))
+All2009$FUELFOOD<-recode(All2009$FUELFOOD,c("1"="NaturalGas","2"="Propane/LPG","5"="Electricity","21"="OtherFuel","-2"=NA))
 
 summary(All2009$FUELFOOD)
+
 
 #NUMFRIG
 
 table(All2009$NUMFRIG)
 
-All2009$NUMFRIG<-revalue(as.factor(All2009$NUMFRIG),c("0"="NoFridege","1"="OneFridge","2"="TwoFridge","3"="ThreeFridge","4"="FourFidge","5"="FiveFridge","6"="SixFridge","7"="SevenFridge"))
+# All2009$NUMFRIG<-revalue(as.factor(All2009$NUMFRIG),c("0"="NoFridege","1"="OneFridge","2"="TwoFridge","3"="ThreeFridge","4"="FourFidge","5"="FiveFridge","6"="SixFridge","7"="SevenFridge"))
 
+All2009$NUMFRIG<-as.numeric(All2009$NUMFRIG)
 summary(All2009$NUMFRIG)
+
+```
+
+
+
+
 
 #TYPERFR1
 
@@ -1237,19 +1247,79 @@ summary(All2009$TVSIZE1)
 
 #TVTYPE1
 
-All2009$TVTYPE1[All2009$TVTYPE1==-2]<-NA
-
-All2009$TVTYPE1<-recode(All2009$TVTYPE1,c("1"="StandardTube","2"="LCD","3"="Plasma","4"="Projection","5"="LED"))
+All2009$TVTYPE1<-recode(All2009$TVTYPE1,c("1"="StandardTube","2"="LCD","3"="Plasma","4"="Projection","5"="LED","-2"=NA))
 
 summary(All2009$TVTYPE1)
 
 #CABLESAT1
 
-All2009$CABLESAT1[All2009$CABLESAT1==-2]<-NA
 
-All2009$CABLESAT1<-recode(All2009$CABLESAT1,c("0"="Neither","1"="CableBox","2"="SatelliteBox"))
+All2009$CABLESAT1<-recode(All2009$CABLESAT1,c("0"="Neither","1"="CableBox","2"="SatelliteBox","-2"=NA))
 
 summary(All2009$CABLESAT1)   
+
+#COMBODVR1
+
+All2009$COMBODVR1<-recode(All2009$COMBODVR1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$COMBODVR1)
+
+#DVR1
+
+All2009$DVR1<-recode(All2009$DVR1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$DVR1)
+
+#DIGITSTB1
+
+All2009$DIGITSTB1<-recode(All2009$DIGITSTB1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$DIGITSTB1)
+
+#PLAYSTA1
+
+All2009$PLAYSTA1<-recode(All2009$PLAYSTA1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$PLAYSTA1)
+
+#COMBOVCRDVD1
+
+All2009$COMBOVCRDVD1[All2009$COMBOVCRDVD1==-2]<-NA
+
+All2009$COMBOVCRDVD1<-recode(All2009$COMBOVCRDVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$COMBOVCRDVD1)
+
+#VCR1 
+
+All2009$VCR1[All2009$VCR1==-2]<-NA
+
+All2009$VCR1<-recode(All2009$VCR1,c("0"="NO","1"="YES"))
+
+summary(All2009$VCR1)
+
+#DVD1
+
+All2009$DVD1[All2009$DVD1==-2]<-NA
+
+All2009$DVD1<-recode(All2009$DVD1,c("0"="NO","1"="YES"))
+
+summary(All2009$DVD1)
+
+#TVAUDIOSYS1
+
+All2009$TVAUDIOSYS1[All2009$TVAUDIOSYS1==-2]<-NA
+
+All2009$TVAUDIOSYS1<-recode(All2009$TVAUDIOSYS1,c("0"="NO","1"="YES"))
+
+summary(All2009$TVAUDIOSYS1)
+
+#OTHERSTB1
+
+All2009$OTHERSTB1<-recode(All2009$OTHERSTB1,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$OTHERSTB1)
+
 
 #TVONWD1
 
