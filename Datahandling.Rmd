@@ -1399,7 +1399,7 @@ summary(All2009$TVONWEWATCH2)
 
 table(All2009$NUMPC)
 
-All2009$NUMPC<-recode(All2009$NUMPC,c("0"="None","1"="OnePC","2"="TwoPC","3"="ThreePC","4"="FourPC","5"="FivePC","6"="SixPC","7"="SevenPC","8"="EightPC","9"="NinePC","10"="TenPC","15"="FifteenPC"))
+All2009$NUMPC<-as.numeric(All2009$NUMPC)
 
 summary(All2009$NUMPC)
 
@@ -1451,7 +1451,7 @@ All2009$TIMEON2<-recode(All2009$TIMEON2,c("1"="LT1Hour","2"="1to3Hours","3"="3to
 
 summary(All2009$TIMEON2)
 
-MarkCoded(TIMEON2)
+MarkCoded("TIMEON2")
 
 #PCONOFF2
 
@@ -1547,7 +1547,7 @@ All2009$BATTOOLS<-recode(All2009$BATTOOLS,c("1"="1To3","2"="4To8","3"="GT8"))
 
 summary(All2009$BATTOOLS)
 
-MarkCoded("BATTOLS")
+MarkCoded("BATTOOLS")
 
 #BATCHRG
 
@@ -1631,7 +1631,7 @@ MarkCoded("FUELHEAT")
 
 #EQUIPAGE
 
-All2009$EQUIPAGE<-recode(All2009$AGECDRYER,c("1"="LT2Years","2"="2TO4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="GT20Years","-2"=NA))
+All2009$EQUIPAGE<-recode(All2009$EQUIPAGE,c("1"="LT2Years","2"="2TO4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="GT20Years","-2"=NA))
 
 summary(All2009$EQUIPAGE)
 
@@ -1733,16 +1733,135 @@ summary(All2009$RMHTFUEL)
 
 MarkCoded("RMHTFUEL")
 
+#WOODKILN
+
+All2009$WOODKILN<-recode(All2009$WOODKILN,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$WOODKILN)
+
+MarkCoded("WOODKILN")
+
+#HSFUEL
+
+All2009$HSFUEL<-recode(All2009$HSFUEL,c("7"="Wood","21"="OtherFuel","-2"=NA))
+
+summary(All2009$HSFUEL)
+
+MarkCoded("HSFUEL")
+
+#CARRYEL
+
+All2009$CARRYEL<-recode(All2009$CARRYEL,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$CARRYEL)
+
+MarkCoded("CARRYEL")
+
+#CARRYKER
+
+All2009$CARRYKER<-recode(All2009$CARRYKER,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$CARRYKER)
+
+MarkCoded("CARRYKER")
+
+#CHIMNEY
+
+All2009$CHIMNEY<-recode(All2009$CHIMNEY,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$CHIMNEY)
+
+MarkCoded("CHIMNEY")
+
+#FPFUEL
+
+All2009$FPFUEL<-recode(All2009$FPFUEL,c("1"="NaturalGas","2"="PropaneLPG","7"="Wood","21"="OtherFuel","-2"=NA))
+
+summary(All2009$FPFUEL)
+
+MarkCoded("FPFUEL")
+
+#RANGE
+
+All2009$RANGE<-recode(All2009$RANGE,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$RANGE)
+
+MarkCoded("RANGE")
+
+#RNGFUEL
+
+All2009$RNGFUEL<-recode(All2009$RNGFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","21"="OtherFuel","-2"=NA))
+
+summary(All2009$RNGFUEL)
+
+MarkCoded("RNGFUEL")
+
+#DIFEQUIP
+
+All2009$DIFEQUIP<-recode(All2009$DIFEQUIP,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$DIFEQUIP)
+
+MarkCoded("DIFEQUIP")
+
+#DIFFUEL
+
+All2009$DIFFUEL<-recode(All2009$DIFFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","9"="DistrictStream","21"="OtherFuel","-2"=NA))
+
+summary(All2009$DIFFUEL)
+
+MarkCoded("DIFFUEL")
+
+#EQMAMT
+
+All2009$EQMAMT<-recode(All2009$EQMAMT,c("1"="AlmostAll","2"="AboutThreeFourths","3"="CloserToHalf","-2"=NA))
+
+summary(All2009$EQMAMT)
+
+MarkCoded("EQMAMT")
+
+#HEATROOM
+
+All2009$HEATROOM[All2009$HEATROOM==-2]<-NA
+
+All2009$HEATROOM<-as.numeric(All2009$HEATROOM)
+
+All2009$HEATROOM<-recode(All2009$HEATROOM,c("1"=NA))
+
+summary(All2009$HEATROOM)
+
+#THERMAIN
+
+All2009$THERMAIN<-recode(All2009$THERMAIN,c("0"="NO","1"="YES","-2"=NA))
+
+summary(All2009$THERMAIN)
+
+MarkCoded("THERMAIN")
+
+#NUMTHERM
+
+table(All2009$NUMTHERM)
+
+All2009$NUMTHERM[All2009$NUMTHERM==-2]<-NA
+
+All2009$NUMTHERM<-as.numeric(All2009$NUMTHERM)
+
+All2009$NUMTHERM<-recode(All2009$NUMTHERM,c("1"=NA))
+
+summary(All2009$NUMTHERM)
+                  
+MarkCoded("NUMTHERM")
 
 
 
-                  
-                  
-                  
+
+
 
 ```
 
 ```{r}
+
 
 
 
