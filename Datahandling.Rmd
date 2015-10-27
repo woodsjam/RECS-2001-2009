@@ -1802,12 +1802,7 @@ MarkCoded("EQMAMT")
 
 #HEATROOM 
 
-<<<<<<< HEAD
-table(All2009$HEATROOM)
 
-
-=======
->>>>>>> affc3593af06c89dee0dd541948a360d1ccd661a
 All2009$HEATROOM<-recodeNumeric(All2009$HEATROOM)
 
 summary(All2009$HEATROOM)
@@ -1887,12 +1882,11 @@ All2009$MOISTURE<-to.TF(All2009$MOISTURE)
 summary(All2009$MOISTURE)
 
 
-#USEMOISTURE (TAKE LOOK AT)
+#USEMOISTURE 
 
+All2009$USEMOISTURE<-recode(All2009$USEMOISTURE,c("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
 
-# All2009$USEMOISTURE<-recode(All2009$USEMOISTURE,C("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
-# 
-# table(All2009$USEMOISTURE)
+table(All2009$USEMOISTURE)
 
 
 
