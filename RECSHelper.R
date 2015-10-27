@@ -55,7 +55,7 @@ recode<-function(column, key, na.key="-2"){
   theDollar<-str_locate(theFullCol,"\\$")
   ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
   MarkCoded(ColName)
-  revalue(as.factor(column),key)
+  revalue(as.factor(fix.na(column,na.key)),key)
 }
 
 recodeNumeric<-function(column, na.key="-2"){
