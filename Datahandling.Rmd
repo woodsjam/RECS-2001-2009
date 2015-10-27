@@ -1647,7 +1647,7 @@ MarkCoded("REPLCHT")
 
 #HEATOTH
 
-All2009$HEATOTH<-recode(All2009$HEATOTH,c("0"="NO","1"="YES","-2"=NA))
+All2009$HEATOTH<-to.TF(All2009$HEATOTH)
 
 summary(All2009$HEATOTH)
 
@@ -1655,7 +1655,7 @@ MarkCoded("HEATOTH")
 
 #EQUIPAUX
 
-All2009$EQUIPAUX<-recode(All2009$EQUIPAUX,c("0"="NO","1"="YES","-2"=NA))
+All2009$EQUIPAUX<-to.TF(All2009$EQUIPAUX)
 
 summary(All2009$EQUIPAUX)
 
@@ -1663,7 +1663,7 @@ MarkCoded("EQUIPAUX")
 
 #WARMAIR
 
-All2009$WARMAIR<-recode(All2009$WARMAIR,c("0"="NO","1"="YES","-2"=NA))
+All2009$WARMAIR<-to.TF(All2009$WARMAIR)
 
 summary(All2009$WARMAIR)
 
@@ -1679,7 +1679,7 @@ MarkCoded("FURNFUEL")
 
 #STEAMR
 
-All2009$STEAMR<-recode(All2009$STEAMR,c("0"="NO","1"="YES","-2"=NA))
+All2009$STEAMR<-to.TF(All2009$STEAMR)
 
 summary(All2009$STEAMR)
 
@@ -1695,7 +1695,7 @@ MarkCoded("RADFUEL")
 
 #PERMELEC
 
-All2009$PERMELEC<-recode(All2009$PERMELEC,c("0"="NO","1"="YES","-2"=NA))
+All2009$PERMELEC<-to.TF(All2009$PERMELEC)
 
 summary(All2009$PERMELEC)
 
@@ -1703,7 +1703,7 @@ MarkCoded("PERMELEC")
 
 #PIPELESS
 
-All2009$PIPELESS<-recode(All2009$PIPELESS,c("0"="NO","1"="YES","-2"=NA))
+All2009$PIPELESS<-to.TF(All2009$PIPELESS)
 
 summary(All2009$PIPELESS)
 
@@ -1719,7 +1719,7 @@ MarkCoded("PIPEFUEL")
 
 #ROOMHEAT
 
-All2009$ROOMHEAT<-recode(All2009$ROOMHEAT,c("0"="NO","1"="YES","-2"=NA))
+All2009$ROOMHEAT<-to.TF(All2009$ROOMHEAT)
 
 summary(All2009$ROOMHEAT)
 
@@ -1735,7 +1735,7 @@ MarkCoded("RMHTFUEL")
 
 #WOODKILN
 
-All2009$WOODKILN<-recode(All2009$WOODKILN,c("0"="NO","1"="YES","-2"=NA))
+All2009$WOODKILN<-to.TF(All2009$WOODKILN)
 
 summary(All2009$WOODKILN)
 
@@ -1751,7 +1751,7 @@ MarkCoded("HSFUEL")
 
 #CARRYEL
 
-All2009$CARRYEL<-recode(All2009$CARRYEL,c("0"="NO","1"="YES","-2"=NA))
+All2009$CARRYEL<-to.TF(All2009$CARRYEL)
 
 summary(All2009$CARRYEL)
 
@@ -1759,7 +1759,7 @@ MarkCoded("CARRYEL")
 
 #CARRYKER
 
-All2009$CARRYKER<-recode(All2009$CARRYKER,c("0"="NO","1"="YES","-2"=NA))
+All2009$CARRYKER<-to.TF(All2009$CARRYKER))
 
 summary(All2009$CARRYKER)
 
@@ -1767,7 +1767,7 @@ MarkCoded("CARRYKER")
 
 #CHIMNEY
 
-All2009$CHIMNEY<-recode(All2009$CHIMNEY,c("0"="NO","1"="YES","-2"=NA))
+All2009$CHIMNEY<-to.TF)
 
 summary(All2009$CHIMNEY)
 
@@ -1783,7 +1783,7 @@ MarkCoded("FPFUEL")
 
 #RANGE
 
-All2009$RANGE<-recode(All2009$RANGE,c("0"="NO","1"="YES","-2"=NA))
+All2009$RANGE<-to.TF(All2009$RANGE)
 
 summary(All2009$RANGE)
 
@@ -1799,7 +1799,7 @@ MarkCoded("RNGFUEL")
 
 #DIFEQUIP
 
-All2009$DIFEQUIP<-recode(All2009$DIFEQUIP,c("0"="NO","1"="YES","-2"=NA))
+All2009$DIFEQUIP<-to.TF(All2009$DIFEQUIP)
 
 summary(All2009$DIFEQUIP)
 
@@ -1821,46 +1821,98 @@ summary(All2009$EQMAMT)
 
 MarkCoded("EQMAMT")
 
-#HEATROOM  (Possible treatment for numeric values with NA?)
+#HEATROOM 
 
 table(All2009$HEATROOM)
 
-All2009$HEATROOM[All2009$HEATROOM==-2]<-NA
 
-All2009$HEATROOM<-as.numeric(All2009$HEATROOM)
-
-All2009$HEATROOM<-recode(All2009$HEATROOM,c("1"=NA))
+All2009$HEATROOM<-recodeNumeric(All2009$HEATROOM)
 
 summary(All2009$HEATROOM)
 
+MarkCoded("HEATROOM")
+
 #THERMAIN
 
-All2009$THERMAIN<-recode(All2009$THERMAIN,c("0"="NO","1"="YES","-2"=NA))
+All2009$THERMAIN<-to.TF(All2009$THERMAIN)
 
 summary(All2009$THERMAIN)
 
 MarkCoded("THERMAIN")
 
-#NUMTHERM (recodeNumeric doesn't appear to be treating NA's)
+#NUMTHERM 
 
 table(All2009$NUMTHERM)
 
 All2009$NUMTHERM<-recodeNumeric(All2009$NUMTHERM)
 
-table(All2009$NUMTHERM)
+summary(All2009$NUMTHERM)
+
+MarkCoded("NUMTHERM")
 
 #PROTHERM
 
-summary(is.na(All2009$PROTHERM))
-
-All2009$PROTHERM<-to.TF(All2009$PROTHERM, na.choice = "KEEP")
+All2009$PROTHERM<-to.TF(All2009$PROTHERM)
 
 summary(All2009$PROTHERM)
 
+MarkCoded("PROTHERM")
 
+#AUTOHEATNITE
 
+All2009$AUTOHEATNITE<-to.TF(All2009$AUTOHEATNITE)
 
+summary(All2009$AUTOHEATNITE)
 
+MarkCoded("AUTOHEATNITE")
+
+#AUTOHEATDAY
+
+All2009$AUTOHEATDAY<-to.TF(All2009$AUTOHEATDAY)
+
+summary(All2009$AUTOHEATDAY)
+
+MarkCoded("AUTOHEATDAY")
+
+#TEMPHOME
+
+table(All2009$TEMPHOME)
+
+All2009$TEMPHOME<-recodeNumeric(All2009$TEMPHOME)
+
+summary(All2009$TEMPHOME)
+
+MarkCoded("TEMPHOME")
+
+#TEMPGONE
+
+All2009$TEMPGONE<-recodeNumeric(All2009$TEMPGONE)
+
+summary(All2009$TEMPGONE)
+
+MarkCoded("TEMPGONE")
+
+#TEMPNITE
+
+All2009$TEMPNITE<-recodeNumeric(All2009$TEMPNITE)
+
+summary(All2009$TEMPNITE)
+
+MarkCoded("TEMPNITE")
+
+#MOISTURE
+
+All2009$MOISTURE<-to.TF(All2009$MOISTURE)
+
+summary(All2009$MOISTURE)
+
+MarkCoded("MOISTURE")
+
+#USEMOISTURE
+
+All2009$USEMOISTURE<-recode(All2009$USEMOISTURE,C("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
+
+summary(All2009$USEMOISTURE)
 
 
 
