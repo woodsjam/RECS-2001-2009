@@ -1821,7 +1821,9 @@ summary(All2009$EQMAMT)
 
 MarkCoded("EQMAMT")
 
-#HEATROOM
+#HEATROOM  (Possible treatment for numeric values with NA?)
+
+table(All2009$HEATROOM)
 
 All2009$HEATROOM[All2009$HEATROOM==-2]<-NA
 
@@ -1839,19 +1841,23 @@ summary(All2009$THERMAIN)
 
 MarkCoded("THERMAIN")
 
-#NUMTHERM
+#NUMTHERM (recodeNumeric doesn't appear to be treating NA's)
 
 table(All2009$NUMTHERM)
 
-All2009$NUMTHERM[All2009$NUMTHERM==-2]<-NA
+All2009$NUMTHERM<-recodeNumeric(All2009$NUMTHERM)
 
-All2009$NUMTHERM<-as.numeric(All2009$NUMTHERM)
+table(All2009$NUMTHERM)
 
-All2009$NUMTHERM<-recode(All2009$NUMTHERM,c("1"=NA))
+#PROTHERM
 
-summary(All2009$NUMTHERM)
-                  
-MarkCoded("NUMTHERM")
+summary(is.na(All2009$PROTHERM))
+
+All2009$PROTHERM<-to.TF(All2009$PROTHERM, na.choice = "KEEP")
+
+summary(All2009$PROTHERM)
+
+
 
 
 
@@ -1866,6 +1872,7 @@ MarkCoded("NUMTHERM")
 
 
 ```
+
 
 
                                                     
