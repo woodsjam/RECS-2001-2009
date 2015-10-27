@@ -22,6 +22,12 @@ to.TF <-function(column, na.choice="KEEP", na.key=-2){
   if(na.choice=="TRUE") column[column==na.key]<-TRUE 
   if(na.choice=="FALSE") column[column==na.key]<-FALSE 
   
+  theFullCol<-as.character(as.list( sys.call(sys.parent()) )[-1])
+  theDollar<-str_locate(theFullCol,"\\$")
+  ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
+  MarkCoded(ColName)
+  
+  
   as.logical(revalue(as.factor(column),c("0"=FALSE, "1"=TRUE)))
 }
 

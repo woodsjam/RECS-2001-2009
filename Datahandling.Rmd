@@ -1008,8 +1008,6 @@ All2009$AGERFRI2<-recode(All2009$AGERFRI2,c("1"="<TwoYears","2"="2-4Years","3"="
 
 summary(All2009$AGERFRI2)
 
-```
-
 
 
 
@@ -1020,9 +1018,11 @@ All2009$ESFRIG2[All2009$ESFRIG2==-2]<-NA
 All2009$ESFRIG2[All2009$ESFRIG2==-8]<-NA
 All2009$ESFRIG2[All2009$ESFRIG2==-9]<-NA
 
-All2009$ESFRIG2<-recode(All2009$ESFRIG2,c("0"="NO","1"="YES"))
+All2009$ESFRIG2<-recode(All2009$ESFRIG2,FridgeCodes)
 
 summary(All2009$ESFRIG2)
+
+
 
 #SEPFREEZ
 
@@ -1030,17 +1030,17 @@ All2009$SEPFREEZ<-recode(All2009$SEPFREEZ,c("0"="NO","1"="YES"))
 
 summary(All2009$SEPFREEZ)
 
+
 #NUMFREEZ
 
-All2009$NUMFREEZ[All2009$NUMFREEZ==-2]<-NA
 
-All2009$NUMFREEZ<-recode(All2009$NUMFREEZ,c("1"="One","2"="Two","3"="Three"))
+All2009$NUMFREEZ<-recodeNumeric(All2009$NUMFREEZ)
 
 summary(All2009$NUMFREEZ)
 
+
 #UPRTFRZR
 
-All2009$UPRTFRZR[All2009$UPRTFRZR==-2]<-NA
 
 All2009$UPRTFRZR<-recode(All2009$UPRTFRZR,c("1"="Upright","2"="Chest"))
 
@@ -1048,7 +1048,6 @@ summary(All2009$UPRTFRZR)
 
 #SIZFREEZ
 
-All2009$SIZFREEZ[All2009$SIZFREEZ==-2]<-NA
 
 All2009$SIZFREEZ<-recode(All2009$SIZFREEZ,c("1"="Small","2"="Medium","3"="Large","4"="VeryLarge"))
 
@@ -1056,17 +1055,13 @@ summary(All2009$SIZFREEZ)
 
 #REPLCFRZ
 
-All2009$REPLCFRZ[All2009$REPLCFRZ==-2]<-NA
-All2009$REPLCFRZ[All2009$REPLCFRZ==-8]<-NA
-All2009$REPLCFRZ[All2009$REPLCFRZ==-9]<-NA
-
-All2009$REPLCFRZ<-recode(All2009$REPLCFRZ,c("0"="NO","1"="YES"))
+All2009$REPLCFRZ<-recode(All2009$REPLCFRZ,FridgeCodes)
 
 summary(All2009$REPLCFRZ)
 
+
 #UPRTFRZR2
 
-All2009$UPRTFRZR2[All2009$UPRTFRZR2==-2]<-NA
 
 All2009$UPRTFRZR2<-recode(All2009$UPRTFRZR2,c("1"="Upright","2"="Chest"))
 
@@ -1074,7 +1069,6 @@ summary(All2009$UPRTFRZR2)
 
 #SIZFREEZ2
 
-All2009$SIZFREEZ2[All2009$SIZFREEZ2==-2]<-NA
 
 All2009$SIZFREEZ2<-recode(All2009$SIZFREEZ2,c("1"="Small","2"="Medium","3"="Large","4"="VeryLarge"))
 
@@ -1082,9 +1076,8 @@ summary(All2009$SIZFREEZ2)
 
 #AGEFRZR2
 
-All2009$AGEFRZR2[All2009$AGEFRZR2==-2]<-NA
 
-All2009$AGEFRZR2<-recode(All2009$AGEFRZR2,c("1"="<TwoYears","2"="2-4Years","3"="5-9Years","41"="10-14Years","42"="15-19Years","5"=">20Years"))
+All2009$AGEFRZR2<-recode(All2009$AGEFRZR2,c("1"="LeTwoYears","2"="2To4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="Gr20Years"))
 
 summary(All2009$AGEFRZR2)
 
@@ -1096,37 +1089,39 @@ summary(All2009$DISHWASH)
 
 #DWASHUSE
 
-All2009$DWASHUSE[All2009$DWASHUSE==-2]<-NA
-
-All2009$DWASHUSE<-recode(All2009$DWASHUSE,c("11"="<Once/Week","12"="Once/Week","13"="2-3/Week","20"="4-6/Week","30"=">=Once/Day"))
+All2009$DWASHUSE<-recode(All2009$DWASHUSE,c("11"="LeOnceWeek","12"="OnceWeek","13"="2To3Week","20"="4To6Week","30"="GrOnceDay"))
 
 summary(All2009$DWASHUSE)
 
+
+
 #AGEDW
 
-All2009$AGEDW[All2009$AGEDW==-2]<-NA
 
-All2009$AGEDW<-recode(All2009$AGEDW,c("1"="<TwoYears","2"="2-4Years","3"="5-9Years","41"="10-14Years","42"="15-19Years","5"=">20Years"))
+All2009$AGEDW<-recode(All2009$AGEDW,c("1"="LeTwoYears","2"="2To4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="Gr20Years"))
 
 summary(All2009$AGEDW)
 
+
 #ESDISHW
+ExpandedMissing<-FridgeCodes
 
-All2009$ESDISHW[All2009$ESDISHW==-2]<-NA
-All2009$ESDISHW[All2009$ESDISHW==-8]<-NA
-All2009$ESDISHW[All2009$ESDISHW==-9]<-NA
-
-All2009$ESDISHW<-recode(All2009$ESDISHW,c("0"="NO","1"="YES"))
+All2009$ESDISHW<-recode(All2009$ESDISHW,ExpandedMissing)
 
 summary(All2009$ESDISHW)
 
+#ESDISHW
+
+
+All2009$ESDISHW<-recode(All2009$ESDISHW,ExpandedMissing)
+
+summary(All2009$ESDISHW)
+
+
 #REPLCDW
 
-All2009$REPLCDW[All2009$REPLCDW==-2]<-NA
-All2009$REPLCDW[All2009$REPLCDW==-8]<-NA
-All2009$REPLCDW[All2009$REPLCDW==-9]<-NA
 
-All2009$REPLCDW<-recode(All2009$REPLCDW,c("0"="NO","1"="YES"))
+All2009$REPLCDW<-recode(All2009$REPLCDW,ExpandedMissing)
 
 summary(All2009$REPLCDW)
 
@@ -1136,33 +1131,30 @@ All2009$CWASHER<-recode(All2009$CWASHER,c("0"="NO","1"="YES"))
 
 summary(All2009$CWASHER)
 
-#TOPFRONT
 
-All2009$TOPFRONT[All2009$TOPFRONT==-2]<-NA
+#TOPFRONT
 
 All2009$TOPFRONT<-recode(All2009$TOPFRONT,c("1"="TopLoad","2"="FrontLoad"))
 
 summary(All2009$TOPFRONT)
 
+
 #WASHLOAD
 
-All2009$WASHLOAD[All2009$WASHLOAD==-2]<-NA
 
-All2009$WASHLOAD<-recode(All2009$WASHLOAD,c("1"="<=One/Week","2"="2-4/Week","3"="5-9/Week","4"="10-14/Week","5"=">15/Week"))
+All2009$WASHLOAD<-recode(All2009$WASHLOAD,c("1"="LeOneWeek","2"="2To4Week","3"="5To9Week","4"="10To14Week","5"="Gr15Week"))
 
 summary(All2009$WASHLOAD)
 
-#WASHTEMP
 
-All2009$WASHTEMP[All2009$WASHTEMP==-2]<-NA
+#WASHTEMP
 
 All2009$WASHTEMP<-recode(All2009$WASHTEMP,c("1"="Hot","2"="Warm","3"="Cold"))
 
 summary(All2009$WASHTEMP)
 
-#RNSETEMP
 
-All2009$RNSETEMP[All2009$RNSETEMP==-2]<-NA
+#RNSETEMP
 
 All2009$RNSETEMP<-recode(All2009$RNSETEMP,c("1"="Hot","2"="Warm","3"="Cold"))
 
@@ -1170,21 +1162,18 @@ summary(All2009$RNSETEMP)
 
 #AGECWASH
 
-All2009$AGECWASH[All2009$AGECWASH==-2]<-NA
 
-All2009$AGECWASH<-recode(All2009$AGECWASH,c("1"="<TwoYears","2"="2-4Years","3"="5-9Years","41"="10-14Years","42"="15-19Years","5"=">20Years"))
+All2009$AGECWASH<-recode(All2009$AGECWASH,c("1"="LeTwoYears","2"="2To4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="Gr20Years"))
 
 summary(All2009$AGECWASH)
 
+
 #ESCWASH
 
-All2009$ESCWASH[All2009$ESCWASH==-2]<-NA
-All2009$ESCWASH[All2009$ESCWASH==-8]<-NA
-All2009$ESCWASH[All2009$ESCWASH==-9]<-NA
-
-All2009$ESCWASH<-recode(All2009$ESCWASH,c("0"="NO","1"="YES"))
+All2009$ESCWASH<-recode(All2009$ESCWASH,ExpandedMissing)
 
 summary(All2009$ESCWASH)
+
 
 #DRYER
 
@@ -1194,43 +1183,45 @@ summary(All2009$DRYER)
 
 #DRYERFUEL
 
-All2009$DRYRFUEL[All2009$DRYRFUEL==-2]<-NA
 
-All2009$DRYRFUEL<-recode(All2009$DRYRFUEL,c("1"="NaturalGas","2"="Propane/LPG","5"="Electrcity"))
+All2009$DRYRFUEL<-recode(All2009$DRYRFUEL,c("1"="NG","2"="Propane","5"="Electrcity"))
 
 summary(All2009$DRYRFUEL)
 
 #DRYERUSE
 
-All2009$DRYRUSE[All2009$DRYRUSE==-2]<-NA
 
-All2009$DRYRUSE<-recode(All2009$DRYRUSE,c("1"="EveryWash","2"="Sometimes/Wash","3"="InfrequentUse"))
+All2009$DRYRUSE<-recode(All2009$DRYRUSE,c("1"="EveryWash","2"="Sometimes","3"="Infrequent"))
 
 summary(All2009$DRYRUSE)
 
+
 #AGECDRYER
 
-All2009$AGECDRYER[All2009$AGECDRYER==-2]<-NA
-
-All2009$AGECDRYER<-recode(All2009$AGECDRYER,c("1"="<TwoYears","2"="2-4Years","3"="5-9Years","41"="10-14Years","42"="15-19Years","5"=">20Years"))
+All2009$AGECDRYER<-recode(All2009$AGECDRYER,c("1"="LeTwoYears","2"="2To4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="Gr20Years"))
 
 summary(All2009$AGECDRYER)
 
 #TVCOLOR
 
-table(All2009$TVCOLOR)
 
-All2009$TVCOLOR<-recode(All2009$TVCOLOR,c("0"="NoTV","1"="OneTV","2"="TwoTVs","3"="ThreeTVs","4"="FourTVs","5"="FiveTVs","6"="SixTvs","7"="SevenTvs","8"="EightTvs","9"="NineTvs","10"="TenTvs","12"="TwelveTvs","14"="FourteenTvs"))
+All2009$TVCOLOR<-recodeNumeric(All2009$TVCOLOR)
 
 summary(All2009$TVCOLOR)
 
 #TVSIZE
 
-All2009$TVSIZE1[All2009$TVSIZE1==-2]<-NA
 
-All2009$TVSIZE1<-recode(All2009$TVSIZE1,c("1"="<=20inch","2"="21-26inch","3"=">=37inch"))
+All2009$TVSIZE1<-recode(All2009$TVSIZE1,c("1"="Le20inch","2"="21To26inch","3"="Gr37inch"))
 
 summary(All2009$TVSIZE1)
+
+```
+
+
+
+
+
 
 
 ```{r}
@@ -1313,7 +1304,7 @@ summary(All2009$OTHERSTB1)
 
 #TVONWD1
 
-All2009$TVONWD1<-recode(All2009$TVONWD1,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+All2009$TVONWD1<-recode(All2009$TVONWD1,c("1"="LTOneHour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5Hours","-2"=NA))
 
 summary(All2009$TVONWD1)
 
@@ -1332,7 +1323,7 @@ summary(All2009$TVONWDWATCH1)
 
 #TVONWE1
 
-All2009$TVONWE1<-recode(All2009$TVONWE1,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+All2009$TVONWE1<-recode(All2009$TVONWE1,c("1"="LTOneHour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5Hours","-2"=NA))
 
 summary(All2009$TVONWE1)
 
@@ -1344,7 +1335,7 @@ summary(All2009$TVONWEWATCH1)
 
 #TVSIZE2
 
-All2009$TVSIZE2<-recode(All2009$TVSIZE2,c("1"="LT20inch","2"="21to26inch","3"="GT37inch","-2"=NA))
+All2009$TVSIZE2<-recode(All2009$TVSIZE2,c("1"="LT20inch","2"="21To26inch","3"="GT37inch","-2"=NA))
 
 summary(All2009$TVSIZE2)
 
@@ -1363,7 +1354,7 @@ summary(All2009$CABLESAT2)
 
 #TVONWD2
 
-All2009$TVONWD2<-recode(All2009$TVONWD2,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+All2009$TVONWD2<-recode(All2009$TVONWD2,c("1"="LTOneHour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5Hours","-2"=NA))
 
 summary(All2009$TVONWD2)
 
@@ -1375,7 +1366,7 @@ summary(All2009$TVONWDWATCH2)
 
 #TVONWE2
 
-All2009$TVONWE2<-recode(All2009$TVONWE2,c("1"="LTOneHour","2"="1To3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5Hours","-2"=NA))
+All2009$TVONWE2<-recode(All2009$TVONWE2,c("1"="LTOneHour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5Hours","-2"=NA))
 
 summary(All2009$TVONWE2)
 
@@ -1405,7 +1396,7 @@ summary(All2009$NUMPC)
 
 #TIMEON1 (hours)
 
-All2009$TIMEON1<-recode(All2009$TIMEON1,c("1"="LT1Hour","2"="1to3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5HOUrs","-2"=NA))
+All2009$TIMEON1<-recode(All2009$TIMEON1,c("1"="LT1Hour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5HOUrs","-2"=NA))
 
 summary(All2009$TIMEON1)
 
@@ -1437,7 +1428,7 @@ MarkCoded("MONITOR2")
 
 #TIMEON2
 
-All2009$TIMEON2<-recode(All2009$TIMEON2,c("1"="LT1Hour","2"="1to3Hours","3"="3to6Hours","4"="6to10Hours","5"="GT5HOUrs","-2"=NA))
+All2009$TIMEON2<-recode(All2009$TIMEON2,c("1"="LT1Hour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5HOUrs","-2"=NA))
 
 summary(All2009$TIMEON2)
 
@@ -1813,11 +1804,7 @@ MarkCoded("EQMAMT")
 
 #HEATROOM
 
-All2009$HEATROOM[All2009$HEATROOM==-2]<-NA
-
-All2009$HEATROOM<-as.numeric(All2009$HEATROOM)
-
-All2009$HEATROOM<-recode(All2009$HEATROOM,c("1"=NA))
+All2009$HEATROOM<-recodeNumeric(All2009$HEATROOM)
 
 summary(All2009$HEATROOM)
 
@@ -1833,11 +1820,7 @@ MarkCoded("THERMAIN")
 
 table(All2009$NUMTHERM)
 
-All2009$NUMTHERM[All2009$NUMTHERM==-2]<-NA
-
-All2009$NUMTHERM<-as.numeric(All2009$NUMTHERM)
-
-All2009$NUMTHERM<-recode(All2009$NUMTHERM,c("1"=NA))
+All2009$NUMTHERM<-recodeNumeric(All2009$NUMTHERM)
 
 summary(All2009$NUMTHERM)
                   
