@@ -63,9 +63,10 @@ recodeNumeric<-function(column, na.key="-2"){
   theDollar<-str_locate(theFullCol,"\\$")
   ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
   MarkCoded(ColName)
-  as.numeric(column)
+  as.numeric(fix.na(column,na.key))
 }
 
+summary(recodeNumeric(All2009$NUMTHERM))
 # Example Code
 # summary(revalue(as.factor(All2009$ESWWAC),c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE)))
 # summary(All2009$ESWWAC)
