@@ -1,11 +1,11 @@
 #Helper functions for RECS recoding
 
 library(plyr)
-
+library(stringr)
 
 
 MarkCoded<-function(nameCol){
-  Cols2009[Cols2009$V1==nameCol,]$Status<-"Coded"
+  Cols2009[Cols2009$V1==nameCol,]$Status<<-"Coded"
   
 }
 
