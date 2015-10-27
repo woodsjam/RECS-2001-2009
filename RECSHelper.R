@@ -17,7 +17,7 @@ MarkCoded<-function(nameCol){
 #output is a column for a dataframe
 
 
-to.TF <-function(column, na.choice, na.key=-2){
+to.TF <-function(column, na.choice="KEEP", na.key=-2){
   if(na.choice=="KEEP") column[column==na.key]<-NA 
   if(na.choice=="TRUE") column[column==na.key]<-TRUE 
   if(na.choice=="FALSE") column[column==na.key]<-FALSE 
