@@ -1677,7 +1677,7 @@ MarkCoded("STEAMR")
 
 #RADFUEL
 
-All2009$RADFUEL<-recode(All2009$RADFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","9"="DistrictStream","21"="OtherFuel","-2"=NA))
+All2009$RADFUEL<-recode(All2009$RADFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","9"="DistrictStream","21"="OtherFuel"))
 
 summary(All2009$RADFUEL)
 
@@ -1701,11 +1701,9 @@ MarkCoded("PIPELESS")
 
 #PIPEFUEL
 
-All2009$PIPEFUEL<-recode(All2009$PIPEFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","9"="DistrictStream","21"="OtherFuel","-2"=NA))
+All2009$PIPEFUEL<-recode(All2009$PIPEFUEL,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","9"="DistrictStream","21"="OtherFuel"))
 
 summary(All2009$PIPEFUEL)
-
-MarkCoded("PIPEFUEL")
 
 #ROOMHEAT
 
@@ -1749,7 +1747,7 @@ MarkCoded("CARRYEL")
 
 #CARRYKER
 
-All2009$CARRYKER<-to.TF(All2009$CARRYKER))
+All2009$CARRYKER<-to.TF(All2009$CARRYKER)
 
 summary(All2009$CARRYKER)
 
@@ -1757,7 +1755,7 @@ MarkCoded("CARRYKER")
 
 #CHIMNEY
 
-All2009$CHIMNEY<-to.TF)
+All2009$CHIMNEY<-to.TF(All2009$CHIMNEY)
 
 summary(All2009$CHIMNEY)
 
@@ -1880,7 +1878,6 @@ All2009$TEMPGONE<-recodeNumeric(All2009$TEMPGONE)
 
 summary(All2009$TEMPGONE)
 
-MarkCoded("TEMPGONE")
 
 #TEMPNITE
 
@@ -1888,7 +1885,6 @@ All2009$TEMPNITE<-recodeNumeric(All2009$TEMPNITE)
 
 summary(All2009$TEMPNITE)
 
-MarkCoded("TEMPNITE")
 
 #MOISTURE
 
@@ -1896,19 +1892,39 @@ All2009$MOISTURE<-to.TF(All2009$MOISTURE)
 
 summary(All2009$MOISTURE)
 
-MarkCoded("MOISTURE")
 
-#USEMOISTURE
+#USEMOISTURE (TAKE LOOK AT)
 
-All2009$USEMOISTURE<-recode(All2009$USEMOISTURE,C("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
 
-summary(All2009$USEMOISTURE)
+# All2009$USEMOISTURE<-recode(All2009$USEMOISTURE,C("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
+# 
+# table(All2009$USEMOISTURE)
 
 
 
 ```
 
 ```{r}
+
+#NUMH20ONOTNK
+
+All2009$NUMH2ONOTNK<-recodeNumeric(All2009$NUMH2ONOTNK)
+
+table(All2009$NUMH2ONOTNK)
+
+#NUMH2OTHRS
+
+All2009$NUMH2OHTRS<-recodeNumeric(All2009$NUMH2OHTRS)
+
+table(All2009$NUMH2OHTRS)
+
+#H2OTYPE1
+
+All2009$H2OTYPE1<-recode(All2009$H2OTYPE1,c("1"="StorageHeater","2"="TanklessHeater"))
+
+summary(All2009$H2OTYPE1)
+
+#FUELH20
 
 
 
