@@ -1,11 +1,11 @@
 #Helper functions for RECS recoding
 
 library(plyr)
-
+library(stringr)
 
 
 MarkCoded<-function(nameCol){
-  Cols2009[Cols2009$V1==nameCol,]$Status<-"Coded"
+  Cols2009[Cols2009$V1==nameCol,]$Status<<-"Coded"
   
 }
 
@@ -17,7 +17,7 @@ MarkCoded<-function(nameCol){
 #output is a column for a dataframe
 
 
-to.TF <-function(column, na.choice, na.key=-2){
+to.TF <-function(column, na.choice="KEEP", na.key=-2){
   if(na.choice=="KEEP") column[column==na.key]<-NA 
   if(na.choice=="TRUE") column[column==na.key]<-TRUE 
   if(na.choice=="FALSE") column[column==na.key]<-FALSE 
@@ -63,9 +63,10 @@ recodeNumeric<-function(column, na.key="-2"){
   theDollar<-str_locate(theFullCol,"\\$")
   ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
   MarkCoded(ColName)
-  as.numeric(column)
+  as.numeric(fix.na(column,na.key))
 }
 
+summary(recodeNumeric(All2009$NUMTHERM))
 # Example Code
 # summary(revalue(as.factor(All2009$ESWWAC),c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE)))
 # summary(All2009$ESWWAC)
