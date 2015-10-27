@@ -58,6 +58,13 @@ recode<-function(column, key, na.key="-2"){
   revalue(as.factor(column),key)
 }
 
+recodeNumeric<-function(column, na.key="-2"){
+  theFullCol<-as.character(as.list( sys.call(sys.parent()) )[-1])
+  theDollar<-str_locate(theFullCol,"\\$")
+  ColName<-as.character(substr(theFullCol,theDollar+1,nchar(theFullCol) ))[1]
+  MarkCoded(ColName)
+  as.numeric(column)
+}
 
 # Example Code
 # summary(revalue(as.factor(All2009$ESWWAC),c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE)))
