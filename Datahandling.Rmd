@@ -679,7 +679,7 @@ summary(All2009$LOOKLIKE)
 
 #NUMFLRS
 
-All2009$NUMFLRS<-recode(All2009$NUMFLRS,c("1"="1Floor","2"="2Floors","3"="3Floors","4"="4Floors","5"="5Floors","6"="6Floors","7"="7Floors","8"="8Floors","9"="9Floors","10"="10Floor","11"="11Floors","12"="12Floors","13"="13Floors","14"="14Floors","15"="15Floors","20"="20Floors","21"="21Floors","35"="35Floors","-2"=NA))
+All2009$NUMFLRS<-recodeNumeric(All2009$NUMFLRS)
 
 
 summary(All2009$NUMFLRS)
@@ -742,10 +742,10 @@ All2009$STORIES<-revalue(as.factor(All2009$STORIES),c("10"="OneStory","20"="TwoS
 
 summary(All2009$STORIES)
 
-#TYPEHUQ$ (addition to mobile home)
+#TYPEHUQ4 (addition to mobile home)
 
 
-All2009$TYPEHUQ4<-revalue(as.factor(All2009$TYPEHUQ4),c("0"="NO","1"="YES","-2"=NA))
+All2009$TYPEHUQ4<-to.TF(All2009$TYPEHUQ4)
 
 summary(All2009$TYPEHUQ4)
 
@@ -793,7 +793,7 @@ MarkCoded("NHAFBATH")
 
 table(All2009$OTHROOMS)
 
-All2009$OTHROOMS<-revalue(as.factor(All2009$OTHROOMS),c("1"="OneOtherRoom","2"="TwoOtherRooms","3"="ThreeOtherRooms","4"="FourOtherRooms","5"="FiveOtherRooms","6"="SixOtherRooms","7"="SevenOtherRooms","8"="EightOtherRooms","9"="NineOtherRomms","10"="TenOtherRooms","11"="ElevenOtherRooms","12"="TwelveOtherRooms","13"="ThriteenOtherRooms","14"="FourteenOtherRooms","17"="SeventeenOtherRooms"))
+All2009$OTHROOMS<-recodeNumeric(All2009$OTHROOMS)
 
 summary(All2009$OTHROOMS)
 
@@ -921,7 +921,7 @@ table(All2009$NUMFRIG)
 
 # All2009$NUMFRIG<-revalue(as.factor(All2009$NUMFRIG),c("0"="NoFridege","1"="OneFridge","2"="TwoFridge","3"="ThreeFridge","4"="FourFidge","5"="FiveFridge","6"="SixFridge","7"="SevenFridge"))
 
-All2009$NUMFRIG<-as.numeric(All2009$NUMFRIG)
+All2009$NUMFRIG<-recodeNumeric(All2009$NUMFRIG)
 summary(All2009$NUMFRIG)
 
 #TYPERFR1
@@ -1780,10 +1780,6 @@ MarkCoded("EQMAMT")
 
 #HEATROOM 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 449ae8451a818625c87561a2a38bd6622ffd8a96
 All2009$HEATROOM<-recodeNumeric(All2009$HEATROOM)
 
 summary(All2009$HEATROOM)
@@ -2071,10 +2067,593 @@ summary(All2009$WWACAGE)
 
 summary(recode(All2009$ESWWAC,c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE)))
 
-#
+#REPLACWWAC
+
+All2009$REPLCWWAC<-recode(All2009$REPLCWWAC,c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE))
+
+summary(All2009$REPLCWWAC)
+
+#USEWWAC
+
+All2009$USEWWAC<-recode(All2009$USEWWAC,c("1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+        
+summary(All2009$USEWWAC)
+
+#NUMCFAN
+
+All2009$NUMCFAN<-recodeNumeric(All2009$NUMCFAN)
+
+summary(All2009$NUMCFAN)
+
+#USECFAN
+
+All2009$USECFAN<-recode(All2009$USECFAN,c("1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+
+summary(All2009$USECFAN)
+
+#TREESHAD
+
+All2009$TREESHAD<-to.TF(All2009$TREESHAD)
+
+summary(All2009$TREESHAD)
+
+#NOTMOIST
+
+All2009$NOTMOIST<-to.TF(All2009$NOTMOIST)
+
+summary(All2009$NOTMOIST)
+
+#USENOTMOIST
+
+All2009$USENOTMOIST<-recode(All2009$USENOTMOIST,c("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
+
+summary(All2009$USENOTMOIST)
+
+#SWIMPOOL
+
+All2009$SWIMPOOL<-to.TF(All2009$SWIMPOOL)
+
+summary(All2009$SWIMPOOL)
+
+#POOL
+
+All2009$POOL<-to.TF(All2009$POOL)
+
+summary(All2009$POOL)
+
+#FUELPOOL
+
+All2009$FUELPOOL<-recode(All2009$FUELPOOL, FuelType)
+
+summary(All2009$FUELPOOL)
+
+#RECBATH
+
+All2009$RECBATH<-to.TF(All2009$RECBATH)
+
+summary(All2009)
+
+#FUELTUB
+
+All2009$FUELTUB<-recode(All2009$FUELTUB, FuelType)
+
+summary(All2009$FUELTUB)
+
+#LGT12
+
+All2009$LGT12<-recodeNumeric(All2009$LGT12)
+
+summary(All2009$LGT12)
+
+# #LGT12EE (unsure how to deal with "-8", "-9")
+# 
+# All2009$LGT12EE<-recodeNumeric(All2009$LGT12EE)
+# 
+# table(All2009$LGT12EE)
+
+#LGT4
+
+All2009$LGT4<-recodeNumeric(All2009$LGT4)
+
+summary(All2009$LGT4)
+
+# #LGT4EE (unsure how to deal with "-8", "-9")
+# 
+# All2009$LGT4EE<-recodeNumeric(All2009$LGT4EE)
+# 
+# table(All2009$LGT4EE)
+
+#LGT1
+
+All2009$LGT1<-recodeNumeric(All2009$LGT1)
+
+summary(All2009$LGT1)
+
+# #LGT1EE (unsure how to deal with "-8", "-9")
+# 
+# All2009$LGT1EE<-recodeNumeric(All2009$LGT1EE)
+# 
+# table(All2009$LGT1EE)
+
+#NOUTLGTNT
+
+All2009$NOUTLGTNT<-recodeNumeric(All2009$NOUTLGTNT)
+
+summary(All2009$NOUTLGTNT)
+
+#LGTOEE
+
+# All2009$LGTOEE<-recodeNumeric(All2009$LGTOEE)
+# 
+# table(All2009$LGTOEE)
+
+#NGASLIGHT
+
+All2009$NGASLIGHT<-recodeNumeric(All2009$NGASLIGHT)
+
+summary(All2009$NGASLIGHT)
+
+#INSTLCFL
+
+All2009$INSTLCFL<-to.TF(All2009$INSTLCFL)
+
+summary(All2009$INSTLCFL)
+
+#SLDDRS
+
+All2009$SLDDRS<-to.TF(All2009$SLDDRS)
+
+summary(All2009$SLDDRS)
+
+#DOOR1SUM
+
+All2009$DOOR1SUM<-recodeNumeric(All2009$DOOR1SUM)
+
+summary(All2009$DOOR1SUM)
+
+#WINDOWS
+
+All2009$WINDOWS<-recode(All2009$WINDOWS,c("0"="NONE","10"="1or2","20"="3or5","30"="6to9","41"="10to15","42"="16to19","50"="20to29","60"="Gr30"))
+
+summary(All2009$WINDOWS)
+
+#TYPEGLASS
+
+All2009$TYPEGLASS<-recode(All2009$TYPEGLASS,c("1"="SinglePane","2"="DoublePane","3"="TriplePane"))
+
+summary(All2009$TYPEGLASS)
+
+#NEWGLASS
+
+All2009$NEWGLASS<-recode(All2009$NEWGLASS,c("1"="All","2"="Some","3"="None"))
+
+summary(All2009$NEWGLASS)
+
+#ADWINSUL
+
+All2009$ADQINSUL<-recode(All2009$ADQINSUL,c("1"="Well","2"="Adequate","3"="Poor","4"="None"))
+
+summary(All2009$ADQINSUL)
+
+#INSTLINS
+
+All2009$INSTLINS<-to.TF(All2009$INSTLINS)
+
+summary(All2009$INSTLINS)
+
+#AGEINS
+
+All2009$AGEINS<-recode(All2009$AGEINS, TYPEAGE)
+
+summary(All2009$AGEINS)
+
+#DRAFTY
+
+All2009$DRAFTY<-recode(All2009$DRAFTY,c("1"="AllTime","2"="MostTime","3"="Sometime","0"="Never"))
+
+summary(All2009$DRAFTY)
+
+#INSTLWS
+
+All2009$INSTLWS<-to.TF(All2009$INSTLWS)
+
+summary(All2009$INSTLWS)
+
+#AGEWS
+
+All2009$AGEWS<-recode(All2009$AGEWS, TYPEAGE)
+
+summary(All2009$AGEWS)
+
+#AUDIT
+
+All2009$AUDIT<-to.TF(All2009$AUDIT)
+
+summary(All2009$AUDIT)
+
+#AGEAUD
+
+All2009$AGEAUD<-recode(All2009$AGEAUD, TYPEAGE)
+
+summary(All2009$AGEAUD)
+
+#USEEL
+
+All2009$USEEL<-to.TF(All2009$USEEL)
+
+summary(All2009$USEEL)
+
+#USEENG
+
+All2009$USENG<-to.TF(All2009$USENG)
+
+summary(All2009$USENG)
+
+#USELP
+
+All2009$USELP<-to.TF(All2009$USELP)
+
+summary(All2009$USELP)
+
+#USEFO
+
+All2009$USEFO<-to.TF(All2009$USEFO)
+
+summary(All2009$USEFO)
+
+#USEKERO
+
+All2009$USEKERO<-to.TF(All2009$USEKERO)
+
+summary(All2009$USEKERO)
+
+#USEWOOD
+
+All2009$USEWOOD<-to.TF(All2009$USEWOOD)
+
+summary(All2009$USEWOOD)
+
+#USESOLAR
+
+All2009$USESOLAR<-to.TF(All2009$USESOLAR)
+
+summary(All2009$USESOLAR)
+
+#USEOTH
+
+All2009$USEOTH<-to.TF(All2009$USEOTH)
+
+summary(All2009$USEOTH)
+
+#ELWARM
+
+All2009$ELWARM<-to.TF(All2009$ELWARM)
+
+summary(All2009$ELWARM)
+
+#ELECAUX
+
+All2009$ELECAUX<-to.TF(All2009$ELECAUX)
+
+summary(All2009$ELECAUX)
+
+#ELCOOL
+
+All2009$ELCOOL<-to.TF(All2009$ELCOOL)
+
+summary(All2009$ELCOOL)
+
+#ELWATER
+
+All2009$ELWATER<-to.TF(All2009$ELWATER)
+
+summary(All2009$ELWATER)
+
+#ELFOOD
+
+All2009$ELFOOD<-to.TF(All2009$ELFOOD)
+
+summary(All2009$ELFOOD)
+
+#ELOTHER
+
+All2009$ELOTHER<-to.TF(All2009$ELOTHER)
+
+summary(All2009$ELOTHER)
+
+#UGWARM
+
+All2009$UGWARM<-to.TF(All2009$UGWARM)
+
+summary(All2009$UGWARM)
+
+#UGASAUX
+
+All2009$UGASAUX<-to.TF(All2009$UGASAUX)
+
+summary(All2009$UGASAUX)
+
+#UGWATER
+
+All2009$UGWATER<-to.TF(All2009$UGWATER)
+
+summary(All2009$UGWATER)
+
+#UGCOOK
+
+All2009$UGCOOK<-to.TF(All2009$UGCOOK)
+
+summary(All2009$UGCOOK)
+
+#UGOTH
+
+All2009$UGOTH<-to.TF(All2009$UGOTH)
+
+summary(All2009$UGOTH)
+
+#LPWARM
+
+All2009$LPWARM<-to.TF(All2009$LPWARM)
+
+summary(All2009$LPWARM)
+
+#LPGAUX
+
+All2009$LPGAUX<-to.TF(All2009$LPGAUX)
+
+summary(All2009$LPGAUX)
+
+#LPWATER
+
+All2009$LPWATER<-to.TF(All2009$LPWATER)
+
+summary(All2009$LPWATER)
+
+#LPCOOK
+
+All2009$LPCOOK<-to.TF(All2009$LPCOOK)
+
+summary(All2009$LPCOOK)
+
+#LPOTHER
+
+All2009$LPOTHER<-to.TF(All2009$LPOTHER)
+
+summary(All2009$LPOTHER)
+
+#FOWARM
+
+All2009$FOWARM<-to.TF(All2009$FOWARM)
+
+summary(All2009$FOWARM)
+
+#FOILAUX
+
+All2009$FOILAUX<-to.TF(All2009$FOILAUX)
+
+summary(All2009$FOILAUX)
+
+#FOWATER
+
+All2009$FOWATER<-to.TF(All2009$FOWATER)
+
+summary(All2009$FOWATER)
+
+#FOOTHER
+
+All2009$FOOTHER<-to.TF(All2009$FOOTHER)
+
+summary(All2009$FOOTHER)
+
+#KRWARM
+
+All2009$KRWARM<-to.TF(All2009$KRWARM)
+
+summary(All2009$KRWARM)
+
+#KEROAUX
+
+All2009$KEROAUX<-to.TF(All2009$KEROAUX)
+
+summary(All2009$KEROAUX)
+
+#KRWATER
+
+All2009$KRWATER<-to.TF(All2009$KRWATER)
+
+summary(All2009$KRWATER)
+
+#KROTHER
+
+All2009$KROTHER<-to.TF(All2009$KROTHER)
+
+summary(All2009$KROTHER)
+
+#WDWARM
+
+All2009$WDWARM<-to.TF(All2009$WDWARM)
+
+summary(All2009$WDWARM)
+
+#WOODAUX
+
+All2009$WOODAUX<-to.TF(All2009$WOODAUX)
+
+summary(All2009$WOODAUX)
+
+#WDWATER
+
+All2009$WDWATER<-to.TF(All2009$WDWATER)
+
+summary(All2009$WDWATER)
+
+#WDOTHUSE
+
+All2009$WDOTHUSE<-to.TF(All2009$WDOTHUSE)
+
+summary(All2009$WDOTHUSE)
+
+#SOLWARM
+
+All2009$SOLWARM<-to.TF(All2009$SOLWARM)
+
+summary(All2009$SOLWARM)
+
+#SOLARAUX
+
+All2009$SOLARAUX<-to.TF(All2009$SOLARAUX)
+
+summary(All2009$SOLARAUX)
+
+#SOLARWATER
+
+All2009$SOLWATER<-to.TF(All2009$SOLWATER)
+
+summary(All2009$SOLWATER)
+
+#SOLOTHER
+
+All2009$SOLOTHER<-to.TF(All2009$SOLOTHER)
+
+summary(All2009$SOLOTHER)
+
+#OTHWARM
+
+All2009$OTHWARM<-to.TF(All2009$OTHWARM)
+
+summary(All2009$OTHWARM)
+
+#OTHERAUX
+
+All2009$OTHERAUX<-to.TF(All2009$OTHERAUX)
+
+summary(All2009$OTHERAUX)
+
+#OTHWATER
+
+All2009$OTHWATER<-to.TF(All2009$OTHWATER)
+
+summary(All2009$OTHWARM)
+
+#OTHCOOK
+
+All2009$OTHCOOK<-to.TF(All2009$OTHCOOK)
+
+summary(All2009$OTHCOOK)
+
+#ONSITE
+
+All2009$ONSITE<-to.TF(All2009$ONSITE)
+
+summary(All2009$ONSITE)
+
+#ONSITEGRID
+
+All2009$ONSITEGRID<-to.TF(All2009$ONSITEGRID)
+
+summary(All2009$ONSITEGRID)
+
+#PELHEAT
+
+All2009$PELHEAT<-recode(All2009$PELHEAT, PAYMENTS)
+
+summary(All2009$PELHEAT)
+
+#PELHOTWA
+
+All2009$PELHOTWA<-recode(All2009$PELHOTWA, PAYMENTS)
+
+summary(All2009$PELHOTWA)
+
+#PELCOOK
+
+All2009$PELCOOK<-recode(All2009$PELCOOK, PAYMENTS)
+
+summary(All2009$PELCOOK)
+
+#PELAC
+
+All2009$PELAC<-recode(All2009$PELAC, PAYMENTS)
+
+summary(All2009$PELAC)
+
+#PELLIGHT
+
+All2009$PELLIGHT<-recode(All2009$PELLIGHT, PAYMENTS)
+
+summary(All2009$PELLIGHT)
+
+#OTHERWAYEL
+
+All2009$OTHERWAYEL<-recode(All2009$OTHERWAYEL,c("1"="Relative","2"="RentalAgent","3"="OtherParty"))
+
+summary(All2009$OTHERWAYEL)
+
+#PGASHEAT
+
+All2009$PGASHEAT<-recode(All2009$PELHEAT, PGASHEAT)
+
+summary(All2009$PGASHEAT)
+
+#PGASHTWA
+
+All2009$PGASHTWA<-recode(All2009$PGASHTWA, PAYMENTS)
+
+summary(All2009$PGASHTWA)
+
+#PUGCOOK
+
+All2009$PELHEAT<-recode(All2009$PELHEAT, PAYMENTS)
+
+summary(All2009$PELHEAT)
+
+#PUGOTH
+
+All2009$PUGOTH<-recode(All2009$PUGOTH, PAYMENTS)
+
+summary(All2009$PUGOTH)
+
+
+#OTHERWAYG
+
+All2009$OTHERWAYNG<-recode(All2009$OTHERWAYNG,c("1"="Relative","2"="RentalAgent","3"="OtherParty"))
+
+summary(All2009$OTHERWAYNG)
+
+#FOPAY
+
+All2009$FOPAY<-recode(All2009$FOPAY, PAYMENTS)
+
+summary(All2009$FOPAY)
+
+#OTHERWAYFO
+
+All2009$OTHERWAYFO<-recode(All2009$OTHERWAYFO,c("1"="Relative","2"="RentalAgent","3"="OtherParty"))
+
+summary(All2009$OTHERWAYFO)
+
+#LPGPAY
+
+All2009$LPGPAY<-recode(All2009$LPGPAY, PAYMENTS)
+
+summary(All2009$LPGPAY)
+
+#OTHERWAYLPG
+
+All2009$OTHERWAYLPG<-recode(All2009$OTHERWAYLPG,c("1"="Relative","2"="RentalAgent","3"="OtherParty"))
+
+summary(All2009$OTHERWAYLPG)
+
+#LPGDELV
+
+
+
+
+
 
 
 ```
+
 
 
 

@@ -92,5 +92,10 @@ FuelType<-c("1"="NG","2"="LPG", "3"="FuelOil","4"="Kerosene", "5"="Elec","8"="So
 ##
 # Mark one colum as coded
 
-TYPEAGE<-c("1"="LT2Years","2"="2TO4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="GT20Years")
+#Common year vector
 
+TYPEAGE<-c("1"="Le2Years","2"="2TO4Years","3"="5To9Years","41"="10To14Years","42"="15To19Years","5"="GT20Years")
+
+#Common payment vector
+
+PAYMENTS<-c("1"="Household","2"="RentIncluded","3"="OtherWay")
