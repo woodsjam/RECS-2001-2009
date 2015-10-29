@@ -1404,91 +1404,69 @@ MarkCoded("TIMEON1")
 
 #PCSLEEP1
 
-All2009$PCSLEEP1<-recode(All2009$PCSLEEP1,c("0"="NO","1"="YES","-2"=NA))
+All2009$PCSLEEP1<-to.TF(All2009$PCSLEEP1)
 
 summary(All2009$PCSLEEP1)
 
-MarkCoded("PCSLEEP1")
-
 #PCTYPE2
 
-All2009$PCTYPE2<-recode(All2009$PCTYPE2,c("1"="Desktop","2"="Laptop","-2"=NA))
+All2009$PCTYPE2<-recode(All2009$PCTYPE2,c("1"="Desktop","2"="Laptop"))
 
 summary(All2009$PCTYPE2)
 
-MarkCoded("PCTYPE2")
-
 #Monitor2
 
-All2009$MONITOR2<-recode(All2009$MONITOR2,c("0"="Standard","1"="FlatPanelLCD","-2"=NA))
+All2009$MONITOR2<-recode(All2009$MONITOR2,c("0"="Standard","1"="FlatPanelLCD"))
 
 summary(All2009$MONITOR2)
 
-MarkCoded("MONITOR2")
-
 #TIMEON2
 
-All2009$TIMEON2<-recode(All2009$TIMEON2,c("1"="LT1Hour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5HOUrs","-2"=NA))
+All2009$TIMEON2<-recode(All2009$TIMEON2,c("1"="LT1Hour","2"="1To3Hours","3"="3To6Hours","4"="6To10Hours","5"="GT5HOUrs"))
 
 summary(All2009$TIMEON2)
 
-MarkCoded("TIMEON2")
-
 #PCONOFF2
 
-All2009$PCONOFF2<-recode(All2009$PCONOFF2,c("0"="NO","1"="YES","-2"=NA))
+All2009$PCONOFF2<-to.TF(All2009$PCONOFF2)
 
 summary(All2009$PCONOFF2)
 
-MarkCoded("PCONOFF2")
-
 #PCSLEEP2
 
-All2009$PCSLEEP2<-recode(All2009$PCSLEEP2,c("0"="NO","1"="YES","-2"=NA))
+All2009$PCSLEEP2<-to>TF(All2009$PCSLEEP2)
 
 summary(All2009$PCSLEEP2)
 
-MarkCoded("PCSLEEP2")
-
 #INTERNET
 
-All2009$INTERNET<-recode(All2009$INTERNET,c("0"="NO","1"="YES","-2"=NA))
+All2009$INTERNET<-to.TF(All2009$INTERNET)
 
 summary(All2009$INTERNET)
 
-MarkCoded("INTERNET")
-
 #INDIALUP
 
-All2009$INDIALUP<-recode(All2009$INDIALUP,c("0"="NO","1"="YES","-2"=NA))
+All2009$INDIALUP<-to.TF(All2009$INDIALUP)
 
 summary(All2009$INDIALUP)
 
-MarkCoded("INDIALUP")
-
 #INDSL
 
-All2009$INDSL<-recode(All2009$INDSL,c("0"="NO","1"="YES","-2"=NA))
+All2009$INDSL<-to.TF(All2009$INDSL)
 
 summary(All2009$INDSL)
 
-MarkCoded("INDSL")
-
 #INCABLE
 
-All2009$INCABLE<-recode(All2009$INCABLE,c("0"="NO","1"="YES","-2"=NA))
+All2009$INCABLE<-to.TF(All2009$INCABLE)
 
 summary(All2009$INCABLE)
 
-MarkCoded("INCABLE")
-
 #INSATEL
 
-All2009$INSATEL<-recode(All2009$INSATEL,c("0"="NO","1"="YES","-2"=NA))
+All2009$INSATEL<-to.TF(All2009$INSATEL)
 
 summary(All2009$INSATEL)
-
-MarkCoded("INSATEL")
 
 #INWIRELESS
 
@@ -1802,12 +1780,6 @@ MarkCoded("EQMAMT")
 
 #HEATROOM 
 
-<<<<<<< HEAD
-table(All2009$HEATROOM)
-
-
-=======
->>>>>>> affc3593af06c89dee0dd541948a360d1ccd661a
 All2009$HEATROOM<-recodeNumeric(All2009$HEATROOM)
 
 summary(All2009$HEATROOM)
@@ -1904,13 +1876,13 @@ summary(All2009$MOISTURE)
 
 All2009$NUMH2ONOTNK<-recodeNumeric(All2009$NUMH2ONOTNK)
 
-table(All2009$NUMH2ONOTNK)
+summary(All2009$NUMH2ONOTNK)
 
 #NUMH2OTHRS
 
 All2009$NUMH2OHTRS<-recodeNumeric(All2009$NUMH2OHTRS)
 
-table(All2009$NUMH2OHTRS)
+summary(All2009$NUMH2OHTRS)
 
 #H2OTYPE1
 
@@ -1920,7 +1892,183 @@ summary(All2009$H2OTYPE1)
 
 #FUELH20
 
+All2009$FUELH2O<-recode(All2009$FUELH2O,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","21"="OtherFuel"))
 
+summary(All2009$FUELH2O)
+
+#WHEATOTH
+
+All2009$WHEATOTH<-to.TF(All2009$WHEATOTH)
+
+summary(All2009$WHEATOTH)
+
+#WHEATSIZ
+
+All2009$WHEATSIZ<-recode(All2009$WHEATSIZ,c("1"="Small","2"="Medium","3"="Large"))
+
+summary(All2009$WHEATSIZ)
+
+#WHEATAGE
+
+All2009$WHEATAGE<-recode(All2009$WHEATAGE, TYPEAGE)
+
+summary(All2009$WHEATAGE)
+
+#WHEATBKT
+
+All2009$WHEATBKT<-to.TF(All2009$WHEATBKT)
+
+summary(All2009$WHEATBKT)
+
+#H2OTYPE2
+
+All2009$H2OTYPE2<-to.TF(All2009$H2OTYPE2)
+
+summary(All2009$H2OTYPE2)
+
+#H2OFUEL2
+
+All2009$FUELH2O2<-recode(All2009$FUELH2O2,c("1"="NaturalGas","2"="PropaneLPG","3"="FuelOil","4"="Kerosene","5"="Electricity","7"="Wood","8"="Solar","21"="OtherFuel"))
+
+summary(All2009$FUELH2O2)
+
+#WHEATSIZ2
+
+All2009$WHEATSIZ2<-recode(All2009$WHEATSIZ2,c("1"="Small","2"="Medium","3"="Large"))
+
+summary(All2009$WHEATSIZ2)
+
+#WHEATAGE2
+
+All2009$WHEATAGE2<-recode(All2009$WHEATAGE2, TYPEAGE)
+
+summary(All2009$WHEATAGE2)
+
+#AIRCOND
+
+All2009$AIRCOND<-to.TF(All2009$AIRCOND)
+
+summary(All2009$AIRCOND)
+
+#DNTAC
+
+All2009$DNTAC<-recode(All2009$DNTAC,c("1"="HaveButDontUse","2"="DontHave"))
+
+summary(All2009$DNTAC)
+
+#COOLTYPENOAC
+
+All2009$COOLTYPENOAC<-recode(All2009$COOLTYPENOAC,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+
+summary(All2009$COOLTYPENOAC)
+
+#COOLTYPE
+
+All2009$COOLTYPE<-recode(All2009$COOLTYPE,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+
+summary(All2009$COOLTYPE)
+
+#DUCTS
+
+All2009$DUCTS<-to.TF(All2009$DUCTS)
+
+summary(All2009$DUCTS)
+
+#CENACHP
+
+All2009$CENACHP<-to.TF(All2009$CENACHP)
+
+summary(All2009$CENACHP)
+
+#ACOTHERS
+
+All2009$ACOTHERS<-to.TF(All2009$ACOTHERS)
+
+summary(All2009$ACOTHERS)
+
+#AGECENAC
+
+All2009$AGECENAC<-recode(All2009$AGECENAC, TYPEAGE)
+
+summary(All2009$AGECENAC)
+
+#REPLCcAC
+
+All2009$REPLCCAC<-recode(All2009$REPLCCAC,c("0"=TRUE,"1"=FALSE,"-8"=FALSE,"-9"=FALSE))
+
+summary(All2009$REPLCCAC)
+
+#ACROOMS
+
+All2009$ACROOMS<-recodeNumeric(All2009$ACROOMS)
+
+summary(All2009$ACROOMS)
+
+#USECENAC
+
+All2009$USECENAC<-recode(All2009$USECENAC,c("1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+
+summary(All2009$USECENAC)
+
+#THERMAINAC
+
+All2009$THERMAINAC<-to.TF(All2009$THERMAINAC)
+
+summary(All2009$THERMAIN)
+
+#PROTHERMAC
+
+All2009$PROTHERMAC<-to.TF(All2009$PROTHERMAC)
+
+summary(All2009$PROTHERMAC)
+
+#AUTOCOOLNITE
+
+All2009$AUTOCOOLNITE<-to.TF(All2009$AUTOCOOLNITE)
+
+summary(All2009$AUTOCOOLNITE)
+
+#AUTOCOOLDAY
+
+All2009$AUTOCOOLDAY<-to.TF(All2009$AUTOCOOLDAY)
+
+summary(All2009$AUTOCOOLDAY)
+
+#TEMPHOMEAC
+
+All2009$TEMPHOMEAC<-recodeNumeric(All2009$TEMPHOMEAC)
+
+summary(All2009$TEMPHOMEAC)
+
+#TEMPGONEAC
+
+All2009$TEMPGONEAC<-recodeNumeric(All2009$TEMPGONEAC)
+
+summary(All2009$TEMPGONEAC)
+
+#TEMPNITEAC
+
+All2009$TEMPNITEAC<-recodeNumeric(All2009$TEMPNITEAC)
+
+summary(All2009$TEMPNITEAC)
+
+#NUMBERAC
+
+All2009$NUMBERAC<-recodeNumeric(All2009$NUMBERAC)
+
+table(All2009$NUMBERAC)
+
+#WWACAGE
+
+All2009$WWACAGE<-recode(All2009$WWACAGE, TYPEAGE)
+
+summary(All2009$WWACAGE)
+
+#ESWWAC
+
+summary(recode(All2009$ESWWAC,c("0"=TRUE, "1"=FALSE, "-2"=FALSE, "-8"=FALSE, "-9"=FALSE)))
+
+#
 
 
 ```
