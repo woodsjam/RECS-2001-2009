@@ -99,3 +99,7 @@ TYPEAGE<-c("1"="Le2Years","2"="2TO4Years","3"="5To9Years","41"="10To14Years","42
 #Common payment vector
 
 PAYMENTS<-c("1"="Household","2"="RentIncluded","3"="OtherWay")
+
+#Common Age Catergory 
+
+AGECAT<-c("1"="Le5","2"="5To9","3"="10To14","4"="15To19","5"="20To24","6"="25To29","7"="30To34","8"="35To39","9"="40To44","10"="45To49","11"="50to54","12"="55To59","13"="60to64","14"="65To69","15"="70To74","16"="75To79","17"="80To84","18"="Gr84")
