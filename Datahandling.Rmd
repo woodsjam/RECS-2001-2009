@@ -6,26 +6,29 @@ output: html_document
 ---
 
 ```{r}
-All2009 <- read.csv("2009/recs2009_public.csv")
+#All2009 <- read.csv("2009/recs2009_public.csv")
 
-All2005 <- read.csv("2005/RECS05alldata.csv")
+library(readr)
+All2009 <- read_csv("2009/recs2009_public.csv")
 
+#All2005 <- read.csv("2005/RECS05alldata.csv")
+All2005 <- read_csv("2005/RECS05alldata.csv")
 ```
 Those two are simple but the 2001 data comes in many parts
 
 ```{r}
-publicuse102001<-read.csv("2001/publicuse102001.csv", header=TRUE)  
-publicuse2001<-read.csv("2001/publicuse2001.csv", header=TRUE)   
-publicuse42001<-read.csv("2001/publicuse42001.csv", header=TRUE)  
-publicuse72001<-read.csv("2001/publicuse72001.csv", header=TRUE)
-publicuse112001<-read.csv("2001/publicuse112001.csv", header=TRUE)  
-publicuse22001<-read.csv("2001/publicuse22001.csv", header=TRUE)  
-publicuse52001<-read.csv("2001/publicuse52001.csv", header=TRUE)  
-publicuse82001<-read.csv("2001/publicuse82001.csv", header=TRUE)
-publicuse122001<-read.csv("2001/publicuse122001.csv", header=TRUE) 
-publicuse32001<-read.csv("2001/publicuse32001.csv", header=TRUE)
-publicuse62001<-read.csv("2001/publicuse62001.csv", header=TRUE)  
-publicuse92001<-read.csv("2001/publicuse92001.csv", header=TRUE)
+publicuse102001<-read_csv("2001/publicuse102001.csv" )  
+publicuse2001<-read_csv("2001/publicuse2001.csv" )   
+publicuse42001<-read_csv("2001/publicuse42001.csv" )  
+publicuse72001<-read_csv("2001/publicuse72001.csv" )
+publicuse112001<-read_csv("2001/publicuse112001.csv" )  
+publicuse22001<-read_csv("2001/publicuse22001.csv" )  
+publicuse52001<-read_csv("2001/publicuse52001.csv" )  
+publicuse82001<-read_csv("2001/publicuse82001.csv" )
+publicuse122001<-read_csv("2001/publicuse122001.csv" ) 
+publicuse32001<-read_csv("2001/publicuse32001.csv" )
+publicuse62001<-read_csv("2001/publicuse62001.csv" )  
+publicuse92001<-read_csv("2001/publicuse92001.csv" )
 
 #DOEID is the merge key
 library(reshape)
@@ -1012,15 +1015,15 @@ summary(All2009$AGERFRI2)
 
 
 
-#ESFRIG2
-
-All2009$ESFRIG2[All2009$ESFRIG2==-2]<-NA
-All2009$ESFRIG2[All2009$ESFRIG2==-8]<-NA
-All2009$ESFRIG2[All2009$ESFRIG2==-9]<-NA
-
-All2009$ESFRIG2<-recode(All2009$ESFRIG2,FridgeCodes)
-
-summary(All2009$ESFRIG2)
+# #ESFRIG2
+# 
+# All2009$ESFRIG2[All2009$ESFRIG2==-2]<-NA
+# All2009$ESFRIG2[All2009$ESFRIG2==-8]<-NA
+# All2009$ESFRIG2[All2009$ESFRIG2==-9]<-NA
+# 
+# All2009$ESFRIG2<-recode(All2009$ESFRIG2,FridgeCodes)
+# 
+# summary(All2009$ESFRIG2)
 
 
 
@@ -2006,13 +2009,13 @@ summary(All2009$DNTAC)
 
 #COOLTYPENOAC
 
-All2009$COOLTYPENOAC<-recode(All2009$COOLTYPENOAC,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+All2009$COOLTYPENOAC<-recode(All2009$COOLTYPENOAC,c("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
 
 summary(All2009$COOLTYPENOAC)
 
 #COOLTYPE
 
-All2009$COOLTYPE<-recode(All2009$COOLTYPE,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+All2009$COOLTYPE<-recode(All2009$COOLTYPE,c("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
 
 summary(All2009$COOLTYPE)
 
@@ -3485,10 +3488,6 @@ summary(All2009$TOTALDOLOTH)
 
 
 
-                                                    
-
-```
-
 
 
 
@@ -3518,11 +3517,12 @@ Cols2009$Status[Cols2009$V1=="UR"]<-"Coded"
 
 source("RECSHelper.R")
 
-All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
-
-summary(All2009[OnlyTwoCodes])
-
-Cols2009[is.element(Cols2009$V1,OnlyTwoCodes),]$Status<-"Coded"
+#modify so only does the Z type columns
+# All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
+# 
+# summary(All2009[OnlyTwoCodes])
+# 
+# Cols2009[is.element(Cols2009$V1,OnlyTwoCodes),]$Status<-"Coded"
 ```
 
 Fixed all those in one fell swoop.
@@ -3530,38 +3530,54 @@ Fixed all those in one fell swoop.
 Lets check the ones with three potential codes
 
 ```{r}
-OnlyThreeCodes<-names(NumberOfCodes[NumberOfCodes==3])
-
-summary(All2009[OnlyThreeCodes])
+# OnlyThreeCodes<-names(NumberOfCodes[NumberOfCodes==3])
+# 
+# summary(All2009[OnlyThreeCodes])
 ```
 My hope is to spot those that are TF with missing.  Lets refine it so we only have numerical codes with a min of exactly -2 and a max of exactly 1.
 
 ```{r}
-#Returns true if three codes with max of 1 and min of -2
-FindTFWMissing<-function(x){
-  ret<-FALSE
-  if(length(table(x))==3 & max(x)==1 & min(x)==-2) ret<-TRUE;
-  ret
-}
+# #Returns true if three codes with max of 1 and min of -2
+# FindTFWMissing<-function(x){
+#   ret<-FALSE
+#   if(length(table(x))==3 & max(x)==1 & min(x)==-2) ret<-TRUE;
+#   ret
+# }
+# 
+# #tests
+# FindTFWMissing(All2009$GARGCOOL)
+# FindTFWMissing(All2009$FREEZER2)
+# FindTFWMissing(All2009$BASEUSE)
+# summary(All2009$BASEUSE)
+# 
+# #Broken somehow
+# table(apply(data.frame(All2009$GARGCOOL,All2009$FREEZER2,All2009$BASEUSE   ),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+# 
+# table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
 
-#tests
-FindTFWMissing(All2009$GARGCOOL)
-FindTFWMissing(All2009$FREEZER2)
-FindTFWMissing(All2009$BASEUSE)
-summary(All2009$BASEUSE)
 
-#Broken somehow
-table(apply(data.frame(All2009$GARGCOOL,All2009$FREEZER2,All2009$BASEUSE   ),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+```
 
-table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+Look for uncoded.  There are still 12 to fix. ***TODO***
 
+```{r}
 
+Cols2009$V1[Cols2009$Status=="Uncoded"]
+
+table(Cols2009$Status)
 ```
 
 
 # RECS 2005
 
-summa
+```{r}
+#Set up with blank names
+Cols2009$Names2005<-''
+
+Cols2009$Names2005[is.element(as.character(Cols2009$V1),names(All2005))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2005))]
+
+```
+
 
 Look for analogous variables in RECS205layoutAllData.csv
 
@@ -3571,4 +3587,11 @@ Code books are broken up by data file.  codebook82001.txt is for publicuse82001.
 
 Look for variables analogous to the ones in the 2009 list. 
 
+```{r}
+Cols2009$Names2001<-''
+
+Cols2009$Names2001[is.element(as.character(Cols2009$V1),names(All2001))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2001))]
+
+
+```
 
