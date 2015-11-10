@@ -3559,7 +3559,27 @@ table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x))
 ```
 
 
+
+
+Bulk match the variable nams from 2009 and 2005
+
+```{r}
+
+Names2009<-names(All2009)
+Names2005<-names(All2005)
+Names2001<-names(All2001)
+
+intersect(Names2009,Names2001)
+intersect(Names2009,Names2005)
+
+EasyRecodes<-intersect(Names2005,Cols2009$V1)
+
+```
+
+
 # RECS 2005
+
+
 
 Look for analogous variables in RECS205layoutAllData.csv
 
