@@ -3561,7 +3561,13 @@ table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x))
 
 # RECS 2005
 
-summa
+```{r}
+
+
+
+
+```
+
 
 Look for analogous variables in RECS205layoutAllData.csv
 
