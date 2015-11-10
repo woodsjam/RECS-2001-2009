@@ -3563,6 +3563,7 @@ table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x))
 
 ```{r}
 
+EasyRecode<-intersect(Cols2009$V1,names(All2005))
 
 
 
