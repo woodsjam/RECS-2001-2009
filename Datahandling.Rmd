@@ -543,7 +543,7 @@ MarkCoded("UR")
 
 table(All2009$REGIONC)
 
-All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE","2"="Midwest","3"="South","4"="West"))
+All2009$REGIONC<-recode(All2009$REGIONC,c("1"="NE","2"="Midwest","3"="South","4"="West"))
 
 summary(All2009$REGIONC)
 MarkCoded("REGIONC")
@@ -553,7 +553,7 @@ MarkCoded("REGIONC")
 
 table(All2009$DIVISION)
 
-All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
+All2009$DIVISION<-recode(All2009$DIVISION,c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
 
 MarkCoded("DIVISION")
 
@@ -562,7 +562,7 @@ MarkCoded("DIVISION")
 
 table(All2009$REPORTABLE_DOMAIN)
 
-All2009$REPORTABLE_DOMAIN<-revalue(as.factor(All2009$REPORTABLE_DOMAIN),c("1"="CT.ME.NH.RI.VT","2"="MA","3"="NY","4"="NJ","5"="PA","6"="IL","7"="IN.OH","8"="MI","9"="WI","10"="IA.MN.ND.SD","11"="KS.NE","12"="MO","13"="VA","14"="DE.DC.MA.WV","15"="GA","16"="NC.SC","17"="FL","18"="AL.KY.MS","19"="TN","20"="AR.LA.OK","21"="TX","22"="CO","23"="ID.MT.UT.WY","24"="AZ","25"="NV.NM","26"="CA","27"="AK.HI.OR.WA"))
+All2009$REPORTABLE_DOMAIN<-recode(All2009$REPORTABLE_DOMAIN,c("1"="CT.ME.NH.RI.VT","2"="MA","3"="NY","4"="NJ","5"="PA","6"="IL","7"="IN.OH","8"="MI","9"="WI","10"="IA.MN.ND.SD","11"="KS.NE","12"="MO","13"="VA","14"="DE.DC.MA.WV","15"="GA","16"="NC.SC","17"="FL","18"="AL.KY.MS","19"="TN","20"="AR.LA.OK","21"="TX","22"="CO","23"="ID.MT.UT.WY","24"="AZ","25"="NV.NM","26"="CA","27"="AK.HI.OR.WA"))
 
 MarkCoded("REPORTABLE_DOMAIN")
 
@@ -701,15 +701,15 @@ table(All2009$NUMAPTS)
 
 
 All2009$NUMAPTS[All2009$NUMAPTS==-2]<-NA
-All2009$NUMAPTS<-as.numeric(All2009$NUMAPTS)
-table(All2009$NUMAPTS)
+All2009$NUMAPTS<-recodeNumeric(All2009$NUMAPTS)
+
 MarkCoded("NUMAPTS")
 
 #WALLTYPE
-
-All2009$WALLTYPE<-revalue(as.factor(All2009$WALLTYPE),c("1"="Brick","2"="Wood","3"="Siding","4"="Stucco","5"="Composition","6"="Stone","7"="Concrete","8"="Glass","9"="Other"))
-
-summary(All2009$WALLTYPE)
+# 
+# All2009$WALLTYPE<-recode(All2009$WALLTYPE,c("1"="Brick","2"="Wood","3"="Siding","4"="Stucco","5"="Composition","6"="Stone","7"="Concrete","8"="Glass","9"="Other"))
+# 
+# summary(All2009$WALLTYPE)
 
 # #ROOFTYPE
 # 
@@ -723,7 +723,7 @@ summary(All2009$WALLTYPE)
 
 #STUDIO
 
-All2009$STUDIO<-revalue(as.factor(All2009$STUDIO),c("0"="NO","1"="YES","-2"=NA))
+All2009$STUDIO<-recode(All2009$STUDIO,c("0"="NO","1"="YES","-2"=NA))
 
 summary(All2009$STUDIO)
 
@@ -734,14 +734,14 @@ table(All2009$NAPTFLRS)
 
 All2009$NAPTFLRS[All2009$NAPTFLRS==-2]<-NA
 
-All2009$NAPTFLRS<-revalue(as.factor(All2009$NAPTFLRS),c("1"="1Floor","2"="2Floors","3"="3Floors","-2"=NA))
+All2009$NAPTFLRS<-recode(All2009$NAPTFLRS,c("1"="1Floor","2"="2Floors","3"="3Floors","-2"=NA))
 
 summary(All2009$NAPTFLRS)
 
 #STORIES
 
 
-All2009$STORIES<-revalue(as.factor(All2009$STORIES),c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType","-2"=NA))
+All2009$STORIES<-recode(All2009$STORIES,c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType","-2"=NA))
 
 summary(All2009$STORIES)
 
@@ -3565,6 +3565,76 @@ Look for uncoded.  There are still 12 to fix. ***TODO***
 Cols2009$V1[Cols2009$Status=="Uncoded"]
 
 table(Cols2009$Status)
+```
+
+```{r}
+All2009$DOEID<-as.factor(All2009$DOEID)
+MarkCoded("DOEID")
+
+
+
+##
+All2009$VCR2<-recode(All2009$VCR2,c("0"="NO","1"="YES"))
+
+summary(All2009$VCR2)
+
+
+##
+All2009$TVAUDIOSYS2<-recode(All2009$TVAUDIOSYS2,c("0"="NO","1"="YES"))
+
+summary(All2009$TVAUDIOSYS1)
+
+##
+All2009$COMPUTER<-recode(All2009$COMPUTER,c("0"="NO","1"="YES"))
+
+summary(All2009$COMPUTER)
+
+###
+All2009$AQUARIUM<-recode(All2009$AQUARIUM,c("0"="NO","1"="YES"))
+
+summary(All2009$AQUARIUM)
+
+  
+
+
+###
+All2009$HEATHOME<-recode(All2009$HEATHOME,c("0"="NO","1"="YES"))
+
+summary(All2009$HEATHOME)
+
+
+###
+
+All2009$LGT12EE <-recodeNumeric(All2009$LGT12EE) 
+All2009$LGT12EE[All2009$LGT12EE==-8]<-NA
+All2009$LGT12EE[All2009$LGT12EE==-9]<-NA
+summary(All2009$LGT12EE)
+
+###
+
+All2009$LGT4EE <-recodeNumeric(All2009$LGT4EE) 
+All2009$LGT4EE[All2009$LGT4EE==-8]<-NA
+All2009$LGT4EE[All2009$LGT4EE==-9]<-NA
+summary(All2009$LGT4EE)
+
+
+
+###
+
+All2009$LGT1EE <-recodeNumeric(All2009$LGT1EE) 
+All2009$LGT1EE[All2009$LGT1EE==-8]<-NA
+All2009$LGT1EE[All2009$LGT1EE==-9]<-NA
+summary(All2009$LGT1EE)
+
+###
+
+All2009$LGTOEE <-recodeNumeric(All2009$LGTOEE) 
+All2009$LGTOEE[All2009$LGTOEE==-8]<-NA
+All2009$LGTOEE[All2009$LGTOEE==-9]<-NA
+summary(All2009$LGTOEE)
+
+
+table()
 ```
 
 
