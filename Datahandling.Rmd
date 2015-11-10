@@ -540,7 +540,7 @@ MarkCoded("UR")
 
 table(All2009$REGIONC)
 
-All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NE","2"="Midwest","3"="South","4"="West"))
+All2009$REGIONC<-revalue(as.factor(All2009$REGIONC),c("1"="NorthEast","2"="Midwest","3"="South","4"="West"))
 
 summary(All2009$REGIONC)
 MarkCoded("REGIONC")
@@ -550,7 +550,7 @@ MarkCoded("REGIONC")
 
 table(All2009$DIVISION)
 
-All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
+All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9"="MountSouthSub","10"="Pacific"))
 
 MarkCoded("DIVISION")
 
@@ -3478,10 +3478,41 @@ All2009$TOTALDOLOTH<-recodeNumeric(All2009$TOTALDOLOTH)
 
 summary(All2009$TOTALDOLOTH)
 
-#
+
+
 
 ```
 
+```{r}
+#RECS 2005
+
+
+EasyRecode<-intersect(Cols2009$V1,names(All2005))
+
+#REGIONC
+
+All2005$REGIONC<-recode(All2005$REGIONC,c("1"="NorthEast","2"="MidWest","3"="South","4"="South"))
+
+summary(All2005$REGIONC)
+
+#DIVISION
+
+All2005$DIVISION<-recode(All2005$DIVISION,c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="Mountain","9"="Pacific"))
+
+#TYPEHUQ
+
+All2005$TYPEHUQ<-recode(All2005$TYPEHUQ,c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
+
+#NWEIGHT
+
+All2005$NWEIGHT<-recodeNumeric(All2005$NWEIGHT)
+
+summary(All2005$NWEIGHT)
+
+
+
+
+```
 
 
 
@@ -3563,7 +3594,9 @@ table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x))
 
 ```{r}
 
-EasyRecode<-intersect(Cols2009$V1,names(All2005))
+
+
+
 
 
 
