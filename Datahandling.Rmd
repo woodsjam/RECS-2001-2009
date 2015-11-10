@@ -6,26 +6,29 @@ output: html_document
 ---
 
 ```{r}
-All2009 <- read.csv("2009/recs2009_public.csv")
+#All2009 <- read.csv("2009/recs2009_public.csv")
 
-All2005 <- read.csv("2005/RECS05alldata.csv")
+library(readr)
+All2009 <- read_csv("2009/recs2009_public.csv")
 
+#All2005 <- read.csv("2005/RECS05alldata.csv")
+All2005 <- read_csv("2005/RECS05alldata.csv")
 ```
 Those two are simple but the 2001 data comes in many parts
 
 ```{r}
-publicuse102001<-read.csv("2001/publicuse102001.csv", header=TRUE)  
-publicuse2001<-read.csv("2001/publicuse2001.csv", header=TRUE)   
-publicuse42001<-read.csv("2001/publicuse42001.csv", header=TRUE)  
-publicuse72001<-read.csv("2001/publicuse72001.csv", header=TRUE)
-publicuse112001<-read.csv("2001/publicuse112001.csv", header=TRUE)  
-publicuse22001<-read.csv("2001/publicuse22001.csv", header=TRUE)  
-publicuse52001<-read.csv("2001/publicuse52001.csv", header=TRUE)  
-publicuse82001<-read.csv("2001/publicuse82001.csv", header=TRUE)
-publicuse122001<-read.csv("2001/publicuse122001.csv", header=TRUE) 
-publicuse32001<-read.csv("2001/publicuse32001.csv", header=TRUE)
-publicuse62001<-read.csv("2001/publicuse62001.csv", header=TRUE)  
-publicuse92001<-read.csv("2001/publicuse92001.csv", header=TRUE)
+publicuse102001<-read_csv("2001/publicuse102001.csv" )  
+publicuse2001<-read_csv("2001/publicuse2001.csv" )   
+publicuse42001<-read_csv("2001/publicuse42001.csv" )  
+publicuse72001<-read_csv("2001/publicuse72001.csv" )
+publicuse112001<-read_csv("2001/publicuse112001.csv" )  
+publicuse22001<-read_csv("2001/publicuse22001.csv" )  
+publicuse52001<-read_csv("2001/publicuse52001.csv" )  
+publicuse82001<-read_csv("2001/publicuse82001.csv" )
+publicuse122001<-read_csv("2001/publicuse122001.csv" ) 
+publicuse32001<-read_csv("2001/publicuse32001.csv" )
+publicuse62001<-read_csv("2001/publicuse62001.csv" )  
+publicuse92001<-read_csv("2001/publicuse92001.csv" )
 
 #DOEID is the merge key
 library(reshape)
@@ -1012,15 +1015,15 @@ summary(All2009$AGERFRI2)
 
 
 
-#ESFRIG2
-
-All2009$ESFRIG2[All2009$ESFRIG2==-2]<-NA
-All2009$ESFRIG2[All2009$ESFRIG2==-8]<-NA
-All2009$ESFRIG2[All2009$ESFRIG2==-9]<-NA
-
-All2009$ESFRIG2<-recode(All2009$ESFRIG2,FridgeCodes)
-
-summary(All2009$ESFRIG2)
+# #ESFRIG2
+# 
+# All2009$ESFRIG2[All2009$ESFRIG2==-2]<-NA
+# All2009$ESFRIG2[All2009$ESFRIG2==-8]<-NA
+# All2009$ESFRIG2[All2009$ESFRIG2==-9]<-NA
+# 
+# All2009$ESFRIG2<-recode(All2009$ESFRIG2,FridgeCodes)
+# 
+# summary(All2009$ESFRIG2)
 
 
 
@@ -2006,13 +2009,13 @@ summary(All2009$DNTAC)
 
 #COOLTYPENOAC
 
-All2009$COOLTYPENOAC<-recode(All2009$COOLTYPENOAC,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+All2009$COOLTYPENOAC<-recode(All2009$COOLTYPENOAC,c("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
 
 summary(All2009$COOLTYPENOAC)
 
 #COOLTYPE
 
-All2009$COOLTYPE<-recode(All2009$COOLTYPE,C("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+All2009$COOLTYPE<-recode(All2009$COOLTYPE,c("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
 
 summary(All2009$COOLTYPE)
 
@@ -3483,46 +3486,6 @@ summary(All2009$TOTALDOLOTH)
 
 ```
 
-```{r}
-#RECS 2005
-
-
-EasyRecode<-intersect(Cols2009$V1,names(All2005))
-
-#REGIONC
-
-All2005$REGIONC<-recode(All2005$REGIONC,c("1"="NorthEast","2"="MidWest","3"="South","4"="South"))
-
-summary(All2005$REGIONC)
-
-#DIVISION
-
-All2005$DIVISION<-recode(All2005$DIVISION,c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="Mountain","9"="Pacific"))
-
-#TYPEHUQ
-
-All2005$TYPEHUQ<-recode(All2005$TYPEHUQ,c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
-
-#NWEIGHT
-
-All2005$NWEIGHT<-recodeNumeric(All2005$NWEIGHT)
-
-summary(All2005$NWEIGHT)
-
-
-
-
-```
-
-
-
-                                                    
-
-```
-
-
-
-
 
 
 
@@ -3549,11 +3512,12 @@ Cols2009$Status[Cols2009$V1=="UR"]<-"Coded"
 
 source("RECSHelper.R")
 
-All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
-
-summary(All2009[OnlyTwoCodes])
-
-Cols2009[is.element(Cols2009$V1,OnlyTwoCodes),]$Status<-"Coded"
+#modify so only does the Z type columns
+# All2009[OnlyTwoCodes]<-apply(All2009[OnlyTwoCodes],MARGIN=2, FUN=function(x) to.TF(x,na.choice="KEEP"))
+# 
+# summary(All2009[OnlyTwoCodes])
+# 
+# Cols2009[is.element(Cols2009$V1,OnlyTwoCodes),]$Status<-"Coded"
 ```
 
 Fixed all those in one fell swoop.
@@ -3561,43 +3525,232 @@ Fixed all those in one fell swoop.
 Lets check the ones with three potential codes
 
 ```{r}
-OnlyThreeCodes<-names(NumberOfCodes[NumberOfCodes==3])
-
-summary(All2009[OnlyThreeCodes])
+# OnlyThreeCodes<-names(NumberOfCodes[NumberOfCodes==3])
+# 
+# summary(All2009[OnlyThreeCodes])
 ```
 My hope is to spot those that are TF with missing.  Lets refine it so we only have numerical codes with a min of exactly -2 and a max of exactly 1.
 
 ```{r}
-#Returns true if three codes with max of 1 and min of -2
-FindTFWMissing<-function(x){
-  ret<-FALSE
-  if(length(table(x))==3 & max(x)==1 & min(x)==-2) ret<-TRUE;
-  ret
-}
-
-#tests
-FindTFWMissing(All2009$GARGCOOL)
-FindTFWMissing(All2009$FREEZER2)
-FindTFWMissing(All2009$BASEUSE)
-summary(All2009$BASEUSE)
-
-#Broken somehow
-table(apply(data.frame(All2009$GARGCOOL,All2009$FREEZER2,All2009$BASEUSE   ),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
-
-table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+# #Returns true if three codes with max of 1 and min of -2
+# FindTFWMissing<-function(x){
+#   ret<-FALSE
+#   if(length(table(x))==3 & max(x)==1 & min(x)==-2) ret<-TRUE;
+#   ret
+# }
+# 
+# #tests
+# FindTFWMissing(All2009$GARGCOOL)
+# FindTFWMissing(All2009$FREEZER2)
+# FindTFWMissing(All2009$BASEUSE)
+# summary(All2009$BASEUSE)
+# 
+# #Broken somehow
+# table(apply(data.frame(All2009$GARGCOOL,All2009$FREEZER2,All2009$BASEUSE   ),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
+# 
+# table(apply(data.frame(All2009),MARGIN = 2, FUN = function(x) FindTFWMissing(x)))
 
 
 ```
 
-
-# RECS 2005
+Look for uncoded.  There are still 12 to fix. ***TODO***
 
 ```{r}
 
+Cols2009$V1[Cols2009$Status=="Uncoded"]
+
+table(Cols2009$Status)
+```
 
 
 
+```{r}
 
+#RECS2005
+
+#Set up with blank names
+Cols2009$Names2005<-''
+
+
+Cols2009$Names2005[is.element(as.character(Cols2009$V1),names(All2005))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2005))]
+
+EasyRecode<-intersect(Cols2009$V1,names(All2005))
+
+#REGIONC
+
+All2005$REGIONC<-recode(All2005$REGIONC,c("1"="NorthEast","2"="MidWest","3"="South","4"="South"))
+
+summary(All2005$REGIONC)
+
+#DIVISION !!! Made assumption in numeirci sequnce that 7&8 2009 (MTN #north and south are 8 in 2009 )
+
+All2005$DIVISION<-recode(All2005$DIVISION,c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="Mountain","9"="Pacific"))
+
+#TYPEHUQ
+
+All2005$TYPEHUQ<-recode(All2005$TYPEHUQ,c("1"="Mobile","2"="SingleDetach","3"="SingleAttach","4"="Apartment2-4Units","5"="Apartment5PlusUnits"))
+
+#NWEIGHT
+
+All2005$NWEIGHT<-recodeNumeric(All2005$NWEIGHT)
+
+summary(All2005$NWEIGHT)
+
+#KNOWNRENT
+
+summary(All2005$KOWNRENT)
+
+All2005$KOWNRENT<-recode(All2005$KOWNRENT,c("1"="Owned","2"="Rented","3"="Occupied"))  
+
+summary(All2005$KOWNRENT)
+
+#CONDCOOP
+
+All2005$CONDCOOP<-recode(All2005$CONDCOOP,c("1"="Condo","2"="Cooperative"))
+
+summary(All2005$CONDCOOP)
+
+#YEARMADE (More analagous to YEARMADERANGE in 2009)
+
+All2005$YEARMADE<-recode(All2005$YEARMADE,c("1"="pre1940","2"="1940tp49","3"="1950to59","4"="1960to69","5"="1970to79","6"="1980to84","7"="1985to89","8"="1990to1994","9"="1995to99","10"="2000to02","11"="2003","12"="2004","13"="2005"))
+
+summary(All2005$YEARMADE)
+
+#ORGI1FAM
+
+All2005$ORIG1FAM<-to.TF(All2005$ORIG1FAM)
+
+summary(All2005$ORIG1FAM)
+
+#LOOKLIKE
+
+All2005$LOOKLIKE<-recode(All2005$LOOKLIKE,c("1"="MoreLikeHouse","2"="MoreLikeApart"))
+
+summary(All2005$LOOKLIKE)
+
+#NUMFLRS
+
+All2005$NUMFLRS<-recodeNumeric(All2005$NUMFLRS)
+
+summary(All2005$NUMFLRS)
+
+#NUMAPTS
+
+All2005$NUMAPTS<-recodeNumeric(All2005$NUMAPTS)
+
+summary(All2005$NUMAPTS)
+
+#NAPTFLRS
+
+All2005$NAPTFLRS<-recodeNumeric(All2005$NAPTFLRS)
+
+summary(All2005$NAPTFLRS)
+
+#STORIES
+
+All2005$STORIES<-recode(All2005$STORIES,c("10"="OneStory","20"="TwoStories","31"="ThreeStories","32"="FourPlusStories","40"="SplitLevel","50"="OtherType"))
+
+summary(All2005$STORIES)
+
+#TYPEHUQ4
+
+All2005$TYPEHUQ<-to.TF(All2005$TYPEHUQ4)
+
+summary(All2005$TYPEHUQ4)
+
+#BEDROOMS
+
+All2005$BEDROOMS<-recodeNumeric(All2005$BEDROOMS)
+
+summary(All2005$BEDROOMS)
+
+#NCOMBATH
+
+All2005$NCOMBATH<-recdoeNumeric(All2005$NCOMBATH)
+
+summary(All2005$NCOMBATH)
+
+#NHAFBATH
+
+All2005$NHAFBATH<-recodeNumeric(All2005$NHAFBATH)
+
+summary(All2005$NHAFBATH)
+
+#OTHROOMS (Has zero value included for studios, 2009 does not)
+
+All2005$OTHROOMS<-recodeNumeric(All2005$OTHROOMS)
+
+summary(All2005$OTHROOMS)
+
+#TOTROOMS
+
+All2005$TOTROOMS<-recodeNumeric(All2005$TOTROOMS)
+
+summary(All2005$TOTROOMS)
+
+#STOVEN (yes/no in 2005 -- numeric in 2009)
+
+All2005$STOVEN<-to.TF(All2005$STOVEN)
+
+summary(All2005$STOVEN)
+
+#STOVE (yes/no in 2005 -- numeric in 2009)
+
+All2005$STOVE<-to.TF(All2005$STOVE)
+
+summary(All2005$STOVE)
+
+#OVEN
+
+All2005$OVEN<-to.TF(All2005$OVEN)
+
+summary(All2005$OVEN)
+
+#TOASTER
+
+All2005$TOASTER<-to.TF(All2005$TOASTER)
+
+summary(All2005$TOASTER)
+
+#NUMMEAL
+
+All2005$NUMMEAL<-recode(All2005$NUMMEAL,c("0"="NeverCooks","1"="ThreePlusTimes/Day","2"="TwoTimes/Day","3"="Once/Day","4"="FewTimes/Week","5"="Once/Week","6"="LessThanOnce/Week"))
+
+summary(All2005$NUMMEAL)
+
+#FUELFOOD
+
+All2005$FUELFOOD<-recode(All2005$FUELFOOD, FuelType)
+
+summary(All2005$FUELFOOD)
+
+#NUMFRIG (2009 has numeric 1-20)
+
+All2005$NUMFRIG<-recode(All2005$NUMFRIG,c("1"="1","2"="2","3"="Gr3","6"="0"))
+
+summary(All2005$NUMFRIG)
+
+#TYPEFR1 (definded differently in 2009, looks like subset of questions define similar)
+
+All2005$TYPERFR1<-recode(All2005$TYPERFR1,c("1"="FullSizeOneDoor","2"="FullSizeTwoDoor","3"="GrThree","4"="Other"))
+
+summary(All2005$TYPERFR1)
+
+#SIZRFRI1 (assume halfsize/compact is the same as very small)
+
+All2005$SIZRFRI1<-recode(All2005$SIZRFRI1,c("1"="Halfsize/Compact","2"="Small","3"="Medium","4"="Large","5"="VeryLarge"))
+
+summary(All2005$SIZRFRI1)
+
+#REFRIGT1
+
+All2009$REFRIGT1<-recode(All2009$REFRIGT1,c("1"="Manual","2"="FrostFree","3"="NoWorkingFreezer"))
+
+summary(All2009$REFRIGT1)
+
+
+
+All2005$SIZRFRI1<-
 
 
 ```
@@ -3611,4 +3764,11 @@ Code books are broken up by data file.  codebook82001.txt is for publicuse82001.
 
 Look for variables analogous to the ones in the 2009 list. 
 
+```{r}
+Cols2009$Names2001<-''
+
+Cols2009$Names2001[is.element(as.character(Cols2009$V1),names(All2001))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2001))]
+
+
+```
 
