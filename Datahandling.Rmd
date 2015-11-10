@@ -3581,6 +3581,38 @@ Cols2009$Names2005[is.element(as.character(Cols2009$V1),names(All2005))]<-as.cha
 ```
 
 
+```{r}
+
+#NAs are coded as 9, 99, 999, etc.  Need to detect and turn to NA
+
+NA99<-function(column){
+  ret<-column
+  Largest<-max(column, na.rm=TRUE)
+  if(Largest%in% c(9,99,999,9999,99999,999999,9999999,99999999)){
+    
+    ret[ret==Largest]<-NA
+  }
+    
+  ret
+}
+
+#Tests for the function to detect the 99999 NA codes
+# table(All2005$NUMFLRS)
+# table(NA99(All2005$NUMFLRS))
+# summary(NA99(All2005$NUMFLRS))
+# 
+# table(All2005$NUMFLRS)
+# table(NA99(All2005$NUMFLRS))
+# 
+# summary(NA99(All2005$DOEID))
+
+
+All2005<-as.data.frame(apply(All2005, MARGIN = 2, NA99))
+#summary(All2005)
+```
+
+
+
 Look for analogous variables in RECS205layoutAllData.csv
 
 # RECS 2001
@@ -3595,5 +3627,12 @@ Cols2009$Names2001<-''
 Cols2009$Names2001[is.element(as.character(Cols2009$V1),names(All2001))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2001))]
 
 
+```
+
+```{r}
+#Fix the NA 999 codes
+
+All2001<-as.data.frame(apply(All2001, MARGIN = 2, NA99))
+summary(All2001)
 ```
 
