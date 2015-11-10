@@ -3574,9 +3574,16 @@ table(Cols2009$Status)
 
 #Set up with blank names
 Cols2009$Names2005<-''
+Cols2009$Status2005<-'Uncoded'
 
 Cols2009$Names2005[is.element(as.character(Cols2009$V1),names(All2005))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2005))]
 
+
+#redefine this function for 2005 data frame
+MarkCoded<-function(nameCol){
+  Cols2009[Cols2009$Names2005==nameCol,]$Status2005<<-"Coded"
+  
+}
 
 ```
 
@@ -3623,8 +3630,16 @@ Look for variables analogous to the ones in the 2009 list.
 
 ```{r}
 Cols2009$Names2001<-''
+Cols2009$Status2001<-'Uncoded'
 
 Cols2009$Names2001[is.element(as.character(Cols2009$V1),names(All2001))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2001))]
+
+
+#redefine this function for 2001 data frame
+MarkCoded<-function(nameCol){
+  Cols2009[Cols2009$Names2001==nameCol,]$Status2001<<-"Coded"
+  
+}
 
 
 ```
