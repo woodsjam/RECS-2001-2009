@@ -3642,12 +3642,48 @@ table()
 
 #RECS2005
 
+#NAs are coded as 9, 99, 999, etc.  Need to detect and turn to NA
+
+NA99<-function(column){
+  ret<-column
+  Largest<-max(column, na.rm=TRUE)
+  if(Largest%in% c(9,99,999,9999,99999,999999,9999999,99999999)){
+    
+    ret[ret==Largest]<-NA
+  }
+    
+  ret
+}
+
+#Tests for the function to detect the 99999 NA codes
+# table(All2005$NUMFLRS)
+# table(NA99(All2005$NUMFLRS))
+# summary(NA99(All2005$NUMFLRS))
+# 
+# table(All2005$NUMFLRS)
+# table(NA99(All2005$NUMFLRS))
+# 
+# summary(NA99(All2005$DOEID))
+
+
+All2005<-as.data.frame(apply(All2005, MARGIN = 2, NA99))
+#summary(All2005)
+
+
+
 #Set up with blank names
 Cols2009$Names2005<-''
 Cols2009$Status2005<-'Uncoded'
 
 
 Cols2009$Names2005[is.element(as.character(Cols2009$V1),names(All2005))]<-as.character(Cols2009$V1)[is.element(as.character(Cols2009$V1),names(All2005))]
+
+#redefine this function for 2005 data frame
+MarkCoded<-function(nameCol){
+  Cols2009[Cols2009$Names2005==nameCol,]$Status2005<<-"Coded"
+  
+}
+
 
 EasyRecode<-intersect(Cols2009$V1,names(All2005))
 
@@ -3807,7 +3843,7 @@ summary(All2005$NUMFRIG)
 
 #TYPEFR1 (definded differently in 2009, looks like subset of questions define similar)
 
-All2005$TYPERFR1<-recode(All2005$TYPERFR1,c("1"="FullSizeOneDoor","2"="FullSizeTwoDoor","3"="GrThree","4"="Other"))
+All2005$TYPERFR1<-recode(All2005$TYPERFR1,c("1"="FullSizeOneDoor","2"="FullSizeTwoDoor","3"="HalfOrQuarter","4"="Other"))
 
 summary(All2005$TYPERFR1)
 
@@ -3819,53 +3855,88 @@ summary(All2005$SIZRFRI1)
 
 #REFRIGT1
 
-All2009$REFRIGT1<-recode(All2009$REFRIGT1,c("1"="Manual","2"="FrostFree","3"="NoWorkingFreezer"))
+All2005$REFRIGT1<-recode(All2005$REFRIGT1,c("1"="Manual","2"="FrostFree","3"="NoWorkingFreezer"))
 
-summary(All2009$REFRIGT1)
+summary(All2005$REFRIGT1)
+
+#ICE
+
+All2005$ICE<-to.TF(All2005$ICE)
+
+summary(All2005$ICE)
+
+#AGERFRI1 (slight variation in age ranges)
+
+All2005$AGERFRI1<-recode(All2005$AGERFRI1, AGECAT05)
+
+summary(All2005$AGERFRI1)
+
+#ESFRIG
+
+All2005$ESFRIG<-to.TF(All2005$ESFRIG)
+
+summary(All2005$ESFRIG)
+
+#TYPERFR2
+
+All2005$TYPERFR2<-recode(All2005$TYPERFR1,c("1"="FullSizeOneDoor","2"="FullSizeTwoDoor","3"="HalfOrQuarter","4"="Other"))
+
+summary(All2005$TYPERFR2)
+
+#SIZRFRI2
+
+All2005$SIZRFRI2<-recode(All2005$SIZRFRI2,c("1"="Halfsize/Compact","2"="Small","3"="Medium","4"="Large","5"="VeryLarge"))
+
+summary(All2005$SIZRFRI2)
+
+#MONRFRI2
+
+All2005$MONRFRI2<-recodeNumeric(All2005$MONRFRI2)
+
+summary(All2005$MONRFRI2)
+
+#AGERFRI2 (slight variation in age ranges)
+
+All2005$AGERFRI2<-recode(All2005$AGERFRI2, AGECAT05)
+
+summary(All2005$AGERFRI2)
+
+#SEPFREEZ
+
+All2005$SEPFREEZ<-to.TF(All2005$SEPFREEZ)
+
+summary(All2005$SEPFREEZ)
+
+#NUMFREEZ
+
+All2005$NUMFREEZ<-recodeNumeric(All2005$NUMFREEZ)
+
+summary(All2005$NUMFREEZ)
+
+#UPRTFRZR
+
+All2005$UPRTFRZR<-recode(All2005$UPRTFRZR,c("1"="Upright","2"="Chest"))
+
+summary(All2005$UPRTFRZR)
+
+#SIZFREEZ
+
+All2005$SIZFREEZ<-recode(All2005$SIZFREEZ,c("1"="Small","2"="Medium","3"="Large","4"="VeryLarge"))
+
+summary(All2005$SIZFREEZ)
+
+#SIZFREEZ2
+
+All2005$SIZFREEZ2<-recode(All2005$SIZFREEZ2,c("1"="Small","2"="Medium","3"="Large","4"="VeryLarge"))
+
+summary(All2005$SIZFREEZ2)
 
 
 
-All2005$SIZRFRI1<-
-
-
-#redefine this function for 2005 data frame
-MarkCoded<-function(nameCol){
-  Cols2009[Cols2009$Names2005==nameCol,]$Status2005<<-"Coded"
-  
-}
 
 ```
 
 
-```{r}
-
-#NAs are coded as 9, 99, 999, etc.  Need to detect and turn to NA
-
-NA99<-function(column){
-  ret<-column
-  Largest<-max(column, na.rm=TRUE)
-  if(Largest%in% c(9,99,999,9999,99999,999999,9999999,99999999)){
-    
-    ret[ret==Largest]<-NA
-  }
-    
-  ret
-}
-
-#Tests for the function to detect the 99999 NA codes
-# table(All2005$NUMFLRS)
-# table(NA99(All2005$NUMFLRS))
-# summary(NA99(All2005$NUMFLRS))
-# 
-# table(All2005$NUMFLRS)
-# table(NA99(All2005$NUMFLRS))
-# 
-# summary(NA99(All2005$DOEID))
-
-
-All2005<-as.data.frame(apply(All2005, MARGIN = 2, NA99))
-#summary(All2005)
-```
 
 
 
