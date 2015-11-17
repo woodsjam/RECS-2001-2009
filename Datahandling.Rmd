@@ -553,11 +553,9 @@ MarkCoded("REGIONC")
 
 table(All2009$DIVISION)
 
-<<<<<<< HEAD
-All2009$DIVISION<-revalue(as.factor(All2009$DIVISION),c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9"="MountSouthSub","10"="Pacific"))
-=======
+
 All2009$DIVISION<-recode(All2009$DIVISION,c("1"="NewEnglandD","2"="MidAtlantic","3"="EastNorthCent","4"="WestNorthCent","5"="SouthAtlantic","6"="EastSouthCent","7"="WestSountCent","8"="MountNorthSub","9","MountSouthSub","10"="Pacific"))
->>>>>>> a806f045875d9a83fa5199c5275f2ea015e3d7e8
+
 
 MarkCoded("DIVISION")
 
@@ -2143,7 +2141,7 @@ summary(All2009$NUMCFAN)
 
 #USECFAN
 
-All2009$USECFAN<-recode(All2009$USECFAN,c("1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+All2009$USECFAN<-recode(All2009$USECFAN,c("1"="FewDays","2"="FrequentUse","3"="AllSummer","4"="NotUsed"))
 
 summary(All2009$USECFAN)
 
@@ -3642,6 +3640,13 @@ table()
 
 #RECS2005
 
+library(stringr)
+
+library(reshape)
+
+library(plyr)
+
+
 #NAs are coded as 9, 99, 999, etc.  Need to detect and turn to NA
 
 NA99<-function(column){
@@ -4405,9 +4410,11 @@ All2005$USEMOISTURE<-recode(All2005$USEMOISTURE,c("1"="1to3Months","2"="4to6Mont
 
 table(All2005$USEMOISTURE)
 
-#NUMH2OHTRS not analogous to 2009
+#NUMH2OHTRS not analogous to 2009 (there are 43 respondents that also show up as 95 in the subsequent water heat question, code as NA??)
 
 All2005$NUMH2OHTRS<-recode(All2005$NUMH2OHTRS,c("0"="No","1"="Yes","3"="DontUse"))
+
+table(All2005$NUMH2OHTRS)
 
 summary(All2005$NUMH2OHTRS)
 
@@ -4416,6 +4423,251 @@ summary(All2005$NUMH2OHTRS)
 All2005$FUELH2O<-recode(All2005$FUELH2O, FuelType, c("95"="DontUse"))
 
 summary(All2005$FUELH2O)
+
+#WHEATOTH
+
+All2005$WHEATOTH<-to.TF(All2005$WHEATOTH)
+
+summary(All2005$WHEATOTH)
+
+#WHEATSIZ additional values of 0 and six compared to 2009
+
+All2005$WHEATSIZ<-recode(All2005$WHEATSIZ,c("0"="DontHave","1"="Small","2"="Medium","3"="Large","6"="Tankless"))
+
+table(All2005$WHEATSIZ)
+
+summary(All2005$WHEATSIZ)
+
+#WHEATAGE
+
+All2005$WHEATAGE<-recode(All2005$WHEATAGE, AGECAT05, c("0"="DontHave"))
+
+summary(All2005$WHEATAGE)
+
+#FUELH2O2
+
+All2005$FUELH2O2<-recode(All2005$FUELH2O2, FuelType, c("95"="DontUse"))
+
+summary(All2005$FUELH2O2)
+
+#WHEATSIZ2 (the table shows values 1-5 but the survey shows what is below)
+
+All2005$WHEATSIZ2<-recode(All2005$WHEATSIZ2,c("1"="Small","2"="Medium","3"="Large","6"="Tankless"))
+
+table(All2005$WHEATSIZ2)
+
+summary(All2005$WHEATSIZ2)
+
+#AIRCOND
+
+All2005$AIRCOND<-to.TF(All2005$AIRCOND)
+
+summary(All2005$AIRCOND)
+
+#COOLTYPE
+
+All2005$COOLTYPE<-recode(All2005$COOLTYPE,c("1"="CentralAir","2"="WindowWallUnit","3"="Both"))
+
+summary(All2005$COOLTYPE)
+
+#DUCTS
+
+All2005$DUCTS<-to.TF(All2005$DUCTS)
+
+summary(All2005$DUCTS)
+
+#CENACHP
+
+All2005$CENACHP<-to.TF(All2005$CENACHP)
+
+summary(All2005$CENACHP)
+
+#ACOTHERS
+
+All2005$ACOTHERS<-to.TF(All2005$ACOTHERS)
+
+summary(All2005$ACOTHERS)
+
+#AGECENAC
+
+All2005$AGECENAC<-recode(All2005$AGECENAC, AGECAT05)
+
+summary(All2005$AGECENAC)
+
+#ACROOMS
+
+All2005$ACROOMS<-recodeNumeric(All2005$ACROOMS)
+
+summary(All2005$ACROOMS)
+
+#USECENAC (additional don't use variable = 0)
+
+All2005$USECENAC<-recode(All2005$USECENAC,c("0"="DontUse","1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+
+summary(All2005$USECENAC)
+
+#THERMAINAC
+
+All2005$THERMAINAC<-to.TF(All2005$THERMAINAC)
+
+summary(All2005$THERMAIN)
+
+#PROTHEMAC
+
+All2005$PROTHERMAC<-to.TF(All2005$PROTHERMAC)
+
+summary(All2005$PROTHERMAC)
+
+#AUTOCOOLNITE
+
+All2005$AUTOCOOLNITE<-to.TF(All2005$AUTOCOOLNITE)
+
+summary(All2005$AUTOCOOLNITE)
+
+#AUTOCOOLDAY
+
+All2005$AUTOCOOLDAY<-to.TF(All2005$AUTOCOOLDAY)
+
+summary(All2005$AUTOCOOLDAY)
+
+#TEMPHOMEAC (42 values of 96, 96 not defined in survery and seems unreasonable for degree)
+
+All2005$TEMPHOMEAC<-recodeNumeric(All2005$TEMPHOMEAC)
+
+summary(All2005$TEMPHOMEAC)
+
+#TEMPGONEAC (63 values of 96 including 76 values of 95 including don't use)
+
+All2005$TEMPGONEAC<-recodeNumeric(All2005$TEMPGONEAC)
+
+summray(All2005$TEMPGONEAC)
+
+#TEMPNITEAC 51 values of 96, 35 values of 95 
+
+All2005$TEMPNITEAC<-recodeNumeric(All2005$TEMPNITEAC)
+
+summary(All2005$TEMPNITEAC)
+
+#NUMBERAC
+
+All2005$NUMBERAC<-recodeNumeric(All2005$NUMBERAC)
+
+summary(All2005$NUMBERAC)
+
+#WWACAGE
+
+All2005$WWACAGE<-recode(All2005$WWACAGE, AGECAT05)
+
+summary(All2005$WWACAGE)
+
+#ESWWAC
+
+All2005$ESWWAC<-to.TF(All2005$ESWWAC)
+
+summary(All2005$ESWWAC)
+
+#USEWWAC
+
+All2005$USEWWAC<-recode(All2005$USEWWAC,c("0"="DontUse","1"="FewDays","2"="FrequentUse","3"="AllSummer"))
+        
+summary(All2005$USEWWAC)
+
+#NUMCFAN
+
+All2005$NUMCFAN<-recodeNumeric(All2005$NUMCFAN)
+
+summary(All2005$NUMCFAN)
+
+#USECFAN
+
+All2005$USECFAN<-recode(All2005$USECFAN,c("1"="FewDays","2"="FrequentUse","3"="AllSummer","4"="NotUsed"))
+
+summary(All2005$USECFAN)
+
+#TREESHAD
+
+All2005$TREESHAD<-to.TF(All2005$TREESHAD)
+
+summary(All2005$TREESHAD)
+
+#NOTMOIST
+
+All2005$NOTMOIST<-to.TF(All2005$NOTMOIST)
+
+summary(All2005$NOTMOIST)
+
+#USENOTMOIST
+
+All2005$USENOTMOIST<-recode(All2005$USENOTMOIST,c("1"="1to3Months","2"="4to6Months","3"="7to9Months","4"="10to11Months","5"="AllYear"))
+
+summary(All2005$USENOTMOIST)
+
+#SWIMPOOL
+
+All2005$SWIMPOOL<-to.TF(All2005$SWIMPOOL)
+
+summary(All2005$SWIMPOOL)
+
+#POOL
+
+All2005$POOL<-to.TF(All2005$POOL)
+
+summary(All2005$POOL)
+
+#FUELPOOL
+
+All2005$FUELPOOL<-recode(All2005$FUELPOOL, FuelType)
+
+summary(All2005$FUELPOOL)
+
+#RECBATH
+
+All2005$RECBATH<-to.TF(All2005$RECBATH)
+
+summary(All2005$RECBATH)
+
+#FUELTUB
+
+All2005$FUELTUB<-recode(All2005$FUELTUB, FuelType)
+
+summary(All2005$FUELTUB)
+
+#LGT12
+
+All2005$LGT12<-recodeNumeric(All2005$LGT12)
+
+summary(All2005$LGT12)
+
+#LGT12EE
+
+All2005$LGT12EE<-recodeNumeric(All2005$LGT12EE)
+
+summary(All2005$LGT12EE)
+
+#LGT4
+
+All2005$LGT4<-recodeNumeric(All2005$LGT4)
+
+summary(All2005$LGT4)
+
+#LGT4EE
+
+All2005$LGT4EE<-recodeNumeric(All2005$LGT4EE)
+
+summary(All2005$LGT4EE)
+
+#LGT1
+
+All2005$LGT1<-recodeNumeric(All2005$LGT1)
+
+summary(All2005$LGT1)
+
+#LGT1EE
+
+All2005$LGT1EE<-recodeNumeric(All2005$LGT1EE)
+
+summary(All2005$LGT1EE)
+
 
 
 
