@@ -5125,5 +5125,27 @@ MarkCoded<-function(nameCol){
 
 All2001<-as.data.frame(apply(All2001, MARGIN = 2, NA99))
 summary(All2001)
+
+#Starting from the bottom of 2001
+
+#BTUCKER is undocumented
+All2001$DOLFOWTH<-recodeNumeric(All2001$DOLFOWTH)
+All2001$DOLFOSPH<-recodeNumeric(All2001$DOLFOSPH)
+All2001$DOLLARFO<-recodeNumeric(All2001$DOLLARFO)  
+All2001$BTUFOWTH <-recodeNumeric(All2001$BTUFOWTH )   
+All2001$BTUFOSPH<-recodeNumeric(All2001$BTUFOSPH)
+All2001$BTUFO<-recodeNumeric(All2001$BTUFO)
+All2001$GALLONFO<-recodeNumeric(All2001$GALLONFO)
+All2001$DOLLPWTH<-recodeNumeric(All2001$DOLLPWTH)
+All2001$DOLLPSPH<-recodeNumeric(All2001$DOLLPSPH)
+All2001$DOLLARLP<-recodeNumeric(All2001$DOLLARLP)
+All2001$BTULPWTH<-recodeNumeric(All2001$BTULPWTH)
+All2001$BTULPSPH<-recodeNumeric(All2001$BTULPSPH)
+All2001$BTULP<-recodeNumeric(All2001$BTULP)
+All2001$GALLONLP<-recodeNumeric(All2001$GALLONLP)
+All2001$DOLNGWTH<-recodeNumeric(All2001$DOLNGWTH)
+All2001$DOLNGSPH<-recodeNumeric(All2001$DOLNGSPH)
+All2001$DOLLARNG<-recodeNumeric(All2001$DOLLARNG)
+
 ```
 
