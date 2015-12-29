@@ -5153,6 +5153,109 @@ All2001$CUFEETNG <-recodeNumeric(All2001$CUFEETNG)
 All2001$DOLELRFG <-recodeNumeric(All2001$DOLELRFG)
 All2001$DOLELWTH <-recodeNumeric(All2001$DOLELWTH)
 All2001$DOLELCOL <-recodeNumeric(All2001$DOLELCOL)
+All2001$DOLELSPH <-recodeNumeric(All2001$DOLELSPH)
+All2001$DOLLAREL <-recodeNumeric(All2001$DOLLAREL)
+All2001$BTUELRFG <-recodeNumeric(All2001$BTUELRFG)
+All2001$BTUELWTH <-recodeNumeric(All2001$BTUELWTH)  
+All2001$BTUELCOL <-recodeNumeric(All2001$BTUELCOL)  
+All2001$BTUELSPH <-recodeNumeric(All2001$BTUELSPH)
+All2001$BTUEL <-recodeNumeric(All2001$BTUEL)
+All2001$KWH <-recodeNumeric(All2001$KWH)
+All2001$TOTCSQFT <-recodeNumeric(All2001$TOTCSQFT)
+All2001$TOTUSQFT <-recodeNumeric(All2001$TOTUSQFT)
+All2001$TOTHSQFT <-recodeNumeric(All2001$TOTHSQFT)
+All2001$TOTSQFT <-recodeNumeric(All2001$TOTSQFT)
+
+2001DK<-c( "0" = "No",
+     "1" = "Yes",
+     "6" = "DK",
+     "9" = NA)
+
+All2001$RENTHELP<-recode(All2001$RENTHELP,2001DK)
+All2001$HUPROJ<-recode(All2001$HUPROJ,2001DK)
+#MONEYPY No Doc
+
+2001DKRef<-c( "1" = "Yes",
+     "0" = "No",
+     "6" = "DK",
+     "8" = "Refused",
+     "9" = NA )
+
+All2001$WORKPAY<-recode(All2001$WORKPAY,2001DKRef)
+
+All2001$OTHWORK<-recode(All2001$OTHWORK,2001DK)
+All2001$TELLDAYS <-recodeNumeric(All2001$TELLDAYS,na.key="9")
+All2001$ATHOME<-recode(All2001$ATHOME,2001DK)
+All2001$HBUSNESS<-recode(All2001$HBUSNESS,2001DK)
+
+All2001$HHAGE[All2001$HHAGE=="96" || All2001$HHAGE=="97"]<-NA
+All2001$HHAGE <-recodeNumeric(All2001$HHAGE)
+
+All2001$NHSLDMEM <-recodeNumeric(All2001$NHSLDMEM)
+All2001$to.TF(All2001$SDESCENT)
+
+All2001$SPOUSE<-recode(All2001$SPOUSE,2001DK)
+
+All2001$EMPLOYHH<-recode(All2001$EMPLOYHH,c("1" = "FT",
+        "2" = "PT",
+        "0" = "Unemployed",
+        "6" = NA,
+        "8" = "Refused"  ))
+
+All2001$HHSEX<-recode(All2001$HHSEX,c("1" = "F",
+     "2" = "M"))
+
+All2001$KFUELOT<-recode(All2001$KFUELOT,c("1" = "Yes",
+     "0" = "No",
+     "5" = "Mail",
+     "8" = "Refused", 
+     "9" = NA))
+
+
+All2001$WDOTHER<-recode(All2001$WDOTHER,2001DK)
+All2001$WDPELLET<-recode(All2001$WDPELLET,2001DK)
+All2001$WDSCRAP<-recode(All2001$WDSCRAP,2001DK)
+All2001$WOODLOGS<-recode(All2001$WOODLOGS,2001DK)
+
+All2001$NKRGALNC[All2001$NKRGALNC=="98" || All2001$NKRGALNC=="99"]<-NA
+All2001$NKRGALNC <-recodeNumeric(All2001$NKRGALNC)
+
+All2001$NOCRCASH[All2001$NOCRCASH=="998" || All2001$NOCRCASH=="999"]<-NA
+All2001$NOCRCASH <-recodeNumeric(All2001$NOCRCASH)
+
+All2001$KEROCASH<-recode(All2001$KEROCASH,2001DKRef)
+All2001$KERODEL<-recode(All2001$KERODEL,2001DKRef)
+All2001$LPGDELV<-recode(All2001$LPGDELV,2001DKRef)
+
+Pays<-c("1" = "HH",
+     "2" = "Rent",
+     "3" = "ThirdParty",
+     "4" = "Combined",
+     "9" = NA   )
+
+All2001$LPGPAY<-recode(All2001$LPGPAY,Pays)
+All2001$FOPAY<-recode(All2001$FOPAY,Pays)
+All2001$PUGOTH<-recode(All2001$PUGOTH,Pays)
+
+ PaysNG<-c("1" = "HH",
+     "2" = "Rent",
+     "3" = "ThirdParty",
+     "4" = "Combined",
+     "6" = "GasProperty",
+     "9" = NA   )
+
+All2001$PUGCOOK<-recode(All2001$PUGCOOK,PaysNG)
+All2001$PGASHTWA<-recode(All2001$PGASHTWA,PaysNG)
+All2001$PGASHEAT<-recode(All2001$PGASHEAT,PaysNG)
+
+All2001$PELLIGHT<-recode(All2001$PELLIGHT,Pays)
+All2001$PELAC<-recode(All2001$PELAC,Pays)
+All2001$PELCOOK<-recode(All2001$PELCOOK,Pays)
+All2001$PELHOTWA<-recode(All2001$PELHOTWA,Pays)
+All2001$PELHEAT<-recode(All2001$PELHEAT,Pays)
+All2001$OTHCOOK<-to.TF(All2001$OTHCOOK)
+All2001$OTHERAUX<-recode(All2001$OTHERAUX,2001DKRef) 
+
 
 ```
 
