@@ -2819,13 +2819,13 @@ summary(All2009$NHSLDMEM)
 
 #HHAGE
 
-All2009$HHAGE<-recode(All2009$HHAGE, AGECAT)
+All2009$HHAGE<-recodeNumeric(All2009$HHAGE)
 
 summary(All2009$HHAGE)
 
 #AGEHHMEMCAT2
 
-All2009$AGEHHMEMCAT2<-recodeNumeric(All2009$AGEHHMEMCAT2)
+All2009$AGEHHMEMCAT2<-recode(All2009$AGEHHMEMCAT2, AGECAT)
 
 summary(All2009$AGEHHMEMCAT2)
 
@@ -5088,6 +5088,285 @@ summary(All2005$WDPELLET)
 All2005$WDOTHER<-to.TF(All2005$WDOTHER)
 
 summary(All2005$WDOTHER)
+
+#WOODAMT significantly different from 2009
+
+All2005$WOODAMT<-recode(All2005$WOODAMT,c("1"="LeHalf","2"="GrHalfLeOne","3"="AtLeastOne","4"="GrOne","5"="Pellets"))
+
+summary(All2005$WOODAMT)
+
+#KFUELOT
+
+All2005$KFUELOT<-to.TF(All2005$KFUELOT)
+
+summary(All2005$KFUELOT)
+
+#HHSEX
+
+All2005$HHSEX<-recode(All2005$HHSEX,c("1"="Female","2"="Male"))
+
+summary(All2005$HHSEX)
+
+#EMPLOYHH
+
+All2005$EMPLOYHH<-recode(All2005$EMPLOYHH,c("0"="NoEmplyOrRetired","1"="FullTime","2"="Partime"))
+
+summary(All2005$EMPLOYHH)
+
+#SPOUSE
+
+All2005$SPOUSE<-to.TF(All2005$SPOUSE)
+
+summary(All2005$SPOUSE)
+
+#SDESCENT
+
+All2005$SDESCENT<-to.TF(All2005$SDESCENT)
+
+summary(All2005$SDESCENT)
+
+#NHSLDMEM
+
+All2005$NHSLDMEM<-recodeNumeric(All2005$NHSLDMEM)
+
+summary(All2005$NHSLDMEM)
+
+#HHAGE
+
+All2005$HHAGE<-recodeNumeric(All2005$HHAGE)
+
+summary(All2005$HHAGE)
+
+#HBUSNESS
+
+All2005$HBUSNESS<-to.TF(All2005$HBUSNESS)
+
+summary(All2005$HBUSNESS)
+
+#ATHOME
+
+All2005$ATHOME<-to.TF(All2005$ATHOME)
+
+summary(All2005$ATHOME)
+
+#TELLDAYS
+
+All2005$TELLDAYS<-recodeNumeric(All2005$TELLDAYS)
+
+summary(All2005$TELLDAYS)
+
+#OTHWORK
+
+All2005$OTHWORK<-to.TF(All2005$OTHWORK)
+
+summary(All2005$OTHWORK)
+
+#WORKPAY
+
+All2005$WORKPAY<-to.TF(All2005$WORKPAY)
+
+summary(All2005$WORKPAY)
+
+#MONEYPY
+
+All2005$MONEYPY<-recode(All2005$MONEYPY,c("1"="Le2500","2"="2500To4999","3"="5000To7499","4"="7500To9999","5"="10Kto14999","6"="15Kto19999","7"="20KTo24999","8"="25KTo29999","9"="30Kto34999","10"="35KTo39999","11"="40KTo44999","12"="45KTo49999","13"="50KTo54999","14"="55KTo59999","15"="60KTo64999","16"="65KTo69999","17"="70KTO74999","18"="75KTO79999","19"="80KTo84999","20"="85KTo89999","21"="90KTo94999","22"="95KTo99999","23"="100KTo119999","24"="Gr120K","96"="DontKnow","97"="Refused"))
+
+summary(All2005$MONEYPY)
+
+#Reportable Domain in 2009 groups some by states, 2005 uses State ID #for each state
+
+#HDD65
+
+All2005<-rename(All2005, c(HD65="HDD65"))
+All2005$HDD65<-recodeNumeric(All2005$HDD65)
+summary(All2005$HDD65)
+
+#CDD65
+
+All2005<-rename(All2005, c(CD65="CDD65"))
+All2005$CDD65<-recodeNumeric(All2005$CDD65)
+summary(All2005$CDD65)
+
+#No analgous Climate_Region variable 2005
+
+#No analgous METROCICRO varibale
+
+#URBRUR, not analagous to UR in 2009
+
+All2005$URBRUR<-recode(All2005$URBRUR,c("1"="City","2"="Town","3"="Suburbs","4"="Rural"))
+summary(All2005$URBRUR)
+
+#OCCUPYRANGE is binary with before and after 2002.
+
+#CONVERSION
+
+All2005$CONVERSION<-recode(All2005$CONVERSION,c("1"="BuiltAsApart","2"="ConvertToApart"))
+summary(All2005$CONVERSION)
+
+#STOVENA could work for STOVENFUEL
+
+All2005$STOVENA<-recode(All2005$STOVENA, FuelType)
+summary(All2005$STOVENA)
+
+#OVENA could work for ovenfuel
+
+All2005$OVENA<-recode(All2005$OVENA, FuelType)
+summary(All2005$OVENA)
+
+#OUTGRILL no outdoor grill in 2005
+
+#REPLCFRI nothing in 2005
+
+#REPLCFRZ nothing in 2005
+
+#UPRTFRZR2
+
+All2005<-rename(All2005, c(UPRTFRZR2ND="UPRTFRZR2"))
+All2005$UPRTFRZR2<-recode(All2005$UPRTFRZR2,c("1"="Upright","2"="Chest"))
+summary(All2005$UPRTFRZR2)
+
+#REPLCDW nothing more in 2005
+
+#TVSIZE is not by inches just big vs. small
+#TVTYPE is only plasma of not in 2005
+#CABLESAT is neither/cable/sat in 2009, both/cable/sat in 2005
+#COMBODVR1, no DVR in 2005
+
+#CBLCON looks similar to DIGITSTB1
+
+All2005$CBLCON<-recode(All2005$CBLCON,c("1"="NO","2"="YES","3"="Varies"))
+summary(All2005$CBLCON)
+
+#VCR and DVD are totals for the househould, not specific to which TV unit
+
+#PLAYSTA - not specific to tv unit
+
+All2005$PLAYSTA<-to.TF(All2005$PLAYSTA)
+
+#COMBOVCRDVD - not unit specific
+
+All2005$COMBOVCRDVD<-to.TF(All2005$COMBOVCRDVD)
+summary(All2005$COMBOVCRDVD)
+
+# Nothing for TVAUDIOSYS1
+
+#nothing for OTHERSTB1
+
+#TVONWD - not qutie the same but similar
+
+All2005$TVONWD<-recode(All2005$TVONWD,c("1"="Le1Hour","2"="1to3Hours","3"="MostOfTheTime","4"="Allday"))
+summary(All2005$TVONWD)
+
+#TVONWE - similar
+
+All2005$TVONWE<-recode(All2005$TVONWE,c("1"="Le1Hour","2"="1to3Hours","3"="MostOfTheTime","4"="Allday"))
+summary(All2005$TVONWE)
+
+# Nothing for TVONWDWATCH1 closest is total hours of videogames per #week  PLAYSTAHRS
+
+All2005$PLYSTAHRS<-recodeNumeric(All2005$PLYSTAHRS)
+summary(All2005$PLYSTAHRS)
+
+#2005 does not distiguish between most used and second most used tv #unit so all of the second unit tv variables are not covered.
+
+# nothing for INSATEL - looks like there was a write in option for #other forms of internet connection
+
+# nothing for CHRGPLGT
+# nothing ELECDEV or ELECCHRG, there are indiviual appliances such as #cell phone, and stereo
+
+# nothing for HEATHOME
+#FUELNOTHEAT is on survey but doesn't show up as a variable in dataset
+# nothing for EQUIPNOHEAT
+
+# nothing for REPLCHT
+# H2OTYPE1 and H2OTYPE2 for 2009 is apart of WHEATSIZ in 2005
+# nothing for WHEATBKT
+
+# Nothing quite the same for DNTAC, 
+#NOTE!!! AIRCOND is not the same for 2009 and 2005 one is whether it is #used and the other is whehter of not they have it
+
+#nothing for COOLTYPENOAC
+# nothing for REPLCCAC
+
+# nothing for REPLCWWAC
+
+# nothing for LGTOEE
+# nothing for INSTLCFL
+
+#nothing for INSTLINS or AGEINS, ADQINSUL may be a good proxy
+
+All2005$ADQINSUL<-recode(All2005$ADQINSUL,c("1"="Well","2"="Adequate","3"="Poor","4"="None"))
+summary(All2005$ADQINSUL)
+
+# nohting for INSTLWS or AGEWS
+# nothing for AUDIT or AGEAUD
+
+# nothing for WDOTHUSE or OTHWATER
+# OTHWARM is captured by FUELTYPE in 2005
+# nothing for ONSITE or ONSITEGRID
+
+#OTHERWAYEL show up in 2005 as ZOTHERWAYEL but can't find in dataset   # same for LPG, FO, and NG
+
+#CORDPLUS - similar to NUMCORDS once over 3
+
+All2005$CORDPLUS<-recode(All2005$CORDPLUS,c("1"="One","2"="OneAndAHalf","3"="Two","4"="TwoAndAHalf","5"="Three","6"="GrThree"))
+summary(All2005$CORDPLUS)
+
+All2005$CORDPLUSA<-recodeNumeric(All2005$CORDPLUSA)
+summary(All2005$CORDPLUSA)
+
+#ORIGIN1 similiar to HouseHold_race with the exception of hispanic in 
+#2005
+#NOTE!! Dataset has ORIGIN 1,2,and 3.  The survey does not
+
+All2005$ORIGIN1<-recode(All2005$ORIGIN1,c("1"="White","2"="Black","3"="AmericanIndianOrAlaskaNative","5"="Other","7"="Hispanic","41"="Asian","42"="NativeHawaiianOrPI"))
+summary(All2005$ORIGIN1)
+
+# Nothing for EDUCATION in 2005
+
+#AGEHHMEM2-12
+
+All2005$AGEHHMEM2<-recodeNumeric(All2005$AGEHHMEM2)
+All2005$AGEHHMEM3<-recodeNumeric(All2005$AGEHHMEM3)
+All2005$AGEHHMEM4<-recodeNumeric(All2005$AGEHHMEM4)
+All2005$AGEHHMEM5<-recodeNumeric(All2005$AGEHHMEM5)
+All2005$AGEHHMEM6<-recodeNumeric(All2005$AGEHHMEM6)
+All2005$AGEHHMEM7<-recodeNumeric(All2005$AGEHHMEM7)
+All2005$AGEHHMEM8<-recodeNumeric(All2005$AGEHHMEM8)
+All2005$AGEHHMEM9<-recodeNumeric(All2005$AGEHHMEM9)
+All2005$AGEHHMEM10<-recodeNumeric(All2005$AGEHHMEM10)
+All2005$AGEHHMEM11<-recodeNumeric(All2005$AGEHHMEM11)
+All2005$AGEHHMEM12<-recodeNumeric(All2005$AGEHHMEM12)
+
+# Unsure how to get PCTELLCOMMUTE out of question C-22 on survey
+
+# Nothing for POVERTY100 or 150
+
+#SQFTTEST may be best for TOTSQFT_EN in 2009
+
+All2005$SQFTEST<-recodeNumeric(All2005$SQFTEST)
+summary(All2005$SQFTEST)
+
+# No mention of kilowatt-hours in 2005 survey
+# No mention of cubic-feet of natural gas in 2005 survey
+# No mention of gallons of propane/LPG
+# Gallons of FO are not broken down individually only have total
+# Nothing for GALLONKER, only averages
+# No mention of BTUs in 2005
+# No mention to total cost of particualr types of heating
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```
